@@ -9,3 +9,12 @@ export interface Producto {
     id: string;
 
 }
+
+export interface Usuario {
+    uid:string;
+    correo:string;
+    contrasenia:string;
+    celular:string;
+    direccion:string;
+    nombre:string;
+}

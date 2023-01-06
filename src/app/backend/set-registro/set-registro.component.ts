@@ -25,7 +25,6 @@ export class SetRegistroComponent implements OnInit {
   constructor(
     public menuController: MenuController,
     public firestoreservice: FirestoreService,
-    public menucontroler: MenuController,
     public firestoreService: FirestoreService,
     public loadingController: LoadingController,
     public toastController: ToastController,

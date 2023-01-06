@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Perfil
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!--Nombre de la mascota-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Nombre:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.nombre" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Telefono-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Celular:
+    </ion-label>
+    <ion-input  [(ngModel)]="usuario.celular" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Dirreccion-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Direccion:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Especie:-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Correo:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.correo" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--  Sexo:-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Contrasenia:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.contrasenia"  class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+</ion-content>
