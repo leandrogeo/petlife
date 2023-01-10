@@ -12,11 +12,12 @@ export class FirebaseauthService {
 
   //datosCliente: Cliente;
 
-  constructor(public auth: AngularFireAuth,
-              private firestoreService: FirestoreService) {
+  constructor(
+    public auth: AngularFireAuth,
+    private firestoreService: FirestoreService) {
 
-      //this.stateUser();
-
+    //this.stateUser();
+    this.getUid();
   }
 
 
@@ -42,30 +43,35 @@ export class FirebaseauthService {
   }
 
   registrar(email: string, password: string) {
-     return this.auth.createUserWithEmailAndPassword(email, password);
+    return this.auth.createUserWithEmailAndPassword(email, password);
   }
 
   async getUid() {
-     const user = await this.auth.currentUser;
-     if (user === null) {
-       return null;
-     } else {
-        return user.uid;
-     }
+    const user = await this.auth.currentUser;
+    if (user === null) {
+      return null;
+    } else {
+      return user.uid;
+    }
   }
 
   stateAuth() {
-     return this.auth.authState;
+    return this.auth.authState;
   }
-/*
-  async getInfoUser() {
-      const uid = await this.getUid();
-      const path = 'Clientes';  
-      this.firestoreService.getDoc<Cliente>(path, uid).subscribe( res => {
-            if (res !== undefined) {
-                  this.datosCliente = res;
-                  // console.log('datosCliente ->' , this.datosCliente);
-            }
-      });
-  }*/
+
+
+
+  /*
+    async getInfoUser() {
+        const uid = await this.getUid();
+        const path = 'Clientes';  
+        this.firestoreService.getDoc<Cliente>(path, uid).subscribe( res => {
+              if (res !== undefined) {
+                    this.datosCliente = res;
+                    // console.log('datosCliente ->' , this.datosCliente);
+              }
+        });
+    }*/
+
+
 }

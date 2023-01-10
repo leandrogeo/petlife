@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class="subtitulo ion-text-wrap">
-      Configuracion de registros
+      Registro de mascotas
     </ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="openMenu()">
@@ -34,7 +34,7 @@
       </ion-buttons>
     </ion-item>
 
-    <h3 class="subtitulo encabezado">Ingreso de datos</h3>
+    <h3 class="subtitulo encabezado">Ingreso de datos de la mascota</h3>
 
     <!--Nombre de la mascota-->
     <ion-item>
@@ -47,11 +47,9 @@
 
     <!--Tutor:-->
     <ion-item>
-      <ion-label class="normal" position="floating">
-        Tutor:
+      <ion-label class="normal">
+        Tutor: {{usuario.nombre}}
       </ion-label>
-      <ion-input [(ngModel)]="newProducto.tutor" class="texto" type="text"> 
-      </ion-input>
     </ion-item>
 
     <!--Fecha de nacimiento:-->
@@ -75,7 +73,7 @@
     <!--  Sexo:-->
     <ion-item>
       <ion-label class="normal" position="floating">
-        Sexo:
+        Sexo: 
       </ion-label>
       <ion-input [(ngModel)]="newProducto.sexo" class="texto" type="text">
       </ion-input>
@@ -83,11 +81,10 @@
 
     <!--Telefono tutor-->
     <ion-item>
-      <ion-label class="normal" position="floating">
-        Telefono tutor:
+      <ion-label class="normal" >
+        Telefono tutor: {{usuario.celular}}
       </ion-label>
-      <ion-input [(ngModel)]="newProducto.tutor" class="texto" type="text"> 
-      </ion-input>
+
     </ion-item>
 
     <!--Foto-->
@@ -115,7 +112,7 @@
 
 
   <!--VISUALIZACION DE LISTA DE REGISTROS-->
-  <h3 class="subtitulo encabezado">Lista de Productos</h3>
+  <h3 class="subtitulo encabezado">Lista de Mascotas</h3>
   <div class="lista" *ngIf="!listallena">
     <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
 

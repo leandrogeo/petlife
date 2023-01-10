@@ -15,49 +15,113 @@
 
 <ion-content>
 
-  <!--Nombre de la mascota-->
-  <ion-item>
-    <ion-label class="normal" position="floating">
-      Nombre:
-    </ion-label>
-    <ion-input [(ngModel)]="usuario.nombre" class="texto" type="text">
-    </ion-input>
-  </ion-item>
+  <div *ngIf="!uid.length">
 
-  <!--Telefono-->
-  <ion-item>
-    <ion-label class="normal" position="floating">
-      Celular:
-    </ion-label>
-    <ion-input  [(ngModel)]="usuario.celular" class="texto" type="text">
-    </ion-input>
-  </ion-item>
+    <!--Nombre de la mascota-->
+    <ion-item *ngIf="!ingresarEnable">
+      <ion-label class="normal" position="floating">
+        Nombre:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.nombre" class="texto" type="text" name="name">
+      </ion-input>
+    </ion-item>
 
-  <!--Dirreccion-->
-  <ion-item>
-    <ion-label class="normal" position="floating">
-      Direccion:
-    </ion-label>
-    <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text">
-    </ion-input>
-  </ion-item>
+    <!--Telefono-->
+    <ion-item *ngIf="!ingresarEnable">
+      <ion-label class="normal" position="floating">
+        Celular:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.celular" class="texto" type="text" name="telefono">
+      </ion-input>
+    </ion-item>
 
-  <!--Especie:-->
-  <ion-item>
-    <ion-label class="normal" position="floating">
-      Correo:
-    </ion-label>
-    <ion-input [(ngModel)]="usuario.correo" class="texto" type="text">
-    </ion-input>
-  </ion-item>
+    <!--Dirreccion-->
+    <ion-item *ngIf="!ingresarEnable">
+      <ion-label class="normal" position="floating">
+        Direccion:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text" name="dirrecion">
+      </ion-input>
+    </ion-item>
 
-  <!--  Sexo:-->
-  <ion-item>
-    <ion-label class="normal" position="floating">
-      Contrasenia:
-    </ion-label>
-    <ion-input [(ngModel)]="usuario.contrasenia"  class="texto" type="text">
-    </ion-input>
-  </ion-item>
+    <!--Correo:-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Correo:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.correo" class="texto" type="text" name="email">
+      </ion-input>
+    </ion-item>
+
+    <!--Contrasenia:-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Contrasenia:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.contrasenia" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
+    <div style="text-align: center; margin: 10px;">
+      <ion-button  *ngIf="!ingresarEnable" (click)="registrarse()"  class="normal" color="dark">registrarse</ion-button>
+      <ion-button  *ngIf="!ingresarEnable" (click)="ingresarEnable = true"  class="normal" color="dark">o ingresar</ion-button>
+      <ion-button  *ngIf="ingresarEnable" (click)="ingresar()"  class="normal" color="dark">login</ion-button>
+      <ion-button  *ngIf="ingresarEnable" (click)="ingresarEnable = false"  class="normal" color="dark">o registrarse</ion-button>
+    </div>
+  </div>
+
+  <div *ngIf="uid.length">
+    <!--Nombre de la mascota-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Nombre:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.nombre" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
+    <!--Telefono-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Celular:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.celular" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
+    <!--Dirreccion-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Direccion:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
+    <!--Correo-->
+    <ion-item>
+      <ion-label class="normal">
+        Correo: {{usuario.correo}}
+      </ion-label>
+    </ion-item>
+
+    <!--Contrasenia-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Contrasenia:
+      </ion-label>
+      <ion-input [(ngModel)]="usuario.contrasenia" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
+
+    <div style="text-align: center; margin: 10px;">
+      <ion-button (click)="guardarUser()" class="normal" color="dark">Guardar</ion-button>
+      <ion-button (click)="salir()" class="normal" color="dark">Salir</ion-button>
+    </div>
+  </div>
+
+
+
 
 </ion-content>

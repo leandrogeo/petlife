@@ -4,6 +4,10 @@ import { stringify } from 'querystring';
 import { Producto } from 'src/app/models';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
+import { FirebaseauthService } from '../../services/firebaseauth.service';
+import { Usuario } from '../../models';
+import { Subscription } from 'rxjs';
+import { Console } from 'console';
 
 
 @Component({
@@ -13,6 +17,15 @@ import { FirestorageService } from '../../services/firestorage.service';
 })
 export class SetRegistroComponent implements OnInit {
 
+  usuario: Usuario = {
+    uid: '',
+    correo: '',
+    contrasenia: '',
+    celular: '', 
+    direccion: '',
+    nombre: '',
+  };
+  suscriberUserInfo: Subscription;
   productos: Producto[] = [];
   listallena = true;
   newProducto: Producto;
@@ -24,6 +37,7 @@ export class SetRegistroComponent implements OnInit {
 
   constructor(
     public menuController: MenuController,
+    public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
     public firestoreService: FirestoreService,
     public loadingController: LoadingController,
@@ -31,8 +45,30 @@ export class SetRegistroComponent implements OnInit {
     public alertController: AlertController,
     public firestorageservice: FirestorageService) {
 
+    this.firebaseauthService.stateAuth().subscribe(res => {
+      console.log()  
+      console.log(res);
+      if (res !== null) {
+        this.uid = res.uid;
+        this.getUserInfo(this.uid);
+             
+      }
+    });
+
   }
 
+  getUserInfo(uid: string) {
+    console.log('getUserInfo');
+    const path = 'Usuarios';
+    this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
+      if (res !== undefined) {
+        this.usuario = res;
+        console.log(this.usuario.nombre);
+      }
+    });
+  }
+
+  uid = '';
   ngOnInit() {
     this.getProductos();
   }
@@ -63,9 +99,9 @@ export class SetRegistroComponent implements OnInit {
   getProductos() {
     this.firestoreservice.getCollection<Producto>(this.path).subscribe(res => {
       this.productos = res;
-      if (res.length==0){
+      if (res.length == 0) {
         this.listallena = false;
-      }else{
+      } else {
 
         this.listallena = true;
       }
