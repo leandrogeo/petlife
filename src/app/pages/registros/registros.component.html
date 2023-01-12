@@ -1,0 +1,185 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Registro de medico
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <!--Nombre de la mascota atendida-->
+        <ion-item>
+          <ion-label class="normal">
+            Nombre de la mascota:
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            Gia
+          </ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <!--id del registro medico-->
+        <ion-item>
+          <ion-label class="normal">
+            id:
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            da262626
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col><ion-item>
+          <ion-label>Tipo de registro</ion-label>
+          <ion-select #valor required placeholder="Tipo" [value]=1 interface="popover" class="normal"
+            [(ngModel)]="opcion" (ionChange)="cambio(opcion)">
+            <ion-select-option value="1">Desparacitacion</ion-select-option>
+            <ion-select-option value="2">Vacunacion</ion-select-option>
+            <ion-select-option value="3">Consulta</ion-select-option>
+          </ion-select>
+        </ion-item></ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="opcion === '1'">
+    <div style="text-align: center">
+      <ion-label>DESPARACITACION </ion-label>
+    </div>
+    <ion-grid>
+      <ion-row>
+        <!-- Columna de la fecha actual-->
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Fecha:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              30/05/2023
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Columna de la fecha proxima de desparacitacion-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal" position="floating">
+              Proxima desparacitacion:
+            </ion-label>
+            <ion-input class="texto" type="text" name="dirrecion">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Peso-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal" >
+              Peso:
+            </ion-label>
+            <ion-input  class="texto" type="text" name="dirrecion">
+            </ion-input>
+            <ion-label>kg</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--producto-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Producto:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              varios productos
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <div *ngIf="opcion === '2'">
+    <div style="text-align: center">
+      <ion-label>VACUNACION</ion-label>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <!-- Columna de la fecha actual-->
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Fecha:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              30/05/2023
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Columna de la fecha proxima vacuna-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal" position="floating">
+              Proxima vacuna:
+            </ion-label>
+            <ion-input class="texto" type="text" name="dirrecion">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Peso-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal" >
+              Peso:
+            </ion-label>
+            <ion-input  class="texto" type="text" name="dirrecion">
+            </ion-input>
+            <ion-label>kg</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--producto-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Vacuna:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              varios productos
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

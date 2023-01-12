@@ -21,7 +21,7 @@ export class SetRegistroComponent implements OnInit {
     uid: '',
     correo: '',
     contrasenia: '',
-    celular: '', 
+    celular: '',
     direccion: '',
     nombre: '',
   };
@@ -30,10 +30,13 @@ export class SetRegistroComponent implements OnInit {
   listallena = true;
   newProducto: Producto;
   enableNewProducto = false;
-  private path = 'Productos/';
+  //private path = 'Mascotas/';
   newImage = '';
   newFile: any;
   loading: any;
+  uid = '';
+  private path1= "";
+  opcion:string;
 
   constructor(
     public menuController: MenuController,
@@ -46,31 +49,38 @@ export class SetRegistroComponent implements OnInit {
     public firestorageservice: FirestorageService) {
 
     this.firebaseauthService.stateAuth().subscribe(res => {
-      console.log()  
-      console.log(res);
       if (res !== null) {
+        console.log("constructor");
         this.uid = res.uid;
         this.getUserInfo(this.uid);
-             
+        this.path1= 'Usuarios/' + this.uid + '/Mascotas/'; 
+      } else {
+        console.log(this.uid);
       }
     });
+  }
+
+
+  async ngOnInit() {
+    const uid1 = await this.firebaseauthService.getUid();
+    const path = 'Usuarios/' + uid1 + '/Mascotas/';
+    console.log('isinit '+path)
+  this.getProductos(path);
 
   }
 
   getUserInfo(uid: string) {
-    console.log('getUserInfo');
     const path = 'Usuarios';
     this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
       if (res !== undefined) {
         this.usuario = res;
-        console.log(this.usuario.nombre);
       }
     });
   }
 
-  uid = '';
-  ngOnInit() {
-    this.getProductos();
+  cambio(opcion){
+    console.log(opcion)
+    this.newProducto.sexo= this.opcion;
   }
 
   openMenu() {
@@ -80,13 +90,17 @@ export class SetRegistroComponent implements OnInit {
 
   async guardarProducto() {
     this.presentLoading();
-    const path = 'Productos';
+    this.newProducto.tutor = this.usuario.nombre
+    this.newProducto.telefonotutor = this.usuario.celular
+    const uid = await this.firebaseauthService.getUid();
+    const path = 'Usuarios/' + uid + '/Mascotas/';
     const name = this.newProducto.nombredelamascota;
+
     if (this.newFile !== undefined) {
       const res = await this.firestorageservice.uploadImage(this.newFile, path, name);
       this.newProducto.foto = res;
     }
-    this.firestoreservice.createDoc(this.newProducto, this.path, this.newProducto.id).then(res => {
+    this.firestoreservice.createDoc(this.newProducto, path, this.newProducto.id).then(res => {
       this.loading.dismiss();
       this.presentToast('Guardo con exito');
       this.nuevo();
@@ -96,8 +110,13 @@ export class SetRegistroComponent implements OnInit {
     });
   }
 
-  getProductos() {
-    this.firestoreservice.getCollection<Producto>(this.path).subscribe(res => {
+
+  async getProductos(id: string) {
+    const path = 'Usuarios/' + this.path1 + '/Mascotas/';
+    console.log('uid> '+ this.path1)
+    this.firestoreservice.getCollection<Producto>(id).subscribe(res => {
+      console.log('producot res')
+      console.log(res)
       this.productos = res;
       if (res.length == 0) {
         this.listallena = false;
@@ -110,7 +129,8 @@ export class SetRegistroComponent implements OnInit {
   }
 
   async deleteProducto(producto: Producto) {
-
+    const uid = await this.firebaseauthService.getUid();
+    const path = 'Usuarios/' + uid + '/Mascotas/';
     const alert = await this.alertController.create({
       cssClass: 'normal',
       header: 'Advertencia',
@@ -128,7 +148,7 @@ export class SetRegistroComponent implements OnInit {
           text: 'Ok',
           handler: () => {
             console.log('Confirm Okay');
-            this.firestoreService.deleteDoc(this.path, producto.id).then(res => {
+            this.firestoreService.deleteDoc(path, producto.id).then(res => {
               this.presentToast('eliminado con exito');
               this.alertController.dismiss();
               this.nuevo();

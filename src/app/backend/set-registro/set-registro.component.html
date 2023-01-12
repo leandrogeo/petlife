@@ -19,9 +19,6 @@
 
 
   <div *ngIf="enableNewProducto">
-
-
-
     <!-- boton para cerrar vista y guardar-->
     <ion-item>
       <ion-buttons slot="end">
@@ -72,11 +69,11 @@
 
     <!--  Sexo:-->
     <ion-item>
-      <ion-label class="normal" position="floating">
-        Sexo: 
-      </ion-label>
-      <ion-input [(ngModel)]="newProducto.sexo" class="texto" type="text">
-      </ion-input>
+      <ion-label>Sexo</ion-label>
+        <ion-select  #valor required placeholder="{{newProducto.sexo}}" [value]="newProducto.sexo" interface="popover"  class="normal"  [(ngModel)]="opcion" (ionChange)="cambio(opcion)">
+        <ion-select-option value="Macho">Macho</ion-select-option>
+        <ion-select-option value="Hembra">Hembra</ion-select-option>
+      </ion-select>
     </ion-item>
 
     <!--Telefono tutor-->
@@ -120,6 +117,8 @@
 
   
   <ion-item *ngFor="let producto of productos">
+    <img class="image"  [src]="producto.foto" height="75" width="75">
+    <ion-label></ion-label>
     <ion-label class="normal"> {{producto.nombredelamascota}}</ion-label>
     <ion-buttons slot="end">
       <ion-button (click)=" newProducto =  producto; enableNewProducto = true; ">
@@ -130,6 +129,6 @@
       </ion-button>
     </ion-buttons>
   </ion-item>
-
+  
 
 </ion-content>

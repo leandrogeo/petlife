@@ -33,7 +33,6 @@ export class PerfilComponent implements OnInit {
     private modalController: ModalController) {
 
     this.firebaseauthService.stateAuth().subscribe(res => {
-      console.log(res);
       if (res !== null) {
         this.uid = res.uid;
         this.getUserInfo(this.uid);
@@ -41,14 +40,10 @@ export class PerfilComponent implements OnInit {
         this.initCliente();
       }
     });
-
-
   }
 
   async ngOnInit() {
     const uid = await this.firebaseauthService.getUid();
-    console.log('null del Ngoinit');
-    console.log(uid);
   }
 
   initCliente() {

@@ -5,13 +5,15 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './perfil/perfil.component';
+import { RegistrosComponent } from './registros/registros.component';
 
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    PerfilComponent],
+    PerfilComponent,
+    RegistrosComponent],
   imports: [
     CommonModule,
     IonicModule,
