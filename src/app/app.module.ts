@@ -16,6 +16,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule,
@@ -26,7 +27,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     BackendModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

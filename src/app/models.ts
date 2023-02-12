@@ -18,3 +18,20 @@ export interface Usuario {
     direccion:string;
     nombre:string;
 }
+
+export interface Desp {
+    id_des:string;
+    fecha_des:string;
+    peso_des:string;
+    producto_des:string;
+    proxi_des:string;
+}
+
+
+export interface Vacunas {
+    id_vac:string;
+    fecha_vac:string;
+    peso_vac:string;
+    vacunas:string;
+    proxi_vac:string;
+}

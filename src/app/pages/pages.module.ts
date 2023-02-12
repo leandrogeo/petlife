@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PerfilComponent } from './perfil/perfil.component';
 import { RegistrosComponent } from './registros/registros.component';
+import { BuscarComponent } from './buscar/buscar.component';
+import { MascotasComponent } from './mascotas/mascotas.component';
+import { PerfilesmascotasComponent } from './perfilesmascotas/perfilesmascotas.component';
 
 
 
@@ -13,12 +16,16 @@ import { RegistrosComponent } from './registros/registros.component';
   declarations: [
     HomeComponent,
     PerfilComponent,
-    RegistrosComponent],
+    RegistrosComponent,
+  BuscarComponent,
+  MascotasComponent,
+  PerfilesmascotasComponent],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+  
   ]
 })
 export class PagesModule { }

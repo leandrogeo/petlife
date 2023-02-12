@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Buscar
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon class="iconos" name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-searchbar animated="true" placeholder="Duenio" show-clear-button="focus" (ionChange)="buscar($event)"></ion-searchbar>
+  </div>
+  <div class="lista" *ngIf="!listallena">
+    <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+  </div>
+
+  <ion-item *ngFor="let usuario of results" [routerLink]="['/mascotas/'+ usuario.uid]">
+    <ion-label class="normal"> {{usuario.nombre}}</ion-label>
+   <!-- <ion-buttons slot="end">
+      <ion-button (click)=" newProducto =  producto; enableNewProducto = true; ">
+        <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
+      </ion-button>
+      <ion-button (click)="deleteProducto(producto)">
+        <ion-icon slot="icon-only" color="danger" name="trash-bin"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-item>
+</ion-content>

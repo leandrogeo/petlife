@@ -23,10 +23,10 @@
     <ion-item>
       <ion-buttons slot="end">
         <ion-button (click)="enableNewProducto = false">
-          <ion-icon slot="icon-only" name="close"></ion-icon>
+          <ion-icon color="danger" slot="icon-only" name="close"></ion-icon>
         </ion-button>
         <ion-button (click)="guardarProducto() ">
-          <ion-icon color="primary" slot="icon-only" name="save-sharp"></ion-icon>
+          <ion-icon color="success"  slot="icon-only" name="save-sharp"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-item>
@@ -112,8 +112,7 @@
   <h3 class="subtitulo encabezado">Lista de Mascotas</h3>
   <div class="lista" *ngIf="!listallena">
     <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
-
-  </div>
+  </div> 
 
   
   <ion-item *ngFor="let producto of productos">

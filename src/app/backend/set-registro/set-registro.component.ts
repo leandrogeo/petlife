@@ -13,7 +13,7 @@ import { Console } from 'console';
 @Component({
   selector: 'app-set-registro',
   templateUrl: './set-registro.component.html',
-  styleUrls: ['./set-registro.component.scss'],
+  styleUrls: ['./set-registro.component.scss'], 
 })
 export class SetRegistroComponent implements OnInit {
 
@@ -55,7 +55,7 @@ export class SetRegistroComponent implements OnInit {
         this.getUserInfo(this.uid);
         this.path1= 'Usuarios/' + this.uid + '/Mascotas/'; 
       } else {
-        console.log(this.uid);
+        console.log(this.uid); 
       }
     });
   }
@@ -109,8 +109,8 @@ export class SetRegistroComponent implements OnInit {
       this.presentToast('No se pude guardar');
     });
   }
-
-
+ 
+//Revisra en el buscar usuarios
   async getProductos(id: string) {
     const path = 'Usuarios/' + this.path1 + '/Mascotas/';
     console.log('uid> '+ this.path1)
