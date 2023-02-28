@@ -22,7 +22,9 @@ export class PerfilComponent implements OnInit {
     nombre: '',
     admin:false
   };
-
+  
+  visible:boolean=true;
+  changetype:boolean=true;
   uid = '';
   suscriberUserInfo: Subscription;
   ingresarEnable = false;
@@ -61,6 +63,10 @@ export class PerfilComponent implements OnInit {
     console.log(this.usuario);
   }
 
+  cambiodeicono(){
+    this.visible=!this.visible
+    this.changetype=!this.changetype
+  }
 
   openMenu() {
     console.log('open menu');
