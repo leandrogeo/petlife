@@ -18,5 +18,119 @@
 </ion-header>
 
 <ion-content>
+  <!--IMAGEN DE PORTADA-->
+  <div style="padding: 15px;">
+    <img src="assets/imagenes/portada.jpg">
+  </div>
+
+
+  <!--Servicios-->
+  <div>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <img src="assets/imagenes/servicios.jpg">
+        </ion-col>
+        <ion-col style="text-align: center; background-color:#0b7c3d;color: #EBEBEB;">
+          <div class="textoinfo">Contamos con todo lo que su mascota necesita para estar saludable,
+            PETLIFE es la Clínica Veterinaria para TI.</div>
+          <div style="text-align: right; padding-right: 15px; padding-left: 15px;padding-top: 10%;">
+            <ion-button expand="block" color="light" class="normal" fill="outline" [routerLink]="['/perfil']">Crear
+              cuenta</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+  <!--Nuestros doctores-->
+  <div style="padding: 10px;">
+    <div style="text-align: center;font-family: 'Rubik Mono One' !important; background-color: #EBEBEB;">
+      <ion-label>Conoce a nuestros Doctores</ion-label>
+    </div>
+
+    <ion-item>
+      <ion-grid>
+
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <img class="imagen" src="assets/imagenes/alvaro.jpg">
+          </ion-col>
+          <ion-col>
+            <img class="imagen" src="assets/imagenes/karen.jpg">
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <div class="descripcion">Hola mi nombre es Alvaro Sánchez Cedeño soy Médico Veterinario Zootecnista y
+              cofundador de Pet Life 🐾
+            </div>
+          </ion-col>
+          <ion-col>
+            <div class="descripcion">Hola mi nombre es Karen Robayo soy Médica Veterinaria Zootecnista. Cofundadora de
+              Pet Life. 🐾
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
+
+  <!--MISION-->
+  <ion-card>
+    <div style="text-align: center;font-size: 25px;padding-top: 25px; color:#0b7c3d">
+      Mision
+    </div>
+    Brindar la provisión y prestación de servicios médicos generales, especializados y complementarios, de la más alta
+    calidad, con instalaciones físicas adecuadas, equipo humano profesional y tecnología médica de punta, para la
+    atención de pacientes “mascotas”, y proporcionar una atención en salud oportuna, cálida, eficaz y eficiente, que
+    garantice la excelencia médica y mejore la calidad de vida de los animales.
+    <div>
+    </div>
+  </ion-card>
+  <!--VISION-->
+  <ion-card>
+    <div style="text-align: center;font-size: 25px;padding-top: 25px;color:#0b7c3d">
+      Vision
+    </div>
+    <div>
+      Ser líderes en el sector de la medicina veterinaria y posicionar a PETLIFE como la unidad hospitalaria privada
+      más moderna y completa del Austro ecuatoriano.
+    </div>
+  </ion-card>
+
+  <!--UBICACION-->
+
+  <div style="text-align: center;font-size: larger;padding-top: 25px;margin: 0px;">
+    Ubícanos
+  </div>
+  <div id="map"></div>
 
 </ion-content>
+
+
+<!--Pie(REDES SOCIALES)-->
+<ion-footer>
+  <div
+    style="text-align: center;font-size: larger;padding-top: 10px;margin: 0px;padding-bottom: 10px; background-color: #EBEBEB;">
+    Nuestras redes sociales
+  </div>
+  <div style="text-align: center; background-color: #EBEBEB;">
+
+    <a style="margin: 5px;" href="https://www.instagram.com/petlifeec/ ">
+      <ion-icon color="success" style=" font-size: 35px;" name="logo-instagram"></ion-icon>
+    </a>
+
+    <a style="margin: 5px;" href="https://www.facebook.com/PetLife.CentroVeterinario">
+      <ion-icon color="success" style=" font-size: 35px;" name="logo-facebook"></ion-icon>
+    </a>
+
+    <a style="margin: 5px;"
+      href="https://api.whatsapp.com/send?phone=593986580784&text=Hola,%20quisiera%20comunicarme%20con%20alguien">
+      <ion-icon color="success" style=" font-size: 35px;" name="logo-whatsapp"></ion-icon>
+    </a>
+  </div>
+
+</ion-footer>

@@ -17,6 +17,7 @@ export interface Usuario {
     celular:string;
     direccion:string;
     nombre:string;
+    admin:boolean
 }
 
 export interface Desp {
@@ -35,3 +36,17 @@ export interface Vacunas {
     vacunas:string;
     proxi_vac:string;
 }
+
+
+export interface Consultas{
+    id_consul:string;
+    fecha_consul:string;
+    motivo_consul:string;
+    receta_consul:boolean;
+    examenen_consul:boolean;
+    imagen_consul:boolean;
+    cirugia_consul:boolean;
+    hospi_consul:boolean;
+}
+
+

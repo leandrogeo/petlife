@@ -21,7 +21,7 @@
         </ion-menu-toggle>
 
         <!-- SEGUNDO BOTON DEL MENU-->
-        <ion-menu-toggle autoHide="false">
+        <ion-menu-toggle autoHide="false"  *ngIf="admin">
           <ion-item button="true" [routerLink]="['/set-registro']">
             <ion-label>
               Registro de mascotas
@@ -30,7 +30,7 @@
           </ion-item>
         </ion-menu-toggle>
 
-        <!-- Tercer BOTON DEL MENU-->
+        <!-- Tercer BOTON DEL MENU PERFIL-->
         <ion-menu-toggle autoHide="false">
           <ion-item button="true" [routerLink]="['/perfil']">
             <ion-label>
@@ -41,8 +41,8 @@
         </ion-menu-toggle>
 
 
-        <!-- Cuarto BOTON DEL MENU-->
-        <ion-menu-toggle autoHide="false">
+        <!-- Cuarto BOTON DEL MENU REGISTROS MEDICOS-->
+        <ion-menu-toggle autoHide="false" *ngIf="admin">
           <ion-item button="true" [routerLink]="['/registros']">
             <ion-label>
               Registro
@@ -53,7 +53,7 @@
 
 
         <!-- Cuarto BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false">
+        <ion-menu-toggle autoHide="false" *ngIf="admin">
           <ion-item button="true" [routerLink]="['/buscar']">
             <ion-label>
               Buscar

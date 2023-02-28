@@ -59,8 +59,6 @@ export class FirebaseauthService {
     return this.auth.authState;
   }
 
-
-
   /*
     async getInfoUser() {
         const uid = await this.getUid();

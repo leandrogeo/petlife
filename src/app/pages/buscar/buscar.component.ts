@@ -42,7 +42,6 @@ export class BuscarComponent implements OnInit {
 
   buscar(event){
     const buscar = event.target.value.toLowerCase();
-    
     this.results=this.usuarios
     console.log('sdaf')
     console.log(this.results)
@@ -58,8 +57,6 @@ export class BuscarComponent implements OnInit {
     const path = 'Usuarios/';
     //console.log('uid> '+ this.path1)
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
-      
-      
       this.usuarios = res;
       this.results=this.usuarios
       if (res.length == 0) {

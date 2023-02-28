@@ -17,15 +17,15 @@ import { PerfilesmascotasComponent } from './perfilesmascotas/perfilesmascotas.c
     HomeComponent,
     PerfilComponent,
     RegistrosComponent,
-  BuscarComponent,
-  MascotasComponent,
-  PerfilesmascotasComponent],
+    BuscarComponent,
+    MascotasComponent,
+    PerfilesmascotasComponent,],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     RouterModule,
-  
+
   ]
 })
 export class PagesModule { }

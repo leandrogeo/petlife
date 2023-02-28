@@ -24,6 +24,7 @@ export class SetRegistroComponent implements OnInit {
     celular: '',
     direccion: '',
     nombre: '',
+    admin:false
   };
   suscriberUserInfo: Subscription;
   productos: Producto[] = [];

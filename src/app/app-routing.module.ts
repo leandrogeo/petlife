@@ -7,17 +7,22 @@ import { RegistrosComponent } from './pages/registros/registros.component';
 import { BuscarComponent } from './pages/buscar/buscar.component';
 import { MascotasComponent } from './pages/mascotas/mascotas.component';
 import { PerfilesmascotasComponent } from './pages/perfilesmascotas/perfilesmascotas.component';
+import { map } from 'rxjs/operators';
+import { IngresoGuard } from './ingreso.guard';
 
-const routes: Routes = [
+const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
+
+const routes: Routes = [ 
 
   //-----------------------RUTAS----------------------
   {path: 'home',component: HomeComponent},
-  {path: 'set-registro',component: SetRegistroComponent},
+  {path: 'set-registro',component: SetRegistroComponent, canActivate:[IngresoGuard]},
   {path: 'perfil',component: PerfilComponent},
-  {path: 'registros',component: RegistrosComponent},
-  {path: 'buscar',component: BuscarComponent},
-  {path: 'mascotas/:uid',component: MascotasComponent},
-  {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent},
+  {path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
+  {path: 'buscar',component: BuscarComponent,canActivate:[IngresoGuard] },
+  {path: 'mascotas/:uid',component: MascotasComponent,canActivate:[IngresoGuard] },
+  
+  {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent,canActivate:[IngresoGuard] },
  
   {path: '',component:HomeComponent},
 

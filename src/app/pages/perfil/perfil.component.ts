@@ -5,7 +5,7 @@ import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
 import { Subscription } from 'rxjs';
-
+ 
 @Component({ 
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
@@ -20,6 +20,7 @@ export class PerfilComponent implements OnInit {
     celular: '', 
     direccion: '',
     nombre: '',
+    admin:false
   };
 
   uid = '';
@@ -55,6 +56,7 @@ export class PerfilComponent implements OnInit {
       celular: '',
       direccion: '',
       nombre: '',
+      admin:false
     };
     console.log(this.usuario);
   }

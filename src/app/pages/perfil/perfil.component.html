@@ -17,7 +17,7 @@
 
   <div *ngIf="!uid.length">
 
-    <!--Nombre de la mascota-->
+    <!--Nombre -->
     <ion-item *ngIf="!ingresarEnable">
       <ion-label class="normal" position="floating">
         Nombre:
@@ -58,7 +58,7 @@
       <ion-label class="normal" position="floating">
         Contrasenia:
       </ion-label>
-      <ion-input [(ngModel)]="usuario.contrasenia" class="texto" type="text">
+      <ion-input [(ngModel)]="usuario.contrasenia" class="texto" type="password" name="password">
       </ion-input>
     </ion-item>
 

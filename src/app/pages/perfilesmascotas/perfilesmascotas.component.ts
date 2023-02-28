@@ -101,7 +101,7 @@ export class PerfilesmascotasComponent implements OnInit {
 
   getvacunas(uid:string,id:string) {
     console.log('vacunas')
-    const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunas';
+    const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunacion';
     this.firestoreservice.getCollection<Vacunas>(path).subscribe(res => {
      this.vacunas = res;
      if (res.length == 0) {

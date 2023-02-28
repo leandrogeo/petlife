@@ -6,8 +6,35 @@ import { FirebaseauthService } from './services/firebaseauth.service';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
+
 export class AppComponent {
+
+  admin = false;
+
+
   constructor(
-    private firebaseauthservice: FirebaseauthService,
-  ) {}
+    public firebaseauthService: FirebaseauthService,
+  ) { 
+    this.getUid();
+  }
+
+  getUid() {
+    this.firebaseauthService.stateAuth().subscribe(res => {
+      if (res !== null) {
+        //console.log('usuarioadmin',res.uid)
+        if (res.uid === 'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2') {
+          this.admin = true;
+        } else {
+          this.admin = false;
+        }
+      } else {
+        this.admin = false;
+      }
+    });
+  }
+
+
+
+
 }
