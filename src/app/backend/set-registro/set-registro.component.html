@@ -7,7 +7,7 @@
       <ion-button (click)="openMenu()">
         <ion-icon class="iconos" name="menu-outline" slot="icon-only"></ion-icon>
       </ion-button>
-    </ion-buttons> 
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,7 +26,7 @@
           <ion-icon color="danger" slot="icon-only" name="close"></ion-icon>
         </ion-button>
         <ion-button (click)="guardarProducto() ">
-          <ion-icon color="success"  slot="icon-only" name="save-sharp"></ion-icon>
+          <ion-icon color="success" slot="icon-only" name="save-sharp"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-item>
@@ -44,18 +44,25 @@
 
     <!--Tutor:-->
     <ion-item>
-      <ion-label class="normal">
-        Tutor: {{usuario.nombre}}
-      </ion-label>
+      <ion-label class="normal">Tutor</ion-label>
+      <ion-select #valor required placeholder="{{newProducto.tutor}}" [value]=newProducto.tutor interface="popover"
+        [(ngModel)]="nomusuescogido" (ionChange)="cambiousu(nomusuescogido)">
+        <ion-select-option *ngFor="let usuario of usuarios">{{usuario.nombre}}</ion-select-option>
+      </ion-select>
     </ion-item>
 
-    <!--Fecha de nacimiento:-->
     <ion-item>
-      <ion-label class="normal" position="floating">
+      <ion-label class="normal">
         Fecha de nacimiento:
       </ion-label>
-      <ion-input [(ngModel)]="newProducto.fechadenacimiento" class="texto" type="text">
-      </ion-input>
+
+      <ion-datetime-button datetime="date"></ion-datetime-button>
+      <ion-modal [keepContentsMounted]="true">
+        <ng-template>
+          <ion-datetime id="date" presentation="date" [(ngModel)]="newProducto.fechadenacimiento"
+            [showDefaultButtons]="true" doneText="Listo" cancelText="Cancelar"></ion-datetime>
+        </ng-template>
+      </ion-modal>
     </ion-item>
 
     <!--Especie:-->
@@ -67,39 +74,43 @@
       </ion-input>
     </ion-item>
 
+    <!--Telefono tutor-->
+    <ion-item>
+      <ion-label class="normal" position="floating">
+        Telefono :
+      </ion-label>
+      <ion-input [(ngModel)]="newProducto.telefonotutor" class="texto" type="text">
+      </ion-input>
+    </ion-item>
+
     <!--  Sexo:-->
     <ion-item>
-      <ion-label>Sexo</ion-label>
-        <ion-select  #valor required placeholder="{{newProducto.sexo}}" [value]="newProducto.sexo" interface="popover"  class="normal"  [(ngModel)]="opcion" (ionChange)="cambio(opcion)">
+      <ion-label class="normal">Sexo</ion-label>
+      <ion-select #valor required placeholder="{{newProducto.sexo}}" [value]="newProducto.sexo" interface="popover"
+        class="normal" [(ngModel)]="opcion" (ionChange)="cambio(opcion)">
         <ion-select-option value="Macho">Macho</ion-select-option>
         <ion-select-option value="Hembra">Hembra</ion-select-option>
       </ion-select>
     </ion-item>
 
-    <!--Telefono tutor-->
-    <ion-item>
-      <ion-label class="normal" >
-        Telefono tutor: {{usuario.celular}}
-      </ion-label>
 
-    </ion-item>
 
     <!--Foto-->
     <ion-item>
       <ion-label class="normal">
-          Foto:
+        Foto:
       </ion-label>
       <ion-buttons slot="end">
         <ion-button>
-           <label for="file-upload">
-             <ion-icon slot="icon-only" name="images"></ion-icon>
-           </label>
-            <input  (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file"  accept="image/*">
+          <label for="file-upload">
+            <ion-icon slot="icon-only" name="images"></ion-icon>
+          </label>
+          <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
         </ion-button>
       </ion-buttons>
     </ion-item>
     <ion-item>
-      <img class="image"  [src]="newProducto.foto">
+      <img class="image" [src]="newProducto.foto">
     </ion-item>
 
 
@@ -110,24 +121,44 @@
 
   <!--VISUALIZACION DE LISTA DE REGISTROS-->
   <h3 class="subtitulo encabezado">Lista de Mascotas</h3>
-  <div class="lista" *ngIf="!listallena">
-    <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
-  </div> 
+  <div>
+    <ion-searchbar animated="true" placeholder="Duenio" show-clear-button="focus"
+      (ionChange)="buscar($event)"></ion-searchbar>
+  </div>
 
-  
+
+  <ion-accordion-group *ngFor="let usuario of results" #accordionGroup  [multiple]="false" >
+    <ion-accordion [value]="usuario">
+      <ion-item  slot="header" color="light" (click)="getProductos(usuario.uid)">
+        <ion-label>{{usuario.nombre}}</ion-label>
+        <ion-label>
+          {{valor}}
+        </ion-label>
+      </ion-item>
+
+      <div class="lista" *ngIf="!listallena" slot="content" style="padding: 3px;">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+
+      <div class="ion-padding" slot="content" *ngFor="let producto of productos">
+        <img class="image" [src]="producto.foto" height="75" width="75">
+        <ion-label></ion-label>
+        <ion-label class="normal"> {{producto.nombredelamascota}}</ion-label>
+        <ion-buttons slot="end">
+          <ion-button (click)=" newProducto =  producto; enableNewProducto = true; ">
+            <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
+          </ion-button>
+          <ion-button (click)="deleteProducto(producto)">
+            <ion-icon slot="icon-only" color="danger" name="trash-bin"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
   <ion-item *ngFor="let producto of productos">
-    <img class="image"  [src]="producto.foto" height="75" width="75">
-    <ion-label></ion-label>
-    <ion-label class="normal"> {{producto.nombredelamascota}}</ion-label>
-    <ion-buttons slot="end">
-      <ion-button (click)=" newProducto =  producto; enableNewProducto = true; ">
-        <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
-      </ion-button>
-      <ion-button (click)="deleteProducto(producto)">
-        <ion-icon slot="icon-only" color="danger" name="trash-bin"></ion-icon>
-      </ion-button>
-    </ion-buttons>
+
   </ion-item>
-  
+
 
 </ion-content>

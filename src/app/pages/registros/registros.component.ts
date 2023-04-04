@@ -112,7 +112,7 @@ export class RegistrosComponent implements OnInit {
     });
   }
 
-
+ 
   cambio(opcion) {
     this.usuarioescogido = this.usuarios.find(persona => persona.nombre === opcion)
     this.getProductos(this.usuarioescogido.uid);

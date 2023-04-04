@@ -41,14 +41,14 @@ export class PerfilesmascotasComponent implements OnInit {
   id: string;
   segmento=1;
   mascota: Producto = {
-
     nombredelamascota: '',
     tutor: '',
-    fechadenacimiento: new Date,
+    fechadenacimiento: '',
     especie: '',
     sexo: '',
     telefonotutor: '',
     foto: '',
+    uidtutor:'',
     id: '',
   };
   suscriberUserInfo: Subscription;

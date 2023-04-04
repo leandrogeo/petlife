@@ -19,7 +19,7 @@
         (ionChange)="cambio(opcion)">
         <ion-select-option *ngFor="let usuario of usuarios">{{usuario.nombre}}</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> 
 
     <ion-item>
       <ion-label class="normal">Mascota</ion-label>
@@ -41,7 +41,7 @@
   </ion-card>
 
 <!-- DESPARACITADA-->
-  <ion-card *ngIf="segmento === '1' && mascota != '0' ">
+  <ion-card *ngIf="segmento === '1' && mascota != '0' " >
     <ion-item>
       <ion-buttons slot="end">
         <ion-button (click)="cancelar()">

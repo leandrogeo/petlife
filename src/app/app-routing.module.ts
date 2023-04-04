@@ -16,7 +16,7 @@ const routes: Routes = [
 
   //-----------------------RUTAS----------------------
   {path: 'home',component: HomeComponent},
-  {path: 'set-registro',component: SetRegistroComponent, canActivate:[IngresoGuard]},
+  {path: 'set-registro',component: SetRegistroComponent, },
   {path: 'perfil',component: PerfilComponent},
   {path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
   {path: 'buscar',component: BuscarComponent,canActivate:[IngresoGuard] },

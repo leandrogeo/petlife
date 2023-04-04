@@ -13,7 +13,7 @@ import { Console } from 'console';
 @Component({
   selector: 'app-set-registro',
   templateUrl: './set-registro.component.html',
-  styleUrls: ['./set-registro.component.scss'], 
+  styleUrls: ['./set-registro.component.scss'],
 })
 export class SetRegistroComponent implements OnInit {
 
@@ -24,8 +24,9 @@ export class SetRegistroComponent implements OnInit {
     celular: '',
     direccion: '',
     nombre: '',
-    admin:false
+    admin: false
   };
+
   suscriberUserInfo: Subscription;
   productos: Producto[] = [];
   listallena = true;
@@ -36,8 +37,16 @@ export class SetRegistroComponent implements OnInit {
   newFile: any;
   loading: any;
   uid = '';
-  private path1= "";
-  opcion:string;
+  private path1 = "";
+  opcion: string;
+
+  usuarioescogido: any;
+  usuarios: Usuario[] = [];
+  nomusuescogido: string;
+  public results = [...this.usuarios];
+  segmascotas = false;
+  valor = 0
+  pathguardar=''
 
   constructor(
     public menuController: MenuController,
@@ -48,15 +57,15 @@ export class SetRegistroComponent implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     public firestorageservice: FirestorageService) {
-
+    this.getUsuarios();
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
         console.log("constructor");
         this.uid = res.uid;
         this.getUserInfo(this.uid);
-        this.path1= 'Usuarios/' + this.uid + '/Mascotas/'; 
+        this.path1 = 'Usuarios/' + this.uid + '/Mascotas/';
       } else {
-        console.log(this.uid); 
+        console.log(this.uid);
       }
     });
   }
@@ -65,8 +74,8 @@ export class SetRegistroComponent implements OnInit {
   async ngOnInit() {
     const uid1 = await this.firebaseauthService.getUid();
     const path = 'Usuarios/' + uid1 + '/Mascotas/';
-    console.log('isinit '+path)
-  this.getProductos(path);
+    console.log('isinit ' + path)
+
 
   }
 
@@ -79,9 +88,9 @@ export class SetRegistroComponent implements OnInit {
     });
   }
 
-  cambio(opcion){
+  cambio(opcion) {
     console.log(opcion)
-    this.newProducto.sexo= this.opcion;
+    this.newProducto.sexo = this.opcion;
   }
 
   openMenu() {
@@ -91,17 +100,26 @@ export class SetRegistroComponent implements OnInit {
 
   async guardarProducto() {
     this.presentLoading();
-    this.newProducto.tutor = this.usuario.nombre
-    this.newProducto.telefonotutor = this.usuario.celular
-    const uid = await this.firebaseauthService.getUid();
-    const path = 'Usuarios/' + uid + '/Mascotas/';
+    if (this.nomusuescogido == undefined ||this.nomusuescogido == '0') {
+      this.pathguardar = 'Usuarios/' + this.newProducto.uidtutor + '/Mascotas/';
+    } else {
+      this.newProducto.tutor = this.nomusuescogido
+      this.newProducto.telefonotutor = this.usuarioescogido.celular
+      this.newProducto.uidtutor=this.usuarioescogido.uid
+      
+      this.pathguardar = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/';
+    }
+    console.log('tutoneprodcu ' + this.newProducto.tutor)
+    console.log('tutoescgodio ' + this.nomusuescogido)
+    console.log('path     ' + this.pathguardar)
+    
     const name = this.newProducto.nombredelamascota;
 
     if (this.newFile !== undefined) {
-      const res = await this.firestorageservice.uploadImage(this.newFile, path, name);
+      const res = await this.firestorageservice.uploadImage(this.newFile,this.pathguardar, name);
       this.newProducto.foto = res;
     }
-    this.firestoreservice.createDoc(this.newProducto, path, this.newProducto.id).then(res => {
+    this.firestoreservice.createDoc(this.newProducto,this.pathguardar, this.newProducto.id).then(res => {
       this.loading.dismiss();
       this.presentToast('Guardo con exito');
       this.nuevo();
@@ -110,28 +128,42 @@ export class SetRegistroComponent implements OnInit {
       this.presentToast('No se pude guardar');
     });
   }
- 
-//Revisra en el buscar usuarios
+
+  //Revisra en el buscar usuarios
   async getProductos(id: string) {
-    const path = 'Usuarios/' + this.path1 + '/Mascotas/';
-    console.log('uid> '+ this.path1)
-    this.firestoreservice.getCollection<Producto>(id).subscribe(res => {
-      console.log('producot res')
-      console.log(res)
+    const path = 'Usuarios/' + id + '/Mascotas/';
+    this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
       this.productos = res;
       if (res.length == 0) {
         this.listallena = false;
       } else {
-
         this.listallena = true;
       }
 
     });
   }
+  //OPTENER LISTA DE USUARIOS PARA 
+  async getUsuarios() {
+    const path = 'Usuarios';
+    this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
+      console.log('usuarios res')
+      this.usuarios = res;
+      console.log(res.length + this.valor)
+      console.log(this.valor)
+      this.results = this.usuarios
+      if (res.length == 0) {
+        this.listallena = false;
+      } else {
+        this.listallena = true;
+      }
+    });
+  }
 
   async deleteProducto(producto: Producto) {
     const uid = await this.firebaseauthService.getUid();
-    const path = 'Usuarios/' + uid + '/Mascotas/';
+
+    const path = 'Usuarios/' + producto.uidtutor + '/Mascotas/';
+    console.log('path  ' + path)
     const alert = await this.alertController.create({
       cssClass: 'normal',
       header: 'Advertencia',
@@ -169,13 +201,16 @@ export class SetRegistroComponent implements OnInit {
     this.newProducto = {
       nombredelamascota: '',
       tutor: '',
-      fechadenacimiento: new Date(),
+      fechadenacimiento: '',
       especie: '',
       sexo: '',
       telefonotutor: '',
       foto: 'htt',
+      uidtutor:'',
       id: this.firestoreService.getId(),
     };
+    this.nomusuescogido = '0'
+    this.opcion = '0'
   }
 
   async presentLoading() {
@@ -207,5 +242,22 @@ export class SetRegistroComponent implements OnInit {
     }
   }
 
+  cambiousu(opcion) {
+    this.usuarioescogido = this.usuarios.find(persona => persona.nombre === opcion)
+    this.getProductos(this.usuarioescogido.uid);
+  }
+
+  buscar(event) {
+    const buscar = event.target.value.toLowerCase();
+    this.results = this.usuarios
+    console.log('sdaf')
+    console.log(this.results)
+    if (buscar && buscar.trim() != '') {
+      this.results = this.results.filter((usuarios: any) => {
+        return (usuarios.nombre.toLowerCase().indexOf(buscar.toLowerCase()) > -1);
+
+      })
+    }
+  }
 
 }

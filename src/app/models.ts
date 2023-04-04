@@ -1,11 +1,12 @@
 export interface Producto {
     nombredelamascota: string;
     tutor: string;
-    fechadenacimiento: Date;
+    fechadenacimiento: string;
     especie: string;
     sexo:string;
     telefonotutor:string;
     foto: string;
+    uidtutor:string;
     id: string;
     
 }
