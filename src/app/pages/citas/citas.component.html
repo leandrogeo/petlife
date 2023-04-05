@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Agendamiento de Citas
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon class="iconos" name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-card >
+    <!-- boton para cerrar vista y guardar-->
+    <ion-item>
+      <ion-buttons slot="end">
+        <ion-button (click)="nuevo()">
+          <ion-icon color="danger" slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <h3 style="text-align: center;" class="subtitulo encabezado">Ingreso de datos de la cita</h3>
+
+    <ion-grid>
+      <ion-row>
+
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">Mascota</ion-label>
+            <ion-select #valor required placeholder="Escoja un tutor" [value]=1 interface="popover"
+              [(ngModel)]="mascota" (ionChange)="mascotaescog(mascota)">
+              <ion-select-option *ngFor="let mascota of productos">{{mascota.nombredelamascota}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-col>
+
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Fecha de cita:
+            </ion-label>
+            <ion-datetime-button datetime="date2"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="date2" [(ngModel)]="citas.fecha_cita" presentation="date-time"
+                  [showDefaultButtons]="true" [preferWheel]="true" doneText="Listo"
+                  cancelText="Cancelar"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Motivo:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-textarea [autoGrow]="true" [(ngModel)]="citas.motivo_cita"
+              placeholder="Motivo de la cita"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
+      <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setCita()">Guardar</ion-button>
+    </div>
+
+  </ion-card>
+
+</ion-content>

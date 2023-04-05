@@ -131,9 +131,6 @@
     <ion-accordion [value]="usuario">
       <ion-item  slot="header" color="light" (click)="getProductos(usuario.uid)">
         <ion-label>{{usuario.nombre}}</ion-label>
-        <ion-label>
-          {{valor}}
-        </ion-label>
       </ion-item>
 
       <div class="lista" *ngIf="!listallena" slot="content" style="padding: 3px;">

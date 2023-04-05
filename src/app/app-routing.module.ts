@@ -9,6 +9,9 @@ import { MascotasComponent } from './pages/mascotas/mascotas.component';
 import { PerfilesmascotasComponent } from './pages/perfilesmascotas/perfilesmascotas.component';
 import { map } from 'rxjs/operators';
 import { IngresoGuard } from './ingreso.guard';
+import { CitasComponent } from './pages/citas/citas.component';
+import { CarnetComponent } from './pages/carnet/carnet.component';
+import { VisualizarcarnetComponent } from './pages/visualizarcarnet/visualizarcarnet.component';
 
 const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
 
@@ -20,7 +23,14 @@ const routes: Routes = [
   {path: 'perfil',component: PerfilComponent},
   {path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
   {path: 'buscar',component: BuscarComponent,canActivate:[IngresoGuard] },
+
   {path: 'mascotas/:uid',component: MascotasComponent,canActivate:[IngresoGuard] },
+
+  {path: 'citas',component: CitasComponent},
+  {path: 'carnet',component: CarnetComponent},
+
+ 
+  {path: 'carnet/:id',component:  VisualizarcarnetComponent },
   
   {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent,canActivate:[IngresoGuard] },
  

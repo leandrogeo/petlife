@@ -23,13 +23,12 @@ export class BuscarComponent implements OnInit {
     public loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
-    public firestorageservice: FirestorageService) { } 
+    public firestorageservice: FirestorageService) { }
 
   usuarios: Usuario[] = [];
   public results = [...this.usuarios];
 
   listallena = true;
-  buscarusuario:any;
   ngOnInit() {
     this.getProductos();
   }
@@ -40,14 +39,14 @@ export class BuscarComponent implements OnInit {
   }
 
 
-  buscar(event){
+  buscar(event) {
     const buscar = event.target.value.toLowerCase();
-    this.results=this.usuarios
-    console.log('sdaf')
-    console.log(this.results)
-    if(buscar && buscar.trim() != ''){
-      this.results=this.results.filter((usuarios:any)=>{
-        return (usuarios.nombre.toLowerCase().indexOf(buscar.toLowerCase())>-1);
+    this.results = this.usuarios
+    if (buscar && buscar.trim() != '') {
+      this.results = this.results.filter((usuarios: any) => {
+        console.log('sdaf')
+        console.log(this.results)
+        return (usuarios.nombre.toLowerCase().indexOf(buscar.toLowerCase()) > -1);
 
       })
     }
@@ -58,7 +57,7 @@ export class BuscarComponent implements OnInit {
     //console.log('uid> '+ this.path1)
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
       this.usuarios = res;
-      this.results=this.usuarios
+      this.results = this.usuarios
       if (res.length == 0) {
         this.listallena = false;
       } else {

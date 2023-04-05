@@ -9,6 +9,9 @@ import { RegistrosComponent } from './registros/registros.component';
 import { BuscarComponent } from './buscar/buscar.component';
 import { MascotasComponent } from './mascotas/mascotas.component';
 import { PerfilesmascotasComponent } from './perfilesmascotas/perfilesmascotas.component';
+import { CitasComponent } from './citas/citas.component';
+import { CarnetComponent } from './carnet/carnet.component';
+import { VisualizarcarnetComponent } from './visualizarcarnet/visualizarcarnet.component';
 
 
 
@@ -19,6 +22,9 @@ import { PerfilesmascotasComponent } from './perfilesmascotas/perfilesmascotas.c
     RegistrosComponent,
     BuscarComponent,
     MascotasComponent,
+    CarnetComponent,
+    CitasComponent,
+    VisualizarcarnetComponent,
     PerfilesmascotasComponent,],
   imports: [
     CommonModule,
