@@ -23,7 +23,7 @@ export interface Usuario {
 
 export interface Desp {
     id_des: string;
-    fecha_des: string;
+    fecha_des: any;
     peso_des: string;
     producto_des: string;
     proxi_des: string;

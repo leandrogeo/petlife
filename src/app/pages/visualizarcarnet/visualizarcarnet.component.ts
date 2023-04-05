@@ -30,7 +30,10 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
   suscriberUserInfo: Subscription;
   desparacitaciones:Desp[]=[];
   vacunas:Vacunas[]=[];
-  listallena = true;
+  listallena = false;
+  listades = false;
+  listavac = false;
+  listacon = false;
   atendidoSuscriber: Subscription;
   agendadosSuscriber: Subscription;
   Citas: Citas[]=[]
@@ -60,7 +63,6 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.id = this.activateroute.snapshot.paramMap.get('id')
-    console.log("iddd " +this.id)
     
   }
   ngOnDestroy() {
@@ -84,27 +86,29 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
   }
 
   getdesparacitacion(uid:string,id:string) {
+    this.listallena=false;
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Desparacitacion';
      this.firestoreservice.getCollection<Desp>(path).subscribe(res => {
       this.desparacitaciones = res;
       if (res.length == 0) {
-        this.listallena = false;
+        this.listades = false;
       } else {
-        this.listallena = true;
+        this.listades = true;
       }
 
     });
   }
 
   getvacunas(uid:string,id:string) {
+    this.listallena=false;
     console.log('vacunas')
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunacion';
     this.firestoreservice.getCollection<Vacunas>(path).subscribe(res => {
      this.vacunas = res;
      if (res.length == 0) {
-       this.listallena = false;
+       this.listavac = false;
      } else {
-       this.listallena = true;
+       this.listavac = true;
      }
 
    });

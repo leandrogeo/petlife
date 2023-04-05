@@ -60,53 +60,59 @@
 
 
   </div>
+  <ion-card style="margin: 2px;">
 
-  <div class="m-2">
-    <ion-segment value="1" (ionChange)="cambio($event)">
-      <ion-segment-button value="1" (click)="segmento=1">
-        <ion-label>Desparacitacion</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="2" (click)="segmento=2">
-        <ion-label>Vacunas</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="3" (click)="segmento=3">
-        <ion-label>Consultas</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </div>
 
-  <div *ngIf="segmento == 1">
-    <div class="lista" *ngIf="!listallena">
-      <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+
+    <div class="m-2">
+      <ion-segment value="1" (ionChange)="cambio($event)">
+        <ion-segment-button value="1" (click)="segmento=1">
+          <ion-label>Desparacitacion</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="2" (click)="segmento=2">
+          <ion-label>Vacunas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="3" (click)="segmento=3">
+          <ion-label>Consultas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
     </div>
-    <ion-item *ngFor="let desparacitacion of desparacitaciones" >
-      <ion-label>{{desparacitacion.id_des}}</ion-label>
-      <ion-label>{{desparacitacion.fecha_des}}</ion-label>
-    </ion-item>
-  </div>
- 
 
-  <div *ngIf="segmento == 2">
-    <div class="lista" *ngIf="!listallena">
-      <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+
+
+
+    <div *ngIf="segmento == 1" style="padding: 5px;">
+      <div class="lista" *ngIf="!listallena">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <ion-item *ngFor="let desparacitacion of desparacitaciones">
+        <app-vistaprevia [des]="desparacitacion">
+        </app-vistaprevia>
+      </ion-item>
     </div>
-    <ion-item *ngFor="let vacuna of vacunas" >
-      <ion-label>{{vacuna.id_vac}}</ion-label>
-      <ion-label>{{vacuna.fecha_vac}}</ion-label>
-    </ion-item>
-  </div>
 
 
-
-  <div *ngIf="segmento == 3">
-    <div class="lista" *ngIf="!listallena">
-      <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+    <div *ngIf="segmento == 2">
+      <div class="lista" *ngIf="!listallena">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <ion-item *ngFor="let vacuna of vacunas">
+        <ion-label>{{vacuna.id_vac}}</ion-label>
+        <ion-label>{{vacuna.fecha_vac}}</ion-label>
+      </ion-item>
     </div>
-    <ion-item *ngFor="let desparacitacion of desparacitaciones" >
-      <ion-label>{{desparacitacion.id_des}}</ion-label>
-      <ion-label>{{desparacitacion.fecha_des}}</ion-label>
-    </ion-item>
-  </div>
 
+
+
+    <div *ngIf="segmento == 3">
+      <div class="lista" *ngIf="!listallena">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <ion-item *ngFor="let desparacitacion of desparacitaciones">
+        <ion-label>{{desparacitacion.id_des}}</ion-label>
+        <ion-label>{{desparacitacion.fecha_des}}</ion-label>
+      </ion-item>
+    </div>
+  </ion-card>
 
 </ion-content>

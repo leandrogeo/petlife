@@ -12,26 +12,28 @@ import { PerfilesmascotasComponent } from './perfilesmascotas/perfilesmascotas.c
 import { CitasComponent } from './citas/citas.component';
 import { CarnetComponent } from './carnet/carnet.component';
 import { VisualizarcarnetComponent } from './visualizarcarnet/visualizarcarnet.component';
+import { ComponentesModule } from "../componentes/componentes.module";
 
 
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    PerfilComponent,
-    RegistrosComponent,
-    BuscarComponent,
-    MascotasComponent,
-    CarnetComponent,
-    CitasComponent,
-    VisualizarcarnetComponent,
-    PerfilesmascotasComponent,],
-  imports: [
-    CommonModule,
-    IonicModule,
-    FormsModule,
-    RouterModule,
-
-  ]
+    declarations: [
+        HomeComponent,
+        PerfilComponent,
+        RegistrosComponent,
+        BuscarComponent,
+        MascotasComponent,
+        CarnetComponent,
+        CitasComponent,
+        VisualizarcarnetComponent,
+        PerfilesmascotasComponent,
+    ],
+    imports: [
+        CommonModule,
+        IonicModule,
+        FormsModule,
+        RouterModule,
+        ComponentesModule
+    ]
 })
 export class PagesModule { }

@@ -90,6 +90,7 @@ export class PerfilesmascotasComponent implements OnInit {
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Desparacitacion';
      this.firestoreservice.getCollection<Desp>(path).subscribe(res => {
       this.desparacitaciones = res;
+      console.log(res)
       if (res.length == 0) {
         this.listallena = false;
       } else {
