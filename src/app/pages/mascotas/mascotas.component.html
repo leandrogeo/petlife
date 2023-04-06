@@ -10,13 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let producto of productos" [routerLink]="['/mascotas/'+uid + '/perfilesmascotas/'+ producto.id]">
-    <div style="padding-top: 5px; padding-bottom: 5px;">
-      <img class="image" [src]="producto.foto" height="75" width="75">
+  <ion-card>
+    <div class="lista" *ngIf="!listallena">
+      <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
     </div>
-    <div style="padding-left: 100px;">
-      <ion-label class="normal"> {{producto.nombredelamascota}}</ion-label>
-
+    <div *ngFor="let producto of productos" [routerLink]="['/mascotas/'+uid + '/perfilesmascotas/'+ producto.id]">
+      <app-vistamascotas [pro]="producto"></app-vistamascotas>
     </div>
-  </ion-item>
+  </ion-card>
+  
 </ion-content>

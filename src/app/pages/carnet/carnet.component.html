@@ -20,15 +20,12 @@
   </div>
   <div class="lista" *ngIf="!listallena">
     <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
-  </div>
+  </div> 
 
-  <ion-item *ngFor="let produto of results" [routerLink]="['/carnet/'+ produto.id]" >
-    <ion-label class="normal"> {{produto.nombredelamascota}}</ion-label>
-    <ion-label class="normal"> {{produto.id}}</ion-label>
-    <div slot="end" style="padding: 5px;"> 
-      <img class="image" [src]="produto.foto" height="75" width="75">
-    </div>
-  </ion-item>
+  <div *ngFor="let produto of results" [routerLink]="['/carnet/'+ produto.id]" >
+    
+    <app-vistamascotas [pro]="produto"></app-vistamascotas>
+  </div>
 </ion-card>
 
 

@@ -1,0 +1,17 @@
+<ion-card>
+  <div style="text-align: center; background-color: rgb(226, 223, 223);">
+    <img  [src]="pro.foto" height="50%" width="50%" style="border-radius: 5%;" >
+  </div>
+  
+  <div >
+    <ion-card-header style="padding: 2%; background-color: rgb(134, 219, 168);">
+      <ion-card-title>{{pro.nombredelamascota}}</ion-card-title>
+      <ion-card-subtitle >{{pro.especie}}</ion-card-subtitle>
+      <ion-card-subtitle >{{pro.sexo}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content style="background-color: rgb(180, 222, 196);;padding: 2%; padding-top: 0%; color: black; ">
+      Tutor: {{pro.tutor}}
+    </ion-card-content>
+  </div>
+  
+</ion-card>

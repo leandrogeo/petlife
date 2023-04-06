@@ -4,11 +4,14 @@ import { VistapreviaComponent } from './vistaprevia/vistaprevia.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { VistavacunasComponent } from './vistavacunas/vistavacunas.component';
+import { VistamascotasComponent } from './vistamascotas/vistamascotas.component';
+import { VistacarnetmascotasComponent } from './vistacarnetmascotas/vistacarnetmascotas.component';
 
 
 
 @NgModule({
-  declarations: [VistapreviaComponent],
+  declarations: [VistapreviaComponent,VistavacunasComponent,VistamascotasComponent,VistacarnetmascotasComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -16,7 +19,10 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ],
   exports: [
-    VistapreviaComponent
+    VistapreviaComponent,
+    VistavacunasComponent,
+    VistamascotasComponent,
+    VistacarnetmascotasComponent
   ]
 })
 export class ComponentesModule { }
