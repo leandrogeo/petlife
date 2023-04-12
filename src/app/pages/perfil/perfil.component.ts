@@ -103,7 +103,6 @@ export class PerfilComponent implements OnInit {
   }
 
   getUserInfo(uid: string) {
-    console.log('getUserInfo');
     const path = 'Usuarios';
     this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
       if (res !== undefined) {

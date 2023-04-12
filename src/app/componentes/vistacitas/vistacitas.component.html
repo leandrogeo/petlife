@@ -1,0 +1,46 @@
+<div style="padding-top: 10px;">
+  <div *ngIf="cit.estadodelacita === 'atendido'" style="text-align: right; font-size: 25px">
+    <ion-icon style="color: green" name="checkmark-circle-outline"></ion-icon>
+  </div>
+  
+  <div *ngIf="cit.estadodelacita === 'cancelado'" style="text-align: right; font-size: 25px">
+    <ion-icon style="color: red" name="trash-bin-outline"></ion-icon>
+  </div>
+  
+  <div *ngIf="cit.estadodelacita === 'agendado'" style="text-align: right; font-size: 25px">
+    <ion-icon name="time-outline"></ion-icon>
+  </div>
+  
+  <ion-item style=" font-size:15px;text-align: center; ">
+    <div class="normal">
+      Fecha: 
+    </div>
+    <div style="font-size: 16px; padding-left: 5px;">
+      {{cit.fecha_cita | date:'dd-MM-yyyy' }}
+    </div>
+
+    <div class="normal" style=" padding-left: 17%;">
+      Hora: 
+    </div>
+    <div style="font-size: 16px; padding-left: 5px;">
+      {{cit.fecha_cita | date:' HH:mm' }}
+    </div>
+    
+  </ion-item>
+  
+  <ion-item style="height: 100%; width: 100%;">
+    <ion-label>Estado de la cita</ion-label>
+    <ion-select slot="end" #valor required (ionChange)="cambioest(cit,valor)" [value]="cit.estadodelacita"
+      placeholder="{{cit.estadodelacita}}" interface="popover" style="color: rgb(34, 163, 8);">
+      <ion-select-option *ngFor="let estado of estados" [value]="estado">{{estado}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item style="font-weight :100; font-size:14px; margin-bottom: 10px;">
+  
+    id: {{cit.id_cita }}
+  </ion-item>
+  
+</div>
+
+

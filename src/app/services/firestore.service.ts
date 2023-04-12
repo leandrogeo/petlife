@@ -38,6 +38,18 @@ export class FirestoreService {
     return collection.valueChanges();
   }
 
+  getCollectionCitas<tipo>(path: string) {
+    const collection = this.database.collectionGroup<tipo>(path);
+    return collection.valueChanges();
+  }
+
+  getCollectionCitasgene<tipo>(path: string, parametro: string, condicion: any, busqueda: string) {
+    const collection = this.database.collectionGroup<tipo>(path,
+      ref => ref.where(parametro, condicion, busqueda));
+    return collection.valueChanges();
+  }
+
+
   getCollectionQuery<tipo>(path: string, parametro: string, condicion: any, busqueda: string) {
     const collection = this.database.collection<tipo>(path,
       ref => ref.where(parametro, condicion, busqueda));
@@ -46,7 +58,7 @@ export class FirestoreService {
 
 
 
-  getCollectionPaginada<tipo>(path: string, limit: number, startAt: any) {
+ /* getCollectionPaginada<tipo>(path: string, limit: number, startAt: any) {
     if (startAt == null) {
       startAt = new Date();
     }
@@ -56,6 +68,36 @@ export class FirestoreService {
         .startAfter(startAt)
     );
     return collection.valueChanges();
+  }*/
+
+
+  getCollectionAll<tipo>(path, parametro: string, condicion: any, busqueda: string, startAt: any) {
+    
+    if (startAt == null) {
+      startAt = new Date();
+    }
+    const collection = this.database.collectionGroup<tipo>(path, 
+      ref => ref.where( parametro, condicion, busqueda)
+                .orderBy('fecha_cita', 'desc')
+                .limit(6) 
+                .startAfter(startAt)
+      );
+      console.log(collection.valueChanges)
+    return collection.valueChanges();
   }
+
+  getCollectionAll2<tipo>(path, parametro: string, condicion: any, busqueda: string) {
+    const collection = this.database.collectionGroup<tipo>(path,
+      ref => ref.where( parametro, condicion, busqueda)
+                 .orderBy('fecha_cita', 'asc')
+                 );
+    return collection.valueChanges();
+  }
+
+ /* getCollectionAll2<tipo>(path, parametro: string, condicion: any, busqueda: string) {
+    const collection = this.database.collectionGroup<tipo>(path,
+      ref => ref.where( parametro, condicion, busqueda));
+    return collection.valueChanges();
+  }*/
 
 }

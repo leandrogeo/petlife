@@ -12,6 +12,7 @@ import { IngresoGuard } from './ingreso.guard';
 import { CitasComponent } from './pages/citas/citas.component';
 import { CarnetComponent } from './pages/carnet/carnet.component';
 import { VisualizarcarnetComponent } from './pages/visualizarcarnet/visualizarcarnet.component';
+import { CitasgeneralesComponent } from './pages/citasgenerales/citasgenerales.component';
 
 const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
 
@@ -23,7 +24,7 @@ const routes: Routes = [
   {path: 'perfil',component: PerfilComponent},
   {path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
   {path: 'buscar',component: BuscarComponent,canActivate:[IngresoGuard] },
-
+  {path: 'citasge',component:  CitasgeneralesComponent,canActivate:[IngresoGuard] },
   {path: 'mascotas/:uid',component: MascotasComponent,canActivate:[IngresoGuard] },
 
   {path: 'citas',component: CitasComponent},

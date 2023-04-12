@@ -7,11 +7,12 @@ import { RouterModule } from '@angular/router';
 import { VistavacunasComponent } from './vistavacunas/vistavacunas.component';
 import { VistamascotasComponent } from './vistamascotas/vistamascotas.component';
 import { VistacarnetmascotasComponent } from './vistacarnetmascotas/vistacarnetmascotas.component';
+import { VistacitasComponent } from './vistacitas/vistacitas.component';
 
 
 
 @NgModule({
-  declarations: [VistapreviaComponent,VistavacunasComponent,VistamascotasComponent,VistacarnetmascotasComponent],
+  declarations: [VistapreviaComponent,VistavacunasComponent,VistamascotasComponent,VistacarnetmascotasComponent,VistacitasComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -22,7 +23,8 @@ import { VistacarnetmascotasComponent } from './vistacarnetmascotas/vistacarnetm
     VistapreviaComponent,
     VistavacunasComponent,
     VistamascotasComponent,
-    VistacarnetmascotasComponent
+    VistacarnetmascotasComponent,
+    VistacitasComponent
   ]
 })
 export class ComponentesModule { }

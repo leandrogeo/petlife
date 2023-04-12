@@ -13,6 +13,7 @@ import { CitasComponent } from './citas/citas.component';
 import { CarnetComponent } from './carnet/carnet.component';
 import { VisualizarcarnetComponent } from './visualizarcarnet/visualizarcarnet.component';
 import { ComponentesModule } from "../componentes/componentes.module";
+import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.component';
 
 
 
@@ -27,6 +28,7 @@ import { ComponentesModule } from "../componentes/componentes.module";
         CitasComponent,
         VisualizarcarnetComponent,
         PerfilesmascotasComponent,
+        CitasgeneralesComponent
     ],
     imports: [
         CommonModule,

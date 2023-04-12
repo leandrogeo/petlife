@@ -43,16 +43,19 @@
             <ion-label class="normal">
               Fecha de cita:
             </ion-label>
-            <ion-datetime-button datetime="date2"></ion-datetime-button>
+            <ion-datetime-button datetime="date2" ></ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="date2" [(ngModel)]="citas.fecha_cita" presentation="date-time"
+                <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" minuteValues="0" hourValues="8,9,10,11,12, 14,15,16,17,18,19" id="date2" [(ngModel)]="citas.fecha_cita" presentation="date-time"
                   [showDefaultButtons]="true" [preferWheel]="true" doneText="Listo"
-                  cancelText="Cancelar"></ion-datetime>
+                  cancelText="Cancelar" [isDateEnabled]="isWeekday"></ion-datetime>
               </ng-template>
             </ion-modal>
           </ion-item>
+          
         </ion-col>
+
+
 
       </ion-row>
 
@@ -75,6 +78,6 @@
       <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setCita()">Guardar</ion-button>
     </div>
 
-  </ion-card>
+  </ion-card> 
 
 </ion-content>

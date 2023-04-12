@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Citas Generales
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon class="iconos" name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-segment [value]="segmento" (ionChange)="changeSegment($event)">
+      <ion-segment-button value="agendado">
+        <ion-label>Agendadas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="atendido">
+        <ion-label>Atendidas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="cancelado">
+        <ion-label>Cancelado</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-card *ngIf="segmento === 'agendado'" > 
+      <div class="lista" *ngIf="!listaagendada" style="padding: 20px;">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <div *ngIf="listaagendada" style="padding-top: 5px;" >
+        <ion-item *ngFor="let cita of Citasagendadas">
+          <app-vistacitas [cit]="cita"></app-vistacitas>
+        </ion-item>
+      </div>
+    </ion-card>
+
+    <ion-card *ngIf="segmento === 'atendido'">
+      <div class="lista" *ngIf="!listaatendidas" style="padding: 20px;">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <div *ngIf="listaatendidas" style="padding-top: 5px;">
+        <ion-item *ngFor="let cita of Citasaatendidas">
+          <app-vistacitas [cit]="cita"></app-vistacitas>
+        </ion-item>
+      </div>
+    </ion-card>
+
+    <ion-card *ngIf="segmento === 'cancelado'">
+      <div class="lista" *ngIf="!listacancalados" style="padding: 20px;">
+        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+      </div>
+      <div *ngIf="listacancalados" style="padding-top: 5px;">
+        <ion-item *ngFor="let cita of Citasacanceladas">
+          <app-vistacitas [cit]="cita"></app-vistacitas>
+        </ion-item>
+      </div>
+    </ion-card>
+
+</ion-content>

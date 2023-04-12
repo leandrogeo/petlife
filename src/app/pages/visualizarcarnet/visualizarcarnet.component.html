@@ -77,14 +77,11 @@
         </div>
         <div *ngIf="listallena">
           <ion-item *ngFor="let cita of Citas" >
-            id: {{cita.id_cita}}
+            <app-vistacitas [cit]="cita"></app-vistacitas>
           </ion-item>
         </div>
         
       </div>
-
-      
-
     </ion-accordion>
 
 
