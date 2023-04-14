@@ -31,7 +31,7 @@ export class PerfilComponent implements OnInit {
 
   constructor(public menucontroller: MenuController,
     public firebaseauthService: FirebaseauthService,
-    public firestoreService: FirestoreService,
+    public firestoreService: FirestoreService, 
     public firestorageService: FirestorageService,
     private modalController: ModalController) {
 

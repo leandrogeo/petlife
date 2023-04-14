@@ -16,12 +16,8 @@
     <app-vistacarnetmascotas [pro]="mascota"> </app-vistacarnetmascotas>
   </div>
 
-
-
 <ion-card>
   <ion-accordion-group>
-
-
   <!--DESPARACITACION-->
     <ion-accordion value="1">
       <ion-item slot="header" color="light">
@@ -72,14 +68,18 @@
             <ion-label>Atendidas</ion-label>
           </ion-segment-button>
         </ion-segment>
-        <div class="lista" *ngIf="!listallena" style="padding-top: 25px;">
-          <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
-        </div>
-        <div *ngIf="listallena">
-          <ion-item *ngFor="let cita of Citas" >
-            <app-vistacitas [cit]="cita"></app-vistacitas>
-          </ion-item>
-        </div>
+
+
+          <div class="lista" *ngIf="!listallena" style="padding-top: 25px;">
+            <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+          </div>
+          <div *ngIf="listallena" >
+            <ion-item *ngFor="let cita of Citas" >
+              <app-vistacitas [cit]="cita" ></app-vistacitas>
+            </ion-item>
+          </div>
+
+
         
       </div>
     </ion-accordion>

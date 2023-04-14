@@ -58,6 +58,8 @@ export interface Citas {
     motivo_cita: string,
     estadodelacita:EstadoCita,
     id_mascotacita: string,
+    foto_cita:string,
+    namepet:string,
 }
 
 export type  EstadoCita = 'agendado' | 'atendido' | 'cancelado' ;

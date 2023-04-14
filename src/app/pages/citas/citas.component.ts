@@ -49,14 +49,17 @@ export class CitasComponent implements OnInit {
   Citas: Citas[] = [];
   citastotales: Citas[] = [];
 
-
+  nombremasct: string;
   citas: Citas = {
     id_cita: this.firestoreservice.getId(),
     fecha_cita: '',
     idtutor_cita: '',
     motivo_cita: '',
     estadodelacita: 'agendado',
-    id_mascotacita: ''
+    id_mascotacita: '',
+    foto_cita: '',
+    namepet: ''
+
   }
 
   async ngOnInit() { }
@@ -87,7 +90,9 @@ export class CitasComponent implements OnInit {
       idtutor_cita: '',
       motivo_cita: '',
       estadodelacita: 'agendado',
-      id_mascotacita: ''
+      id_mascotacita: '',
+      foto_cita: '',
+      namepet: ''
     }
     this.mascotaescogido = undefined
     this.mascota = '0'
@@ -116,6 +121,13 @@ export class CitasComponent implements OnInit {
       if (this.mascotaescogido != undefined) {
         if (this.citas.motivo_cita != '') {
           if (this.citas.fecha_cita != '') {
+            //this.citas.nombremascota_cita=this.mascotaescogido.nombredelamascota
+            // this.citas.fotomascota_cita=this.mascotaescogido.foto
+            //this.citas.nombremascota='dasfas'
+            this.nombremasct=this.mascotaescogido.nombredelamascota
+            console.log('nombre ' + this.nombremasct)
+            this.citas.namepet = this.mascotaescogido.nombredelamascota 
+            this.citas.foto_cita = this.mascotaescogido.foto
             this.citas.id_mascotacita = this.mascotaescogido.id
             this.citas.idtutor_cita = this.uid
             this.citaagendada = this.citas
@@ -168,7 +180,7 @@ export class CitasComponent implements OnInit {
     }
 
   }
- 
+
 
   getcitasgenerales() {
     const path = 'Citas';
