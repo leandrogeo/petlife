@@ -117,7 +117,7 @@
     </ion-grid>
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
       <ion-button expand="block" color="success" class="normal" fill="outline"
-        (click)="setRegistro(segmento)">Guardar</ion-button>
+        (click)="setdes()">Guardar</ion-button>
     </div>
   </ion-card>
 <!-- Vacunacion-->
@@ -198,10 +198,10 @@
     </ion-grid>
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
       <ion-button expand="block" color="success" class="normal" fill="outline"
-        (click)="setRegistro(segmento)">Guardar</ion-button>
+        (click)="setvac()">Guardar</ion-button>
     </div>
   </ion-card>
-<!--Consulta-->
+<!--CITAS-->
   <ion-card *ngIf="segmento === '3' && mascota != '0'">
     <ion-item>
       <ion-buttons slot="end">
@@ -239,7 +239,7 @@
             <ion-label class="normal">
               Peso:
             </ion-label>
-            <ion-input class="texto" type="text" name="dirrecion">
+            <ion-input [(ngModel)]="citas.pesomas" class="texto" type="text" name="dirrecion">
             </ion-input>
             <ion-label>kg</ion-label>
           </ion-item>
@@ -252,7 +252,7 @@
             <ion-label class="normal">
               Motivo:
             </ion-label>
-            <ion-textarea [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
+            <ion-textarea [(ngModel)]="citas.motivo_cita" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -263,7 +263,7 @@
             <ion-label class="normal">
                Diagnostico:
             </ion-label>
-            <ion-textarea [autoGrow]="true" placeholder="Diagnostico"></ion-textarea>
+            <ion-textarea [(ngModel)]="citas.diagnostico" [autoGrow]="true" placeholder="Diagnostico"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -291,7 +291,7 @@
 
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
       <ion-button expand="block" color="success" class="normal" fill="outline"
-        (click)="setRegistro(segmento)">Guardar</ion-button>
+        (click)="setconsul()">Guardar</ion-button>
     </div>
 
   </ion-card>

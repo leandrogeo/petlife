@@ -50,6 +50,7 @@ export class CitasComponent implements OnInit {
   citastotales: Citas[] = [];
 
   nombremasct: string;
+
   citas: Citas = {
     id_cita: this.firestoreservice.getId(),
     fecha_cita: '',
@@ -58,7 +59,14 @@ export class CitasComponent implements OnInit {
     estadodelacita: 'agendado',
     id_mascotacita: '',
     foto_cita: '',
-    namepet: ''
+    namepet: '',
+    diagnostico:'',
+    receta_consul: false,
+    examenen_consul: false,
+    imagen_consul: false,
+    cirugia_consul: false,
+    hospi_consul: false,
+    pesomas:''
 
   }
 
@@ -92,7 +100,15 @@ export class CitasComponent implements OnInit {
       estadodelacita: 'agendado',
       id_mascotacita: '',
       foto_cita: '',
-      namepet: ''
+      namepet: '',
+      diagnostico:'',
+      receta_consul: false,
+      examenen_consul: false,
+      imagen_consul: false,
+      cirugia_consul: false,
+      hospi_consul: false,
+      pesomas:'',
+  
     }
     this.mascotaescogido = undefined
     this.mascota = '0'

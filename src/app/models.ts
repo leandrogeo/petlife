@@ -39,20 +39,10 @@ export interface Vacunas {
 }
 
 
-export interface Consultas {
-    id_consul: string;
-    fecha_consul: string;
-    motivo_consul: string;
-    receta_consul: boolean;
-    examenen_consul: boolean;
-    imagen_consul: boolean;
-    cirugia_consul: boolean;
-    hospi_consul: boolean;
-}
-
 
 export interface Citas {
     id_cita: string,
+    pesomas:string,
     fecha_cita: string,
     idtutor_cita: string,
     motivo_cita: string,
@@ -60,6 +50,12 @@ export interface Citas {
     id_mascotacita: string,
     foto_cita:string,
     namepet:string,
+    diagnostico:string;
+    receta_consul: boolean;
+    examenen_consul: boolean;
+    imagen_consul: boolean;
+    cirugia_consul: boolean;
+    hospi_consul: boolean;
 }
 
 export type  EstadoCita = 'agendado' | 'atendido' | 'cancelado' ;

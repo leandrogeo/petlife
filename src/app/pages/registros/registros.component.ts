@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { stringify } from 'querystring';
-import { Desp, Producto, Vacunas } from 'src/app/models';
+import { Citas, Desp, Producto, Vacunas } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
-import { Usuario, Consultas } from '../../models';
+import { Usuario } from '../../models';
 import { Subscription } from 'rxjs';
 import { Console, timeStamp } from 'console';
 
@@ -50,15 +50,23 @@ export class RegistrosComponent implements OnInit {
     proxi_vac: '',
   }
 
-  consulta: Consultas={
-    id_consul:this.firestoreService.getId(),
-    fecha_consul: Date(),
-    motivo_consul:'',
-    receta_consul:false,
-    examenen_consul:false,
-    imagen_consul:false,
-    cirugia_consul:false,
-    hospi_consul:false,
+  citas: Citas = {
+    id_cita: this.firestoreservice.getId(),
+    fecha_cita: Date(),
+    idtutor_cita: '',
+    motivo_cita: '',
+    estadodelacita: 'atendido',
+    id_mascotacita: '',
+    foto_cita: '',
+    namepet: '',
+    diagnostico: '',
+    receta_consul: false,
+    examenen_consul: false,
+    imagen_consul: false,
+    cirugia_consul: false,
+    hospi_consul: false,
+    pesomas: '',
+
   }
 
 
@@ -97,6 +105,7 @@ export class RegistrosComponent implements OnInit {
       this.productos = res;
       console.log(res)
       if (res.length == 0) {
+        console.log('no hay mascota')
       }
     });
   }
@@ -112,7 +121,7 @@ export class RegistrosComponent implements OnInit {
     });
   }
 
- 
+
   cambio(opcion) {
     this.usuarioescogido = this.usuarios.find(persona => persona.nombre === opcion)
     this.getProductos(this.usuarioescogido.uid);
@@ -132,35 +141,173 @@ export class RegistrosComponent implements OnInit {
 
 
 
-  async setRegistro(tipo: string) {
-    this.presentLoading();
+  async setdes() {
+    if (this.desparacitacion.proxi_des != '') {
+      if (this.desparacitacion.peso_des != '') {
+        if (this.desparacitacion.producto_des != '') {
+          this.presentLoading();
+          console.log('ususario')
+          console.log(this.usuarioescogido.uid)
+          const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
+          this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
+            this.loading.dismiss();
+            this.presentToast('Guardo con exito');
+          }).catch(error => {
+            this.presentToast('No se pude guardar');
+          });
+          this.nuevo()
 
-    if (tipo === '1') {
-      this.general = this.desparacitacion
-      this.generalid = this.desparacitacion.id_des
-      this.pathextra = '/Desparacitacion'
-    }
-    if (tipo === '2') {
-      this.general = this.vacunacion
-      this.generalid = this.vacunacion.id_vac
-      this.pathextra = '/Vacunacion'
-    }
-    if (tipo === '3') {
-      this.general = this.consulta
-      this.generalid=this.consulta.id_consul
-      this.pathextra = '/Consulta'
-    }
+        } else {
+          const alert = await this.alertController.create({
+            //cssClass: 'my-custom-class',
+            header: 'Fallo al guardar',
+            message: 'Ingrese los productos administrados a la mascota',
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+
+      } else {
+        const alert = await this.alertController.create({
+          //cssClass: 'my-custom-class',
+          header: 'Fallo al guardar',
+          message: 'El campo PESO, esta vacio',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+
+    } else {
+      const alert = await this.alertController.create({
+        //cssClass: 'my-custom-class',
+        header: 'Fallo al guardar',
+        message: 'Por favor elija una fecha diferente para la proxima desparacitacion',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }/*
+    this.presentLoading();
     console.log('ususario')
     console.log(this.usuarioescogido.uid)
-    const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + this.pathextra;
-
-    this.firestoreservice.createDoc(this.general, path, this.generalid).then(res => {
+    const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
+    this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
       this.loading.dismiss();
       this.presentToast('Guardo con exito');
     }).catch(error => {
       this.presentToast('No se pude guardar');
     });
-    this.nuevo()
+    this.nuevo()*/
+  }
+
+  async setvac() {
+
+    if (this.vacunacion.proxi_vac != '') {
+      if (this.vacunacion.peso_vac != '') {
+        if (this.vacunacion.vacunas != '') {
+          this.presentLoading();
+          console.log('ususario')
+          console.log(this.usuarioescogido.uid)
+          const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Vacunacion';
+          this.firestoreservice.createDoc(this.vacunacion, path, this.vacunacion.id_vac).then(res => {
+            this.loading.dismiss();
+            this.presentToast('Guardo con exito');
+          }).catch(error => {
+            this.presentToast('No se pude guardar');
+          });
+          this.nuevo()
+
+        } else {
+          const alert = await this.alertController.create({
+            //cssClass: 'my-custom-class',
+            header: 'Fallo al guardar',
+            message: 'Ingrese las vacunas administrados a la mascota',
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+
+      } else {
+        const alert = await this.alertController.create({
+          //cssClass: 'my-custom-class',
+          header: 'Fallo al guardar',
+          message: 'El campo PESO, esta vacio',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+
+    } else {
+      const alert = await this.alertController.create({
+        //cssClass: 'my-custom-class',
+        header: 'Fallo al guardar',
+        message: 'Por favor elija una fecha diferente para la proxima vacuna',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+
+
+
+
+
+
+
+
+
+
+  }
+
+  async setconsul() {
+
+
+    if (this.citas.pesomas != '') {
+      if (this.citas.diagnostico != '') {
+        if (this.citas.motivo_cita != '') {
+          
+          this.presentLoading();
+          this.citas.foto_cita = this.mascotaescogido.foto
+          this.citas.id_mascotacita = this.mascotaescogido.id
+          this.citas.idtutor_cita = this.usuarioescogido.uid
+          this.citas.namepet = this.mascotaescogido.nombredelamascota
+          console.log('ususario')
+          console.log(this.usuarioescogido.uid)
+          const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
+          this.firestoreservice.createDoc(this.citas, path, this.citas.id_cita).then(res => {
+            this.loading.dismiss();
+            this.presentToast('Guardo con exito');
+          }).catch(error => {
+            this.presentToast('No se pude guardar');
+          });
+          this.nuevo()
+        } else {
+          const alert = await this.alertController.create({
+            //cssClass: 'my-custom-class',
+            header: 'Fallo al guardar',
+            message: 'El campo MOTIVO, esta vacio',
+            buttons: ['OK']
+          });
+          await alert.present();
+        }
+
+      } else {
+        const alert = await this.alertController.create({
+          //cssClass: 'my-custom-class',
+          header: 'Fallo al guardar',
+          message: 'El campo DIAGNOSTICO, esta vacio',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+
+    } else {
+      const alert = await this.alertController.create({
+        //cssClass: 'my-custom-class',
+        header: 'Fallo al guardar',
+        message: 'El campo PESO, esta vacio',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
 
@@ -200,15 +347,23 @@ export class RegistrosComponent implements OnInit {
     }
 
 
-    this.consulta={
-        id_consul:this.firestoreService.getId(),
-        fecha_consul: Date(),
-        motivo_consul:'',
-        receta_consul:false,
-        examenen_consul:false,
-        imagen_consul:false,
-        cirugia_consul:false,
-        hospi_consul:false,
+    this.citas = {
+      id_cita: this.firestoreservice.getId(),
+      fecha_cita: '',
+      idtutor_cita: '',
+      motivo_cita: '',
+      estadodelacita: 'atendido',
+      id_mascotacita: '',
+      foto_cita: '',
+      namepet: '',
+      diagnostico: '',
+      receta_consul: false,
+      examenen_consul: false,
+      imagen_consul: false,
+      cirugia_consul: false,
+      hospi_consul: false,
+      pesomas: ''
+
     }
 
     this.cancelar()
