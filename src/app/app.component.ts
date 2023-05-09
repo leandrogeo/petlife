@@ -15,6 +15,7 @@ export class AppComponent {
 
   constructor(
     public firebaseauthService: FirebaseauthService,
+
   ) { 
     this.getUid();
   }
@@ -33,6 +34,7 @@ export class AppComponent {
       }
     });
   }
+
 
 
 

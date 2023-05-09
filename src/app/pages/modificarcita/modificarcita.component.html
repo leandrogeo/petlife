@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Cita de {{citas.namepet}}
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="citasgenerales"> </ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar> 
+</ion-header>
+
+
+<ion-content> 
+  <ion-card >
+    <div style="text-align: center">
+      <ion-label>Consulta</ion-label>
+    </div>
+
+    <ion-grid>
+      <!-- Columna de la fecha actual-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label slot="start"  class="normal">
+              Fecha:
+            </ion-label>
+            <ion-label  slot="start"> {{citas.fecha_cita | date:'dd-MM-yyyy' }}</ion-label>
+            <ion-label slot="end"> {{citas.fecha_cita | date:'HH:mm' }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Peso-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Peso:
+            </ion-label>
+            <ion-input [(ngModel)]="citas.pesomas" class="texto" type="text" name="dirrecion">
+            </ion-input>
+            <ion-label>kg</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Columna de la Motivo-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Motivo:
+            </ion-label>
+            <ion-textarea [(ngModel)]="citas.motivo_cita" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Columna de la Diagnostico-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+               Diagnostico:
+            </ion-label>
+            <ion-textarea [(ngModel)]="citas.diagnostico" [autoGrow]="true" placeholder="Diagnostico"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+    <div style="text-align: center; padding-right: 15px;">
+      <ion-button shape="round" class="normal" color="medium">Receta</ion-button>
+      <ion-button shape="round" class="normal" color="medium">Imagen</ion-button>
+      <ion-button shape="round" class="normal" color="medium">Examenes</ion-button>
+    </div>
+
+    <!--OPCIONES EXTRA-->
+    <div style="padding: 15px;">
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Cirugia</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox slot="start"></ion-checkbox>
+        <ion-label>Hospitalizacion</ion-label>
+      </ion-item>
+
+
+    </div>
+
+    <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
+      <ion-button expand="block" color="success" class="normal" fill="outline"
+        (click)="setconsul()">Guardar</ion-button>
+    </div>
+
+  </ion-card>
+
+</ion-content>

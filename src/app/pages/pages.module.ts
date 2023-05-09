@@ -14,6 +14,9 @@ import { CarnetComponent } from './carnet/carnet.component';
 import { VisualizarcarnetComponent } from './visualizarcarnet/visualizarcarnet.component';
 import { ComponentesModule } from "../componentes/componentes.module";
 import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.component';
+import { ModificarcitaComponent } from './modificarcita/modificarcita.component';
+import { ReportecitasgeneralComponent } from './reportecitasgeneral/reportecitasgeneral.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 
@@ -28,14 +31,17 @@ import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.compone
         CitasComponent,
         VisualizarcarnetComponent,
         PerfilesmascotasComponent,
-        CitasgeneralesComponent
+        CitasgeneralesComponent,
+        ModificarcitaComponent,
+        ReportecitasgeneralComponent
     ],
     imports: [
         CommonModule,
         IonicModule,
         FormsModule,
         RouterModule,
-        ComponentesModule
+        ComponentesModule,
+        PdfViewerModule
     ]
 })
 export class PagesModule { }

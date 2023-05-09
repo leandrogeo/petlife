@@ -77,8 +77,8 @@ export class CitasgeneralesComponent implements OnInit {
         this.Citasaatendidas = undefined
       }
     });
-
   }
+
   async getCitasagendados() {
     console.log('citas agendados');
     const path = 'Citas';
@@ -109,22 +109,6 @@ export class CitasgeneralesComponent implements OnInit {
     });
 
   }
-
-  /* async getCitasAtendidas() {
-     console.log('citas atendidas');
-     const path = 'Citas';
-     this.atendidoSuscriber = this.firestoreservice.getCollectionAll2<Citas>(path, 'estadodelacita', '==', 'atendido').subscribe( res => {
-           if (res.length) {
-                 console.log('citasatendidas() -> res ', res);
-                 this.Citas=res
-                 if(this.Citas.length != 0){
-                   this.listallena=true
-                 }
-           }
-     });
- 
-   }*/
-
 
 
 }

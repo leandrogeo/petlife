@@ -258,8 +258,6 @@ export class RegistrosComponent implements OnInit {
   }
 
   async setconsul() {
-
-
     if (this.citas.pesomas != '') {
       if (this.citas.diagnostico != '') {
         if (this.citas.motivo_cita != '') {

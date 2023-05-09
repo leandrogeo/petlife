@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { stringify } from 'querystring';
 import { Producto } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service'; 
 import { FirestorageService } from '../../services/firestorage.service';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
-import { Usuario } from '../../models';
-import { Subscription } from 'rxjs';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-mascotas',

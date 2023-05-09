@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Reporte de citas generales
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="citasge"> </ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label class="normal">
+      Desde:
+    </ion-label>
+    <ion-datetime-button datetime="date2"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime [(ngModel)]="desde" displayFormat="YYYY-MM-DD" minuteValues="0"
+          id="date2"  presentation="date" [showDefaultButtons]="true"
+           doneText="Listo" cancelText="Cancelar"  ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+
+
+  <ion-item> 
+    <ion-label class="normal">
+      Hasta:
+    </ion-label>
+    <ion-datetime-button datetime="date1"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime displayFormat="YYYY-MM-DD" minuteValues="0"
+          id="date1"  [(ngModel)]="hasta"  presentation="date" [showDefaultButtons]="true"
+           doneText="Listo" cancelText="Cancelar"  ></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+
+  <div style="padding-top: 15px; text-align: center;" >
+    <ion-button  shape="round" class="botongenerar" (click)="generarpdf()"   >Generar Reporte</ion-button>
+  </div>
+
+  <pdf-viewer [src]="pdfSrc"
+              [render-text]="true"
+              [original-size]="false"
+              style="width: 400px; height: 500px"
+  ></pdf-viewer>
+
+</ion-content>

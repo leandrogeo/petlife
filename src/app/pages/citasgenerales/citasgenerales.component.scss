@@ -1,0 +1,23 @@
+.fixed_button {
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    width: 105px;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+
+    --background: #6c977f;
+    --background-hover: #108e49;
+    --background-activated: #108e49;
+    --background-focused: #108e49;
+
+
+    --box-shadow: 0 2px 6px 2px rgb(0, 0, 0, 0.25);
+
+    --ripple-color: deeppink;
+
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+
+}

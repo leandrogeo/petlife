@@ -12,7 +12,6 @@
 </ion-header>
 
 <ion-content>
-
     <ion-segment [value]="segmento" (ionChange)="changeSegment($event)">
       <ion-segment-button value="agendado">
         <ion-label>Agendadas</ion-label>
@@ -30,7 +29,7 @@
         <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
       </div>
       <div *ngIf="listaagendada" style="padding-top: 5px;" >
-        <ion-item *ngFor="let cita of Citasagendadas">
+        <ion-item *ngFor="let cita of Citasagendadas" [routerLink]="['/modificarcitas/'+ cita.id_cita]" >
           <app-vistacitas [cit]="cita"></app-vistacitas>
         </ion-item>
       </div>
@@ -56,6 +55,28 @@
           <app-vistacitas [cit]="cita"></app-vistacitas>
         </ion-item>
       </div>
+
     </ion-card>
+<div >
+  <ion-button  shape="round" class="fixed_button" [routerLink]="['/recitasge']"  >REPORTE</ion-button>
+</div>
+    
+<!-- 
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+      <ion-fab-button>
+        Reporte
+      </ion-fab-button>
+      <ion-fab-list side="top">
+        <ion-fab-button>
+          <ion-icon name="document"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button>
+          <ion-icon name="color-palette"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button>
+          <ion-icon name="globe"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>-->
 
 </ion-content>
