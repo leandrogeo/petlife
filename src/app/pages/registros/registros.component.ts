@@ -9,6 +9,7 @@ import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { Usuario } from '../../models';
 import { Subscription } from 'rxjs';
 import { Console, timeStamp } from 'console';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-registros',
@@ -32,7 +33,7 @@ export class RegistrosComponent implements OnInit {
   generalid: any;
 
 
-
+  fechaactual: any;
 
   desparacitacion: Desp = {
     id_des: this.firestoreService.getId(),
@@ -70,6 +71,8 @@ export class RegistrosComponent implements OnInit {
   }
 
 
+  fechaComoCadena:string;
+
   fechaproxi: Date;
   producto: any;
   pathextra: string;
@@ -88,13 +91,24 @@ export class RegistrosComponent implements OnInit {
     this.getUsuarios();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const fecha = new Date();
+     this.fechaComoCadena = fecha.toISOString();
+    console.log('fecha')
+    console.log(this.fechaComoCadena)
+  }
 
   openMenu() {
     console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
+  cambiarfecha(fecha){
+    const datePipe = new DatePipe('en-US');
+    let fechaFormateada = datePipe.transform(fecha, 'dd/MM/yyyy');
+
+    return fechaFormateada
+  }
 
 
   async getProductos(id: string) {
@@ -261,8 +275,9 @@ export class RegistrosComponent implements OnInit {
     if (this.citas.pesomas != '') {
       if (this.citas.diagnostico != '') {
         if (this.citas.motivo_cita != '') {
-          
+
           this.presentLoading();
+          this.citas.fecha_cita=this.fechaComoCadena
           this.citas.foto_cita = this.mascotaescogido.foto
           this.citas.id_mascotacita = this.mascotaescogido.id
           this.citas.idtutor_cita = this.usuarioescogido.uid

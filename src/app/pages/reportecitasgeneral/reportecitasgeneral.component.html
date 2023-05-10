@@ -26,7 +26,7 @@
     </ion-modal>
   </ion-item>
 
-  <ion-button (click)="downloadPDF()" >Generar
+  <ion-button (click)="pdf()">Generar
     Reporte</ion-button>
   <ion-item *ngIf="desdeescogido">
     <ion-label class="normal">
@@ -36,7 +36,7 @@
       <ion-datetime-button datetime="date1"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime [value]="desde" [min]="desde" [max]="today" displayFormat="YYYY-MM-DD" minuteValues="0"
+          <ion-datetime [value]="desde" [min]="desde"  displayFormat="YYYY-MM-DD" minuteValues="0"
             id="date1" [(ngModel)]="hasta" presentation="date" [showDefaultButtons]="true" doneText="Listo"
             (ionChange)="hastaescogido()" cancelText="Cancelar"></ion-datetime>
         </ng-template>
@@ -65,11 +65,11 @@
     </ion-card>
 
     <ion-label style="padding-left: 20px;padding-top: 20px;">
-      Total de Citas en el reporte: {{totalcitas}}
+      Total de Citas en el reporte: {{Citas.length}}
     </ion-label>
   </div>
 <!-- 
   <pdf-viewer [src]="pdfObj" [render-text]="true" [original-size]="false"
     style="width: 400px; height: 500px"></pdf-viewer>-->
 
-</ion-content>
+</ion-content>  

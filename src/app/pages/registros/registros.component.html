@@ -63,7 +63,7 @@
             <ion-datetime-button disabled="true" datetime="date"></ion-datetime-button>
              <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
+                <ion-datetime [(ngModel)]="fechaactual" id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
                   cancelText="Cancelar"></ion-datetime>
               </ng-template>
             </ion-modal>

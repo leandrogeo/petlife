@@ -4,10 +4,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 
-
-
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { DatePipe } from '@angular/common';
 
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -23,6 +20,10 @@ export class ReportecitasgeneralComponent implements OnInit {
     public firestoreservice: FirestoreService,
   ) { }
 
+
+  data: any[] = [['Codigo', 'Nombre de la mascota', 'Fecha', 'Motivo', 'Diagnostico', 'Estado de la cita'],];
+  info: any;
+
   desdeescogido = false;
   desbloquearboton = true;
   mostrarreporte = false;
@@ -35,7 +36,6 @@ export class ReportecitasgeneralComponent implements OnInit {
   Citas: Citas[] = [];
   ngOnInit() {
     this.getAcutualDate();
-    console.log('today ' + this.today)
   }
 
 
@@ -43,7 +43,6 @@ export class ReportecitasgeneralComponent implements OnInit {
   getAcutualDate() {
     const date = new Date();
     this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-    console.log(this.today);
   }
 
   fechaescogida() {
@@ -57,69 +56,73 @@ export class ReportecitasgeneralComponent implements OnInit {
   generarpdf() {
     console.log('desde ' + this.desde)
     console.log('hasta ' + this.hasta)
-
+    this.hasta
     const path = 'Citas';
+
     try {
       this.firestoreservice.getCollectioncitasreporte<Citas>(path, 'fecha_cita', '>=', this.desde, 'fecha_cita', '<=', this.hasta).subscribe(res => {
         this.Citas = res;
-        console.log("si 1")
-        console.log(this.Citas.length)
-        this.totalcitas = this.Citas.length
-      })
+        console.log(this.Citas)
+        for (var i = 0; i <= this.Citas.length - 1; i++) {
+          this.info = [this.Citas[i]['id_cita'], this.Citas[i]['namepet'],this.cambiarfecha(this.Citas[i]['fecha_cita']) , this.Citas[i]['motivo_cita'], this.Citas[i]['diagnostico'], this.Citas[i]['estadodelacita']]
+
+          this.data[i + 1] = this.info
+          this.info = ''
+          //this.data[i+1][1] = this.Citas[0]['diagnostico']
+        };
+        console.log('this.data')
+        console.log(this.data)
+      });
+
+
+      console.log('data')
+      console.log(this.data)
       this.mostrarreporte = true;
     } catch (error) {
       alert(error);
       this.desbloquearboton = true;
     }
-/*
+  }
+
+  pdf() {
     const docDef = {
       pageSize: 'A4',
       pageOrientation: 'portait',
       pageMargins: [20, 10, 40, 60],
-      
-      content:[
+
+      content: [
         {
-          text: 'Reporte de consultas' ,
+          text: 'Reporte de consultas',
           alignment: 'center',
           bold: true,
           fontSize: 20,
         },
+
         {
-          text: 'desde ' + this.desde+ " hasta "+ this.hasta,
+          text: 'desde ' + this.desde + " hasta " + this.hasta,
           alignment: 'center',
           fontSize: 10,
         },
         {
-
           table: {
-            heights: function (row) {
-              return (row + 1) * 25;
-            },
-            body: [
-              ['row 1', 'column B'],
-              ['row 2', 'column B'],
-              ['row 3', 'column B']
-            ]
+            headerRows: 1,
+            body: this.data
           }
 
         }
-        
+
       ]
     }
 
     this.pdfObj = pdfMake.createPdf(docDef);
-    this.pdfObj.download('demo');*/
-
+    this.pdfObj.download('demo');
   }
 
+  cambiarfecha(fecha){
+    const datePipe = new DatePipe('en-US');
+    let fechaFormateada = datePipe.transform(fecha, 'dd/MM/yyyy');
 
-  public downloadPDF(): void {
-    const doc = new jsPDF();
-
-    doc.text('REPORTE DE CONSULTAS', 65, 10);
-    doc.save('hello-world.pdf');
+    return fechaFormateada
   }
-
-
 
 }
