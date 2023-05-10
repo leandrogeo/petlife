@@ -74,13 +74,10 @@
             <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
           </div>
           <div *ngIf="listallena" >
-            <ion-item *ngFor="let cita of Citas" >
+            <ion-list *ngFor="let cita of Citas" >
               <app-vistacitas [cit]="cita" ></app-vistacitas>
-            </ion-item>
+            </ion-list>
           </div>
-
-
-        
       </div>
     </ion-accordion>
     

@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons slot="start">
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="citasgenerales"> </ion-back-button>
+        <ion-back-button defaultHref="citasgenerales" > </ion-back-button>
       </ion-buttons>
     </ion-buttons>
   </ion-toolbar> 
@@ -14,9 +14,6 @@
 
 <ion-content> 
   <ion-card >
-    <div style="text-align: center">
-      <ion-label>Consulta</ion-label>
-    </div>
 
     <ion-grid>
       <!-- Columna de la fecha actual-->
@@ -27,6 +24,9 @@
               Fecha:
             </ion-label>
             <ion-label  slot="start"> {{citas.fecha_cita | date:'dd-MM-yyyy' }}</ion-label>
+            <ion-label slot="end"  class="normal">
+              Hora:
+            </ion-label>
             <ion-label slot="end"> {{citas.fecha_cita | date:'HH:mm' }}</ion-label>
           </ion-item>
         </ion-col>

@@ -1,11 +1,11 @@
-<div style="padding-top: 10px;" >
+<ion-card style="padding-top: 10px;" >
 
   
   <ion-item  style=" font-size: 20px, "   >
     <img slot="start"  class="image" [src]="cit.foto_cita" height="75" width="75" style="border-radius: 50%; padding: 5px;">
 
     <div  style="font-size: 20px;font-weight: bold;padding-left: 2%; ">
-      {{cit.namepet}}
+      {{cit.namepet}} 
     </div>
     
     <ion-icon *ngIf="cit.estadodelacita === 'agendado'" slot="end" style="color:gray" class="iconos" name="time-outline"></ion-icon>
@@ -51,6 +51,7 @@
     id: {{cit.id_cita }}
   </ion-item>
 
-</div>
+  
+</ion-card>
 
 

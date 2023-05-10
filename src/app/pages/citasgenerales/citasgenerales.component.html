@@ -24,59 +24,42 @@
       </ion-segment-button>
     </ion-segment>
 
-    <ion-card *ngIf="segmento === 'agendado'" > 
+    <div *ngIf="segmento === 'agendado'" > 
       <div class="lista" *ngIf="!listaagendada" style="padding: 20px;">
         <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
       </div>
-      <div *ngIf="listaagendada" style="padding-top: 5px;" >
-        <ion-item *ngFor="let cita of Citasagendadas" [routerLink]="['/modificarcitas/'+ cita.id_cita]" >
-          <app-vistacitas [cit]="cita"></app-vistacitas>
-        </ion-item>
-      </div>
-    </ion-card>
 
-    <ion-card *ngIf="segmento === 'atendido'">
+      <div *ngIf="listaagendada" style="padding-top: 5px;" >
+        <ion-list *ngFor="let cita of Citasagendadas" [routerLink]="['/modificarcitas/'+ cita.id_cita]" >
+          <app-vistacitas [cit]="cita"></app-vistacitas>
+        </ion-list>
+      </div>
+    </div>
+
+    <div *ngIf="segmento === 'atendido'">
       <div class="lista" *ngIf="!listaatendidas" style="padding: 20px;">
         <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
       </div>
       <div *ngIf="listaatendidas" style="padding-top: 5px;">
-        <ion-item *ngFor="let cita of Citasaatendidas">
+        <ion-list *ngFor="let cita of Citasaatendidas">
           <app-vistacitas [cit]="cita"></app-vistacitas>
-        </ion-item>
+        </ion-list>
       </div>
-    </ion-card>
+    </div>
 
-    <ion-card *ngIf="segmento === 'cancelado'">
+    <div *ngIf="segmento === 'cancelado'">
       <div class="lista" *ngIf="!listacancalados" style="padding: 20px;">
         <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
       </div>
       <div *ngIf="listacancalados" style="padding-top: 5px;">
-        <ion-item *ngFor="let cita of Citasacanceladas">
+        <ion-list *ngFor="let cita of Citasacanceladas">
           <app-vistacitas [cit]="cita"></app-vistacitas>
-        </ion-item>
+        </ion-list>
       </div>
 
-    </ion-card>
+    </div>
 <div >
   <ion-button  shape="round" class="fixed_button" [routerLink]="['/recitasge']"  >REPORTE</ion-button>
 </div>
     
-<!-- 
-    <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-      <ion-fab-button>
-        Reporte
-      </ion-fab-button>
-      <ion-fab-list side="top">
-        <ion-fab-button>
-          <ion-icon name="document"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button>
-          <ion-icon name="color-palette"></ion-icon>
-        </ion-fab-button>
-        <ion-fab-button>
-          <ion-icon name="globe"></ion-icon>
-        </ion-fab-button>
-      </ion-fab-list>
-    </ion-fab>-->
-
 </ion-content>

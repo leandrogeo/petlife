@@ -93,7 +93,7 @@ export class PerfilComponent implements OnInit {
     const name = this.usuario.nombre;
     this.firestoreService.createDoc(this.usuario, path, this.usuario.uid).then(res => {
       console.log('guardado con exito');
-    }).catch(error => {
+    }).catch(error => { 
     });
   }
 

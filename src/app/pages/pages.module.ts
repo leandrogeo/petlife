@@ -16,7 +16,7 @@ import { ComponentesModule } from "../componentes/componentes.module";
 import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.component';
 import { ModificarcitaComponent } from './modificarcita/modificarcita.component';
 import { ReportecitasgeneralComponent } from './reportecitasgeneral/reportecitasgeneral.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+
 
 
 
@@ -41,7 +41,9 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
         FormsModule,
         RouterModule,
         ComponentesModule,
-        PdfViewerModule
+
     ]
 })
+
+
 export class PagesModule { }
