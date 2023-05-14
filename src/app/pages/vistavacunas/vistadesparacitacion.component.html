@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Vacuna
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="buscar" > </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <div style="padding: 15px; text-align: center; ">
+      <img style="height: 200px;" src="assets/imagenes/logo.jpg">
+    </div>
+    <ion-label style="padding-left: 20px;padding-top: 20px;">
+      ID: {{vacuna.id_vac}}
+    </ion-label>
+    <ion-item style="text-align: center;">
+      <ion-label class="normal1" >
+        Fecha: 
+      </ion-label>
+      <ion-input class="texto" type="text"> {{vacuna.fecha_vac | date:'dd-MM-yyyy'}}</ion-input>
+  
+      <ion-label class="normal1" >
+        Proxima vacuna: 
+      </ion-label>
+      <ion-input class="texto" type="text"> {{vacuna.proxi_vac | date:'dd-MM-yyyy'}}</ion-input>
+  
+      <ion-label class="normal1" >
+        Peso: 
+      </ion-label>
+      <ion-input class="texto" type="text"> {{vacuna.peso_vac}} KG</ion-input>
+    </ion-item>
+
+      <ion-item>
+        <ion-label class="normal1">
+         Vacunas aplicadas:
+        </ion-label>
+        <ion-textarea [(ngModel)]="vacuna.vacunas" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
+      </ion-item>
+  </ion-card>
+</ion-content>

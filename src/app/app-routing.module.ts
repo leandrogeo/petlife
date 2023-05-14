@@ -15,7 +15,8 @@ import { VisualizarcarnetComponent } from './pages/visualizarcarnet/visualizarca
 import { CitasgeneralesComponent } from './pages/citasgenerales/citasgenerales.component';
 import { ModificarcitaComponent } from './pages/modificarcita/modificarcita.component';
 import { ReportecitasgeneralComponent } from './pages/reportecitasgeneral/reportecitasgeneral.component';
-import { VistadesparacitacionComponent } from './pages/vistadesparacitacion/vistadesparacitacion.component';
+import { VistadesparacitacionComponent } from './pages/vistavacunas/vistadesparacitacion.component';
+import { VistadesComponent } from './pages/vistades/vistades.component';
 
 const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
 
@@ -30,12 +31,15 @@ const routes: Routes = [
   {path: 'citasge',component:  CitasgeneralesComponent,canActivate:[IngresoGuard] },
   {path: 'mascotas/:uid',component: MascotasComponent,canActivate:[IngresoGuard] },
   {path: 'modificarcitas/:id_cita',component:  ModificarcitaComponent },
-  {path: 'recitasge',component: ReportecitasgeneralComponent,canActivate:[IngresoGuard] },
+  {path: 'recitasge',component: ReportecitasgeneralComponent,canActivate:[IngresoGuard]},
+
 
 
   {path: 'citas',component: CitasComponent},
   {path: 'carnet',component: CarnetComponent},
   {path: 'vistavac/:uid/:idmas/:idvac',component: VistadesparacitacionComponent},
+  {path: 'vistades/:uid/:idmas/:iddes',component:  VistadesComponent},
+ 
   
 
  

@@ -28,7 +28,7 @@
           <div class="lista" *ngIf="!listades">
             <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
           </div>
-          <ion-item *ngFor="let desparacitacion of desparacitaciones">
+          <ion-item *ngFor="let desparacitacion of desparacitaciones"  [routerLink]="['/vistades/'+ uid +'/'+ mascota.id+'/'+ desparacitacion.id_des]">
             <app-vistaprevia [des]="desparacitacion">
             </app-vistaprevia>
           </ion-item>
@@ -40,16 +40,12 @@
         <ion-item slot="header" color="light">
           <ion-label>Vacunas</ion-label>
         </ion-item>
-
-
-
-
         <div class="ion-padding" slot="content">
           
           <div class="lista" *ngIf="!listavac">
             <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
           </div>
-          <ion-item *ngFor="let vacuna of vacunas">
+          <ion-item *ngFor="let vacuna of vacunas"  [routerLink]="['/vistavac/'+ uid +'/'+ mascota.id+'/'+ vacuna.id_vac]">
             <app-vistavacunas [vac]="vacuna">
             </app-vistavacunas>
           </ion-item>

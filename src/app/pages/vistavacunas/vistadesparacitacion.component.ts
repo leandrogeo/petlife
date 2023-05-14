@@ -15,28 +15,28 @@ export class VistadesparacitacionComponent implements OnInit {
     public firestoreservice: FirestoreService,
   ) { }
   uid: string;
-  idmascota:string;
-  idvacuna:string;
-  vacuna: Vacunas= {
-    id_vac:'',
+  idmascota: string;
+  idvacuna: string;
+
+  vacuna: Vacunas = {
+    id_vac: '',
     fecha_vac: '',
     peso_vac: '',
     vacunas: '',
     proxi_vac: '',
-}
+  }
 
   ngOnInit() {
     this.uid = this.activateroute.snapshot.paramMap.get('uid')
     this.idmascota = this.activateroute.snapshot.paramMap.get('idmas')
     this.idvacuna = this.activateroute.snapshot.paramMap.get('idvac')
     this.getvacuna();
-
   }
 
 
   getvacuna() {
-    const path = 'Usuarios/' + this.uid + '/Mascotas/'+ this.idmascota +'/Vacunacion/';
-     this.firestoreservice.getDoc<Vacunas>(path, this.idvacuna).subscribe(res => {
+    const path = 'Usuarios/' + this.uid + '/Mascotas/' + this.idmascota + '/Vacunacion/';
+    this.firestoreservice.getDoc<Vacunas>(path, this.idvacuna).subscribe(res => {
       if (res !== undefined) {
         this.vacuna = res;
       }

@@ -17,7 +17,8 @@ import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.compone
 import { ModificarcitaComponent } from './modificarcita/modificarcita.component';
 import { ReportecitasgeneralComponent } from './reportecitasgeneral/reportecitasgeneral.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { VistadesparacitacionComponent } from './vistadesparacitacion/vistadesparacitacion.component';
+import { VistadesparacitacionComponent } from './vistavacunas/vistadesparacitacion.component';
+import { VistadesComponent } from './vistades/vistades.component';
 
 
 
@@ -35,7 +36,8 @@ import { VistadesparacitacionComponent } from './vistadesparacitacion/vistadespa
         CitasgeneralesComponent,
         ModificarcitaComponent,
         ReportecitasgeneralComponent,
-        VistadesparacitacionComponent
+        VistadesparacitacionComponent,
+        VistadesComponent
     ],
     imports: [
         CommonModule,
