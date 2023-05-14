@@ -27,7 +27,7 @@ export class MascotasComponent implements OnInit {
 
   productos: Producto[] = [];
   listallena = true;
-  uid:string
+  uid:string 
 
   ngOnInit() {
     this.uid=this.activateroute.snapshot.paramMap.get('uid')

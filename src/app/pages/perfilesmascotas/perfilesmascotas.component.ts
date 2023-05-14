@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { stringify } from 'querystring';
-import { Producto, Vacunas } from 'src/app/models';
+import { Citas, Producto, Vacunas } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
@@ -33,10 +33,13 @@ export class PerfilesmascotasComponent implements OnInit {
   productos: Producto[] = [];
   desparacitaciones:Desp[]=[];
   vacunas:Vacunas[]=[];
-
-
-
+  Citas: Citas[]=[]
   listallena = true;
+  listades = false;
+  listavac = false;
+  listacon = false;
+
+
   uid: string
   id: string;
   segmento=1;
@@ -58,6 +61,8 @@ export class PerfilesmascotasComponent implements OnInit {
     this.id = this.activateroute.snapshot.paramMap.get('id')
     this.getUserInfo2(this.uid, this.id);
     this.getdesparacitacion(this.uid,this.id);
+    this.getvacunas(this.uid,this.id)
+    this.getCitasAgendadas(this.uid,this.id)
     
   }
 
@@ -82,7 +87,7 @@ export class PerfilesmascotasComponent implements OnInit {
       this.getvacunas(this.uid,this.id);
     }
     if (opc === '3') {
-      this.getconsultas(this.uid,this.id);
+
     }
   }
 
@@ -92,29 +97,75 @@ export class PerfilesmascotasComponent implements OnInit {
       this.desparacitaciones = res;
       console.log(res)
       if (res.length == 0) {
-        this.listallena = false;
+        this.listades = false;
       } else {
-        this.listallena = true;
+        this.listades = true;
       }
 
     });
   }
 
   getvacunas(uid:string,id:string) {
+    this.listallena=false
     console.log('vacunas')
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunacion';
     this.firestoreservice.getCollection<Vacunas>(path).subscribe(res => {
-     this.vacunas = res;
+     this.vacunas = res; 
      if (res.length == 0) {
-       this.listallena = false;
-     } else {
-       this.listallena = true;
-     }
+      this.listavac = false;
+    } else {
+      this.listavac = true;
+    }
 
    });
   }
 
-  getconsultas(uid:string,id:string) {
-    console.log('consultas')
+
+  changeSegment(eve:any){
+
+    const opc =eve.detail.value
+    if(opc === 'agendada'){
+      this.getCitasAgendadas(this.uid,this.id)
+    }
+    if(opc === 'atendida'){
+      this.getCitasAtendidas(this.uid,this.id)
+
+    }
+  }
+
+
+  async getCitasAtendidas(uid:string,id:string){
+    console.log("atendidas citas")
+    const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
+    
+    this.atendidoSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'atendido').subscribe(res => {
+      if (res.length) {
+        this.Citas=res;
+        this.listallena = true;
+        console.log(this.Citas)
+      }else{
+        this.listallena = false;
+      }
+    });
+
+  }
+
+  atendidoSuscriber: Subscription;
+  agendadosSuscriber: Subscription;
+
+  async getCitasAgendadas(uid:string,id:string){
+    console.log("agendadas citas")
+
+    const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
+    console.log("path "+ path)
+    this.agendadosSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'agendado').subscribe(res => {
+      if (res.length) {
+        this.Citas=res;
+        this.listallena = true;
+        console.log(this.Citas)
+      }else{
+        this.listallena = false;
+      }
+    });
   }
 }

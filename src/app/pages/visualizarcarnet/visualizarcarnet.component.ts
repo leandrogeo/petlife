@@ -13,7 +13,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./visualizarcarnet.component.scss'],
 })
 export class VisualizarcarnetComponent implements OnInit, OnDestroy {
-
+ 
   mascota: Producto = {
     nombredelamascota: '',
     tutor: '',
@@ -99,6 +99,8 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
     });
   }
 
+
+  //PROCESO DE CONSULTAO DE VACUNAS
   getvacunas(uid:string,id:string) {
     this.listallena=false;
     console.log('vacunas')
@@ -113,6 +115,9 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
 
    });
   }
+
+
+  //PROCESO DE CONSULTAS DE CITAS
 
   changeSegment(eve:any){
 

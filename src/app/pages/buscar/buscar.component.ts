@@ -18,7 +18,7 @@ export class BuscarComponent implements OnInit {
 
   constructor(public menuController: MenuController,
     public firebaseauthService: FirebaseauthService,
-    public firestoreservice: FirestoreService,
+    public firestoreservice: FirestoreService, 
     public firestoreService: FirestoreService,
     public loadingController: LoadingController,
     public toastController: ToastController,

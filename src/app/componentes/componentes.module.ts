@@ -8,11 +8,12 @@ import { VistavacunasComponent } from './vistavacunas/vistavacunas.component';
 import { VistamascotasComponent } from './vistamascotas/vistamascotas.component';
 import { VistacarnetmascotasComponent } from './vistacarnetmascotas/vistacarnetmascotas.component';
 import { VistacitasComponent } from './vistacitas/vistacitas.component';
+import { VistasimplecitasComponent } from './vistasimplecitas/vistasimplecitas.component';
 
 
 
 @NgModule({
-  declarations: [VistapreviaComponent,VistavacunasComponent,VistamascotasComponent,VistacarnetmascotasComponent,VistacitasComponent],
+  declarations: [VistapreviaComponent,VistavacunasComponent,VistamascotasComponent,VistacarnetmascotasComponent,VistacitasComponent,VistasimplecitasComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -24,7 +25,8 @@ import { VistacitasComponent } from './vistacitas/vistacitas.component';
     VistavacunasComponent,
     VistamascotasComponent,
     VistacarnetmascotasComponent,
-    VistacitasComponent
+    VistacitasComponent,
+    VistasimplecitasComponent
   ]
 })
 export class ComponentesModule { }

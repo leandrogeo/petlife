@@ -14,10 +14,81 @@
   <div>
     <app-vistacarnetmascotas [pro]="mascota"> </app-vistacarnetmascotas>
   </div>
+
+  <ion-card>
+    <ion-accordion-group>
+      <!--DESPARACITACION-->
+      <ion-accordion value="1">
+        <ion-item slot="header" color="light">
+          <ion-label>Desparacitaciones</ion-label>
+        </ion-item>
+
+
+        <div class="ion-padding" slot="content">
+          <div class="lista" *ngIf="!listallena">
+            <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+          </div>
+          <ion-item *ngFor="let desparacitacion of desparacitaciones">
+            <app-vistaprevia [des]="desparacitacion">
+            </app-vistaprevia>
+          </ion-item>
+        </div>
+      </ion-accordion>
+
+
+      <!-- VACUNAS -->
+      <ion-accordion value="2">
+        <ion-item slot="header" color="light">
+          <ion-label>Vacunas</ion-label>
+        </ion-item>
+
+        <div class="ion-padding" slot="content">
+          <div class="lista" *ngIf="!listallena"> 
+            <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+          </div>
+          <ion-item *ngFor="let vacuna of vacunas"  [routerLink]="['/vistavac/'+ uid +'/'+ mascota.id+'/'+ vacuna.id_vac]">
+            <app-vistavacunas [vac]="vacuna">
+            </app-vistavacunas>
+          </ion-item>
+        </div>
+
+      </ion-accordion>
+      <!-- CONSULTAS -->
+      <ion-accordion value="3">
+
+        <ion-item slot="header" color="light">
+          <ion-label>Citas</ion-label>
+        </ion-item>
+
+        <div class="ion-padding" slot="content">
+
+          <ion-segment value="agendada" (ionChange)="changeSegment($event)">
+            <ion-segment-button value="agendada">
+              <ion-label>Agendadas</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="atendida">
+              <ion-label>Atendidas</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+
+
+          <div class="lista" *ngIf="!listallena" style="padding-top: 25px;">
+            <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
+          </div>
+          <div *ngIf="listallena">
+            <ion-item *ngFor="let cita of Citas">
+              <app-vistasimplecitas [cit]="cita"></app-vistasimplecitas>
+            </ion-item>
+          </div>
+        </div>
+
+      </ion-accordion>
+
+    </ion-accordion-group>
+  </ion-card>
+
+  <!-- 
   <ion-card style="margin: 2px;">
-
-
-
     <div class="m-2">
       <ion-segment value="1" (ionChange)="cambio($event)">
         <ion-segment-button value="1" (click)="segmento=1">
@@ -58,15 +129,27 @@
 
 
 
-    <div *ngIf="segmento == 3">
-      <div class="lista" *ngIf="!listallena">
-        <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
-      </div>
-      <ion-item *ngFor="let desparacitacion of desparacitaciones">
-        <ion-label>{{desparacitacion.id_des}}</ion-label>
-        <ion-label>{{desparacitacion.fecha_des}}</ion-label>
-      </ion-item>
+    <div class="ion-padding" slot="content" *ngIf="segmento == 3">
+        
+      <ion-segment value="agendada" (ionChange)="changeSegment($event)">
+        <ion-segment-button value="agendada">
+          <ion-label>Agendadas</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="atendida">
+          <ion-label>Atendidas</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+
+
+        <div class="lista" *ngIf="!listallena" style="padding-top: 25px;">
+          <ion-label >NO HAY ELEMENTOS EN LA LISTA</ion-label>
+        </div>
+        <div *ngIf="listallena" >
+          <ion-list *ngFor="let cita of Citas" >
+            <app-vistacitas [cit]="cita" ></app-vistacitas>
+          </ion-list>
+        </div>
     </div>
-  </ion-card>
+  </ion-card>-->
 
 </ion-content>

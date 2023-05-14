@@ -26,8 +26,6 @@
     </ion-modal>
   </ion-item>
 
-  <ion-button (click)="pdf()">Generar
-    Reporte</ion-button>
   <ion-item *ngIf="desdeescogido">
     <ion-label class="normal">
       Hasta:
@@ -36,8 +34,8 @@
       <ion-datetime-button datetime="date1"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime [value]="desde" [min]="desde"  displayFormat="YYYY-MM-DD" minuteValues="0"
-            id="date1" [(ngModel)]="hasta" presentation="date" [showDefaultButtons]="true" doneText="Listo"
+          <ion-datetime [value]="desde" [min]="desde" displayFormat="YYYY-MM-DD" minuteValues="0" id="date1"
+            [(ngModel)]="hasta" presentation="date" [showDefaultButtons]="true" doneText="Listo"
             (ionChange)="hastaescogido()" cancelText="Cancelar"></ion-datetime>
         </ng-template>
       </ion-modal>
@@ -49,13 +47,12 @@
       Reporte</ion-button>
   </div>
 
-  
+
 
   <div *ngIf="mostrarreporte" id="asd">
     <ion-card>
       <ion-item *ngFor="let cita of Citas">
-        <img slot="start" [src]="cita.foto_cita" height="65" width="65"
-          style="border-radius: 50%; padding: 5px;">
+        <img slot="start" [src]="cita.foto_cita" height="65" width="65" style="border-radius: 50%; padding: 5px;">
         <ion-label>
           <h1>{{cita.namepet }} </h1>
           <p>Estado: {{cita.estadodelacita}} </p>
@@ -63,13 +60,21 @@
         </ion-label>
       </ion-item>
     </ion-card>
+    <br>
+    <div>
 
-    <ion-label style="padding-left: 20px;padding-top: 20px;">
-      Total de Citas en el reporte: {{Citas.length}}
-    </ion-label>
+      <ion-label style="padding-left: 20px;padding-top: 20px;">
+        Total de Citas en el reporte: {{Citas.length}}
+      </ion-label>
+      <div style="padding-top: 15px; text-align: right;padding-right: 25px;" >
+        <ion-button [disabled]="desbloquearboton" shape="round" class="botongenerar" (click)="pdf()">Descargar
+          PDF</ion-button>
+      </div>
+
+    </div>
   </div>
-<!-- 
+  <!-- 
   <pdf-viewer [src]="pdfObj" [render-text]="true" [original-size]="false"
     style="width: 400px; height: 500px"></pdf-viewer>-->
 
-</ion-content>  
+</ion-content>
