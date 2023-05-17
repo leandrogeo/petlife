@@ -27,6 +27,7 @@
     "@capacitor/keyboard": "4.1.0",
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^6.1.9",
+    "@ionic/cli": "^7.1.1",
     "firebase": "9.9.1",
     "html2canvas": "^1.4.1",
     "ionicons": "^6.0.3",
