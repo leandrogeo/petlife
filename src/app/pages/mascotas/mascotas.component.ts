@@ -37,10 +37,7 @@ export class MascotasComponent implements OnInit {
   async getProductos(id: string) {
     const path = 'Usuarios/' + id + '/Mascotas/';
     this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
-      console.log('producot res')
-      console.log(path)
       this.productos = res;
-      console.log(res)
       if (res.length == 0) {
         this.listallena = false;
       } else {

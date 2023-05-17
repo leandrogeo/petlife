@@ -27,8 +27,6 @@ export class CitasComponent implements OnInit {
       if (res !== null) {
         this.uid = res.uid
         this.getProductos(res.uid);
-        //this.getCitasNuevos(res.uid)
-        // console.log("cita")
       } else {
 
       }
@@ -87,7 +85,6 @@ export class CitasComponent implements OnInit {
   };
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
@@ -112,7 +109,6 @@ export class CitasComponent implements OnInit {
     }
     this.mascotaescogido = undefined
     this.mascota = '0'
-    console.log("nuevo")
   }
 
   async getProductos(id) {
@@ -141,7 +137,6 @@ export class CitasComponent implements OnInit {
             // this.citas.fotomascota_cita=this.mascotaescogido.foto
             //this.citas.nombremascota='dasfas'
             this.nombremasct=this.mascotaescogido.nombredelamascota
-            console.log('nombre ' + this.nombremasct)
             this.citas.namepet = this.mascotaescogido.nombredelamascota 
             this.citas.foto_cita = this.mascotaescogido.foto
             this.citas.id_mascotacita = this.mascotaescogido.id
@@ -202,8 +197,6 @@ export class CitasComponent implements OnInit {
     const path = 'Citas';
     this.firestoreservice.getCollectionCitas<Citas>(path).subscribe(res => {
       this.citastotales = res;
-      console.log("si 1")
-      console.log(this.citastotales)
     })
   }
 

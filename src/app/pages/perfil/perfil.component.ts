@@ -63,7 +63,7 @@ export class PerfilComponent implements OnInit {
       nombre: '',
       admin: false
     };
-    console.log(this.usuario);
+
   }
 
   cambiodeicono() {
@@ -72,7 +72,6 @@ export class PerfilComponent implements OnInit {
   }
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
@@ -173,7 +172,6 @@ export class PerfilComponent implements OnInit {
     const path = 'Usuarios';
     const name = this.usuario.nombre;
     this.firestoreService.createDoc(this.usuario, path, this.usuario.uid).then(res => {
-      console.log('guardado con exito');
     }).catch(error => {
     });
   }

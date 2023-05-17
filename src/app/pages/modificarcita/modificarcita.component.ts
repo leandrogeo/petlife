@@ -55,7 +55,6 @@ export class ModificarcitaComponent  implements OnInit {
   }
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
@@ -107,15 +106,12 @@ export class ModificarcitaComponent  implements OnInit {
   }
 
   async getCitasAtendidas(id) {
-    console.log('citas atendidas');
     const path = 'Citas';
     this.firestoreservice.getCollectionAll2<Citas>(path, 'id_cita', '==', id).subscribe(res => {
       if (res.length) {
         this.cita= res
         this.citas=this.cita[0]
       } 
-      console.log('cita')
-      console.log(this.citas)
     });
   }
 

@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
 
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 

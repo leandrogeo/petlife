@@ -33,8 +33,6 @@ export class CarnetComponent implements OnInit {
         if (res !== null) {
           this.uid = res.uid
           this.getProductos(res.uid);
-          //this.getCitasNuevos(res.uid)
-         // console.log("cita")
         } else {
   
         }
@@ -44,7 +42,6 @@ export class CarnetComponent implements OnInit {
   ngOnInit() {}
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
@@ -62,8 +59,6 @@ export class CarnetComponent implements OnInit {
   buscar(event){
     const buscar = event.target.value.toLowerCase();
     this.results=this.productos
-    console.log('sdaf')
-    console.log(this.results)
     if(buscar && buscar.trim() != ''){
       this.results=this.results.filter((productos:any)=>{
         return (productos.nombredelamascota.toLowerCase().indexOf(buscar.toLowerCase())>-1);

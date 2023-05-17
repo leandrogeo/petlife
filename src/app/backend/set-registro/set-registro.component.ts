@@ -60,13 +60,10 @@ export class SetRegistroComponent implements OnInit {
     this.getUsuarios();
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
-        console.log("constructor");
         this.uid = res.uid;
         this.getUserInfo(this.uid);
         this.path1 = 'Usuarios/' + this.uid + '/Mascotas/';
-      } else {
-        console.log(this.uid);
-      }
+      } 
     });
     
   }
@@ -87,12 +84,10 @@ export class SetRegistroComponent implements OnInit {
   }
 
   cambio(opcion) {
-    console.log(opcion)
     this.newProducto.sexo = this.opcion;
   }
 
   openMenu() {
-    console.log('open menu');
     this.menuController.toggle('principal');
   }
 
@@ -180,10 +175,7 @@ export class SetRegistroComponent implements OnInit {
   async getUsuarios() {
     const path = 'Usuarios';
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
-      console.log('usuarios res')
       this.usuarios = res;
-      console.log(res.length + this.valor)
-      console.log(this.valor)
       this.results = this.usuarios
       if (res.length == 0) {
         this.listallena = false;
@@ -197,7 +189,6 @@ export class SetRegistroComponent implements OnInit {
     const uid = await this.firebaseauthService.getUid();
 
     const path = 'Usuarios/' + producto.uidtutor + '/Mascotas/';
-    console.log('path  ' + path)
     const alert = await this.alertController.create({
       cssClass: 'normal',
       header: 'Advertencia',
@@ -208,13 +199,11 @@ export class SetRegistroComponent implements OnInit {
           role: 'cancel',
           cssClass: 'normal',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
             // this.alertController.dismiss();
           }
         }, {
           text: 'Ok',
           handler: () => {
-            console.log('Confirm Okay');
             this.firestoreService.deleteDoc(path, producto.id).then(res => {
               this.presentToast('eliminado con exito');
               this.alertController.dismiss();
@@ -284,8 +273,6 @@ export class SetRegistroComponent implements OnInit {
   buscar(event) {
     const buscar = event.target.value.toLowerCase();
     this.results = this.usuarios
-    console.log('sdaf')
-    console.log(this.results)
     if (buscar && buscar.trim() != '') {
       this.results = this.results.filter((usuarios: any) => {
         return (usuarios.nombre.toLowerCase().indexOf(buscar.toLowerCase()) > -1);

@@ -39,7 +39,6 @@ export class IngresoGuard implements CanActivate {
   }
 
   getUserInfo(uid: string) {
-    console.log('getUserInfo');
     const path = 'Usuarios';
     this.suscriberUserInfo = this.firestoreservice.getDoc<Usuario>(path, uid).subscribe(res => {
       if (res !== undefined) {

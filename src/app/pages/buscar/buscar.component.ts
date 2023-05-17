@@ -34,7 +34,6 @@ export class BuscarComponent implements OnInit {
   }
 
   openMenu() {
-    console.log('open menu');
     this.menuController.toggle('principal');
   }
 
@@ -44,8 +43,6 @@ export class BuscarComponent implements OnInit {
     this.results = this.usuarios
     if (buscar && buscar.trim() != '') {
       this.results = this.results.filter((usuarios: any) => {
-        console.log('sdaf')
-        console.log(this.results)
         return (usuarios.nombre.toLowerCase().indexOf(buscar.toLowerCase()) > -1);
 
       })
@@ -54,7 +51,6 @@ export class BuscarComponent implements OnInit {
 
   async getProductos() {
     const path = 'Usuarios/';
-    //console.log('uid> '+ this.path1)
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
       this.usuarios = res;
       this.results = this.usuarios

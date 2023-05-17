@@ -8,7 +8,6 @@ import { FirestorageService } from '../../services/firestorage.service';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { Usuario, Desp } from '../../models';
 import { Subscription } from 'rxjs';
-import { Console } from 'console';
 
 @Component({
   selector: 'app-perfilesmascotas',
@@ -71,7 +70,6 @@ export class PerfilesmascotasComponent implements OnInit {
     this.suscriberUserInfo = this.firestoreService.getDoc<Producto>(path2, id).subscribe(res => {
       if (res !== undefined) {
         this.mascota = res;
-        console.log(this.mascota);
       }
     });
   }
@@ -95,7 +93,6 @@ export class PerfilesmascotasComponent implements OnInit {
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Desparacitacion';
      this.firestoreservice.getCollection<Desp>(path).subscribe(res => {
       this.desparacitaciones = res;
-      console.log(res)
       if (res.length == 0) {
         this.listades = false;
       } else {
@@ -107,7 +104,6 @@ export class PerfilesmascotasComponent implements OnInit {
 
   getvacunas(uid:string,id:string) {
     this.listallena=false
-    console.log('vacunas')
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunacion';
     this.firestoreservice.getCollection<Vacunas>(path).subscribe(res => {
      this.vacunas = res; 
@@ -135,14 +131,12 @@ export class PerfilesmascotasComponent implements OnInit {
 
 
   async getCitasAtendidas(uid:string,id:string){
-    console.log("atendidas citas")
     const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
     
     this.atendidoSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'atendido').subscribe(res => {
       if (res.length) {
         this.Citas=res;
         this.listallena = true;
-        console.log(this.Citas)
       }else{
         this.listallena = false;
       }
@@ -154,15 +148,12 @@ export class PerfilesmascotasComponent implements OnInit {
   agendadosSuscriber: Subscription;
 
   async getCitasAgendadas(uid:string,id:string){
-    console.log("agendadas citas")
 
     const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
-    console.log("path "+ path)
     this.agendadosSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'agendado').subscribe(res => {
       if (res.length) {
         this.Citas=res;
         this.listallena = true;
-        console.log(this.Citas)
       }else{
         this.listallena = false;
       }

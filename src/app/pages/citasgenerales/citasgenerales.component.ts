@@ -42,7 +42,6 @@ export class CitasgeneralesComponent implements OnInit {
   ngOnInit() { }
 
   openMenu() {
-    console.log('open menu');
     this.menuController.toggle('principal');
   }
 
@@ -66,7 +65,6 @@ export class CitasgeneralesComponent implements OnInit {
   }
 
   async getCitasAtendidas() {
-    console.log('citas atendidas');
     const path = 'Citas';
     this.atendidoSuscriber = this.firestoreservice.getCollectionAll2<Citas>(path, 'estadodelacita', '==', 'atendido').subscribe(res => {
       if (res.length) {
@@ -80,7 +78,6 @@ export class CitasgeneralesComponent implements OnInit {
   }
 
   async getCitasagendados() {
-    console.log('citas agendados');
     const path = 'Citas';
     this.agendadosSuscriber = this.firestoreservice.getCollectionAll2<Citas>(path, 'estadodelacita', '==', 'agendado').subscribe(res => {
       if (res.length) {
@@ -95,7 +92,6 @@ export class CitasgeneralesComponent implements OnInit {
   }
 
   async getCitascanceladas() {
-    console.log('citas canceladas');
     const path = 'Citas';
     this.canceladosSuscriber = this.firestoreservice.getCollectionAll2<Citas>(path, 'estadodelacita', '==', 'cancelado').subscribe(res => {
       if (res.length) {

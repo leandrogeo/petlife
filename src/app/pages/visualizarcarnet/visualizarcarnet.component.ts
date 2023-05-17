@@ -103,7 +103,6 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
   //PROCESO DE CONSULTAO DE VACUNAS
   getvacunas(uid:string,id:string) {
     this.listallena=false;
-    console.log('vacunas')
     const path = 'Usuarios/' + uid + '/Mascotas/'+id+'/Vacunacion';
     this.firestoreservice.getCollection<Vacunas>(path).subscribe(res => {
      this.vacunas = res;
@@ -133,14 +132,12 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
 
 
   async getCitasAtendidas(uid:string,id:string){
-    console.log("atendidas citas")
     const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
     
     this.atendidoSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'atendido').subscribe(res => {
       if (res.length) {
         this.Citas=res;
         this.listallena = true;
-        console.log(this.Citas)
       }else{
         this.listallena = false;
       }
@@ -149,15 +146,12 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
   }
 
   async getCitasAgendadas(uid:string,id:string){
-    console.log("agendadas citas")
 
     const path = 'Usuarios/' + uid + '/Mascotas/' + id + '/Citas';
-    console.log("path "+ path)
     this.agendadosSuscriber = this.firestoreservice.getCollectionQuery<Citas>(path, 'estadodelacita', '==', 'agendado').subscribe(res => {
       if (res.length) {
         this.Citas=res;
         this.listallena = true;
-        console.log(this.Citas)
       }else{
         this.listallena = false;
       }

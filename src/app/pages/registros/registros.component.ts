@@ -94,12 +94,9 @@ export class RegistrosComponent implements OnInit {
   ngOnInit() {
     const fecha = new Date();
      this.fechaComoCadena = fecha.toISOString();
-    console.log('fecha')
-    console.log(this.fechaComoCadena)
   }
 
   openMenu() {
-    console.log('open menu');
     this.menucontroller.toggle('principal');
   }
 
@@ -114,10 +111,7 @@ export class RegistrosComponent implements OnInit {
   async getProductos(id: string) {
     const path = 'Usuarios/' + id + '/Mascotas/';
     this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
-      console.log('producot res')
-      console.log(path)
       this.productos = res;
-      console.log(res)
       if (res.length == 0) {
         console.log('no hay mascota')
       }
@@ -127,9 +121,7 @@ export class RegistrosComponent implements OnInit {
   async getUsuarios() {
     const path = 'Usuarios';
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
-      console.log('usuarios res')
       this.usuarios = res;
-      console.log(res)
       if (res.length == 0) {
       }
     });
@@ -160,8 +152,6 @@ export class RegistrosComponent implements OnInit {
       if (this.desparacitacion.peso_des != '') {
         if (this.desparacitacion.producto_des != '') {
           this.presentLoading();
-          console.log('ususario')
-          console.log(this.usuarioescogido.uid)
           const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
           this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
             this.loading.dismiss();
@@ -199,18 +189,7 @@ export class RegistrosComponent implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
-    }/*
-    this.presentLoading();
-    console.log('ususario')
-    console.log(this.usuarioescogido.uid)
-    const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
-    this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
-      this.loading.dismiss();
-      this.presentToast('Guardo con exito');
-    }).catch(error => {
-      this.presentToast('No se pude guardar');
-    });
-    this.nuevo()*/
+    }
   }
 
   async setvac() {
@@ -219,8 +198,6 @@ export class RegistrosComponent implements OnInit {
       if (this.vacunacion.peso_vac != '') {
         if (this.vacunacion.vacunas != '') {
           this.presentLoading();
-          console.log('ususario')
-          console.log(this.usuarioescogido.uid)
           const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Vacunacion';
           this.firestoreservice.createDoc(this.vacunacion, path, this.vacunacion.id_vac).then(res => {
             this.loading.dismiss();
@@ -282,8 +259,6 @@ export class RegistrosComponent implements OnInit {
           this.citas.id_mascotacita = this.mascotaescogido.id
           this.citas.idtutor_cita = this.usuarioescogido.uid
           this.citas.namepet = this.mascotaescogido.nombredelamascota
-          console.log('ususario')
-          console.log(this.usuarioescogido.uid)
           const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
           this.firestoreservice.createDoc(this.citas, path, this.citas.id_cita).then(res => {
             this.loading.dismiss();

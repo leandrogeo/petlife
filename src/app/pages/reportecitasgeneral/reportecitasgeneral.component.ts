@@ -56,15 +56,12 @@ export class ReportecitasgeneralComponent implements OnInit {
   }
 
   generarpdf() {
-    console.log('desde ' + this.desde)
-    console.log('hasta ' + this.hasta)
     this.data=[['Codigo', 'Nombre de la mascota', 'Fecha', 'Motivo', 'Diagnostico', 'Estado de la cita'],];
     const path = 'Citas';
 
     try {
       this.firestoreservice.getCollectioncitasreporte<Citas>(path, 'fecha_cita', '>=', this.desde, 'fecha_cita', '<=', this.hasta).subscribe(res => {
         this.Citas = res;
-        console.log(this.Citas)
         for (var i = 0; i <= this.Citas.length - 1; i++) {
           this.info = [this.Citas[i]['id_cita'], this.Citas[i]['namepet'],this.appaoutingaodule.cambiarfechageneral(this.Citas[i]['fecha_cita']) , this.Citas[i]['motivo_cita'], this.Citas[i]['diagnostico'], this.Citas[i]['estadodelacita']]
 
@@ -72,13 +69,8 @@ export class ReportecitasgeneralComponent implements OnInit {
           this.info = ''
           //this.data[i+1][1] = this.Citas[0]['diagnostico']
         };
-        console.log('this.data')
-        console.log(this.data)
       });
 
-
-      console.log('data')
-      console.log(this.data)
       this.mostrarreporte = true;
     } catch (error) {
       alert(error);

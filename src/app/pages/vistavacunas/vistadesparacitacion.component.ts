@@ -42,15 +42,12 @@ export class VistadesparacitacionComponent implements OnInit {
     this.getvacuna();
     this.getmas();
     if (this.platform.is('ipad')) {
-      console.log('IPAD');
       this.largo = 325;
       this.ancho = 575;
     } else if (this.platform.is('desktop')) {
-      console.log('escritorio');
       this.largo = 325;
       this.ancho = 575;
     } else if (this.platform.is('android') || this.platform.is('ios')) {
-      console.log('celular');
       this.largo = 525;
       this.ancho = 400;
     }
