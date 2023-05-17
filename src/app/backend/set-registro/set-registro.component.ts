@@ -26,7 +26,7 @@ export class SetRegistroComponent implements OnInit {
     nombre: '',
     admin: false
   };
-
+  idaccording: string
   suscriberUserInfo: Subscription;
   productos: Producto[] = [];
   listallena = true;
@@ -34,7 +34,7 @@ export class SetRegistroComponent implements OnInit {
   enableNewProducto = false;
   //private path = 'Mascotas/';
   newFile: any;
-  loading: any;
+  loading: HTMLIonLoadingElement;
   uid = '';
   private path1 = "";
   opcion: string;
@@ -56,16 +56,16 @@ export class SetRegistroComponent implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     public firestorageservice: FirestorageService,
-    ) {
+  ) {
     this.getUsuarios();
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
         this.uid = res.uid;
         this.getUserInfo(this.uid);
         this.path1 = 'Usuarios/' + this.uid + '/Mascotas/';
-      } 
+      }
     });
-    
+
   }
 
 
@@ -85,6 +85,7 @@ export class SetRegistroComponent implements OnInit {
 
   cambio(opcion) {
     this.newProducto.sexo = this.opcion;
+    console.log(this.idaccording)
   }
 
   openMenu() {
@@ -92,7 +93,7 @@ export class SetRegistroComponent implements OnInit {
   }
 
   async guardarProducto() {
-   
+
     if (this.nomusuescogido == undefined || this.nomusuescogido == '0') {
       this.pathguardar = 'Usuarios/' + this.newProducto.uidtutor + '/Mascotas/';
     } else {
@@ -101,9 +102,9 @@ export class SetRegistroComponent implements OnInit {
       this.newProducto.uidtutor = this.usuarioescogido.uid
       this.pathguardar = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/';
     }
-    if(this.newProducto.nombredelamascota != ''){
-      if(this.newProducto.tutor != ''){
-        if(this.newProducto.especie != ''){
+    if (this.newProducto.nombredelamascota != '') {
+      if (this.newProducto.tutor != '') {
+        if (this.newProducto.especie != '') {
           this.presentLoading();
           const name = this.newProducto.nombredelamascota;
           if (this.newFile !== undefined) {
@@ -111,35 +112,36 @@ export class SetRegistroComponent implements OnInit {
             this.newProducto.foto = res;
           }
           this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
-            this.loading.dismiss();
-            this.presentToast('Guardo con exito');
             this.nuevo();
             this.enableNewProducto = false
+            console.log(this.loading)
+            this.loading.dismiss();
+            this.presentToast('Guardo con exito');
           }).catch(error => {
             this.presentToast('No se pude guardar');
           });
-        }else{
+        } else {
           const alert = this.alertController.create({
             //cssClass: 'my-custom-class',
             header: 'Fallo al registra mascota',
             message: 'Por favor ingresar la rasa de la mascota',
             buttons: ['OK']
           });
-    
+
           (await alert).present();
         }
-      }else{
+      } else {
         const alert = this.alertController.create({
           //cssClass: 'my-custom-class',
           header: 'Fallo al registra mascota',
           message: 'Por favor escoja un tutor',
           buttons: ['OK']
         });
-  
+
         (await alert).present();
       }
 
-    }else{
+    } else {
       const alert = this.alertController.create({
         //cssClass: 'my-custom-class',
         header: 'Fallo al registra mascota',
@@ -151,27 +153,28 @@ export class SetRegistroComponent implements OnInit {
     }
 
 
-
-
-
-
-    
   }
 
   //Revisra en el buscar usuarios
   async getProductos(id: string) {
+    
     const path = 'Usuarios/' + id + '/Mascotas/';
     this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
+
       this.productos = res;
       if (res.length == 0) {
         this.listallena = false;
       } else {
         this.listallena = true;
       }
-
+      console.log('antes del dismiss')
+      console.log(this.loading)
+      this.loading.dismiss();
+      console.log('despues del dismiss')
     });
   }
-  //OPTENER LISTA DE USUARIOS PARA 
+
+  //OPTENER LISTA DE USUARIOS PARA mostrara abajo
   async getUsuarios() {
     const path = 'Usuarios';
     this.firestoreservice.getCollection<Usuario>(path).subscribe(res => {
@@ -238,10 +241,12 @@ export class SetRegistroComponent implements OnInit {
 
   async presentLoading() {
     this.loading = await this.loadingController.create({
-      cssClass: 'normal',
-      message: 'guardando...',
+      message: 'Cargando datos...', // Mensaje que se muestra durante la carga
+      spinner: 'crescent', // Tipo de spinner de carga
+      translucent: true, // Hace que el fondo sea semi-transparente
+      backdropDismiss: true
     });
-    await this.loading.present();
+    return this.loading.present();
   }
 
   async presentToast(msg: string) {
@@ -267,7 +272,7 @@ export class SetRegistroComponent implements OnInit {
 
   cambiousu(opcion) {
     this.usuarioescogido = this.usuarios.find(persona => persona.nombre === opcion)
-    this.getProductos(this.usuarioescogido.uid);
+    //this.getProductos(this.usuarioescogido.uid);
   }
 
   buscar(event) {
@@ -279,6 +284,17 @@ export class SetRegistroComponent implements OnInit {
 
       })
     }
+  }
+
+  onClick(event, usu) {
+    const expanded = event.detail.value; // Obtiene el valor de expansión (true/false)
+    if (expanded != undefined) {
+      console.log('antes del get loadign')
+      this.presentLoading();
+      
+      this.getProductos(usu)
+    }
+
   }
 
 }
