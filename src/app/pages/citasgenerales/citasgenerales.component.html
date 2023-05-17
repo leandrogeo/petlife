@@ -30,9 +30,9 @@
       </div>
 
       <div *ngIf="listaagendada" style="padding-top: 5px;" >
-        <ion-list *ngFor="let cita of Citasagendadas" [routerLink]="['/modificarcitas/'+ cita.id_cita]" >
+        <ion-list *ngFor="let cita of Citasagendadas"  >
           <app-vistacitas [cit]="cita"></app-vistacitas>
-        </ion-list>
+        </ion-list> 
       </div>
     </div>
 

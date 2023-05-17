@@ -17,7 +17,7 @@ import { ModificarcitaComponent } from './pages/modificarcita/modificarcita.comp
 import { ReportecitasgeneralComponent } from './pages/reportecitasgeneral/reportecitasgeneral.component';
 import { VistadesparacitacionComponent } from './pages/vistavacunas/vistadesparacitacion.component';
 import { VistadesComponent } from './pages/vistades/vistades.component';
-
+import { DatePipe } from '@angular/common';
 const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
 
 const routes: Routes = [ 
@@ -59,4 +59,11 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  cambiarfechageneral(fecha){
+    const datePipe = new DatePipe('en-US');
+    let fechaFormateada = datePipe.transform(fecha, 'dd/MM/yyyy');
+
+    return fechaFormateada
+  }
+}

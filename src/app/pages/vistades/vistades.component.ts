@@ -1,10 +1,10 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Desp } from 'src/app/models';
+import { Desp, Producto } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import html2canvas from 'html2canvas';
 import pdfMake from "pdfmake/build/pdfmake";
-import { Vacunas } from '../../models';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -12,11 +12,12 @@ import { Vacunas } from '../../models';
   templateUrl: './vistades.component.html',
   styleUrls: ['./vistades.component.scss'],
 })
-export class VistadesComponent implements OnInit, AfterViewInit {
+export class VistadesComponent implements OnInit {
 
   constructor(
     private activateroute: ActivatedRoute,
-    public firestoreservice: FirestoreService
+    public firestoreservice: FirestoreService,
+    private platform: Platform,
   ) { }
   uid: string;
   idmascota: string;
@@ -30,12 +31,33 @@ export class VistadesComponent implements OnInit, AfterViewInit {
     proxi_des: '',
   }
   pdfObj: any;
-
+  largo = 300;
+  ancho = 525;
+  docDef: any
+  nommasc:string
   ngOnInit() {
     this.uid = this.activateroute.snapshot.paramMap.get('uid')
     this.idmascota = this.activateroute.snapshot.paramMap.get('idmas')
     this.iddes = this.activateroute.snapshot.paramMap.get('iddes')
-    this.getdespa();
+    this.getdespa(); 
+    this.getmas();
+
+    if (this.platform.is('ipad')) {
+      console.log('IPAD');
+      this.largo = 325;
+      this.ancho = 575;
+    } else if (this.platform.is('desktop')) {
+      console.log('escritorio');
+      this.largo = 325;
+      this.ancho = 575;
+    } else if (this.platform.is('android') || this.platform.is('ios')) {
+      console.log('celular');
+      this.largo = 525;
+      this.ancho = 400;
+    }
+    else {
+      console.log('Estás en una plataforma desconocida');
+    }
   }
 
 
@@ -49,89 +71,50 @@ export class VistadesComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getmas() {
+    const path = 'Usuarios/' + this.uid + '/Mascotas/' ;
+    this.firestoreservice.getDoc<Producto>(path, this.idmascota).subscribe(res => {
+      if (res !== undefined) {
+        this.nommasc = res.nombredelamascota;
+      }
+    });
+  }
+
 
   pdf() {
-
-    try {
-      const cardElement = document.getElementById('myCard')
-      html2canvas(cardElement).then(canvas => {
-        // Convierte el lienzo capturado a una imagen en base64
-        const base64Image = canvas.toDataURL();
-
-        // Imprime la representación en base64 de la imagen en la consola
-        // console.log(base64Image);
-
-        // Puedes utilizar la imagen en base64 como desees, por ejemplo, asignarla a una variable en tu componente o mostrarla en una etiqueta de imagen en tu HTML.
-        // Ejemplo: Asignarla a una variable en el componente
-        this.base64Image = base64Image;
-      });
+    const cardElement = document.getElementById('myCard')
+    html2canvas(cardElement).then(canvas => {
+      const base64Image = canvas.toDataURL();
+      this.base64Image = base64Image;
       const docDef = {
         pageSize: 'A4',
         pageOrientation: 'portait',
-        pageMargins: [20, 10, 40, 60],
         content: [
           {
+            text: 'Desparacitacion de: '+ this.nommasc,style: 'header'
+          },
+          {
             image: this.base64Image,
-            width: 600,
-            height: 500,
+            width: this.ancho,
+            height:this.largo,
             alignment: 'center',
           },
         ],
+        styles: {
+          header: {
+            fontSize: 20,
+            bold: true,
+            margin: [0, 10, 0, 0],
+            alignment: 'center',
+          },
+        }
       }
 
       this.pdfObj = pdfMake.createPdf(docDef);
       this.pdfObj.download('Desparacitacion: ' + this.despa.id_des);
+    });
 
-
-    } catch (error) {
-      alert(error)
-    }
-
-
-    /*const directory = this.file.externalDataDirectory;
-
-    console.log('Directorio de almacenamiento:', directory);
-    const cardElement = document.getElementById('id-del-ion-card'); // Reemplaza 'id-del-ion-card' con el ID real de tu ion-card
-
-    html2canvas(cardElement).then(canvas => {
-      const imageData = canvas.toDataURL();
-
-      // Obtén el directorio de almacenamiento adecuado según la plataforma
-      const directory = this.file.externalDataDirectory; // Para Android
-
-      // Genera un nombre de archivo único
-      const fileName = 'imagen_capturada.png';
-
-      // Escribe la imagen en el archivo local
-      this.file.writeFile(directory, fileName, imageData, { replace: true })
-        .then(() => {
-          console.log('Imagen guardada exitosamente.');
-        })
-        .catch(err => {
-          console.error('Error al guardar la imagen:', err);
-        });
-    });*/
 
   }
-
-  ngAfterViewInit() {
-    /*const cardElement = document.getElementById('myCard');
-    const cardContent = cardElement.innerHTML;
-
-    // Imprime el contenido del ion-card en la consola
-    console.log(cardContent);
-
-    // Crea un nuevo elemento y establece el contenido del ion-card capturado
-    const newCardElement = document.createElement('div');
-    newCardElement.innerHTML = cardContent;
-
-    // Agrega el nuevo elemento al DOM
-    const containerElement = document.getElementById('container');
-    containerElement.appendChild(newCardElement);
-*/
-  }
-
-
-
 
 }

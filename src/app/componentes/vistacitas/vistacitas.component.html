@@ -1,36 +1,42 @@
 <ion-card style="padding-top: 10px;" >
 
+  <div [routerLink]="['/modificarcitas/'+ cit.id_cita]">
+    <ion-item  style=" font-size: 20px, "   >
+      <img slot="start"  class="image" [src]="cit.foto_cita" height="75" width="75" style="border-radius: 50%; padding: 5px;">
   
-  <ion-item  style=" font-size: 20px, "   >
-    <img slot="start"  class="image" [src]="cit.foto_cita" height="75" width="75" style="border-radius: 50%; padding: 5px;">
-
-    <div  style="font-size: 20px;font-weight: bold;padding-left: 2%; ">
-      {{cit.namepet}} 
-    </div>
+      <div  style="font-size: 20px;font-weight: bold;padding-left: 2%; ">
+        {{cit.namepet}} 
+      </div>
+      
+      <ion-icon *ngIf="cit.estadodelacita === 'agendado'" slot="end" style="color:gray" class="iconos" name="time-outline"></ion-icon>
+      <ion-icon *ngIf="cit.estadodelacita === 'atendido'" slot="end" style="color: green" name="checkmark-circle-outline"></ion-icon>
+      <ion-icon *ngIf="cit.estadodelacita === 'cancelado'" slot="end" style="color: red" name="trash-bin-outline"></ion-icon>
+    </ion-item>
     
-    <ion-icon *ngIf="cit.estadodelacita === 'agendado'" slot="end" style="color:gray" class="iconos" name="time-outline"></ion-icon>
-    <ion-icon *ngIf="cit.estadodelacita === 'atendido'" slot="end" style="color: green" name="checkmark-circle-outline"></ion-icon>
-    <ion-icon *ngIf="cit.estadodelacita === 'cancelado'" slot="end" style="color: red" name="trash-bin-outline"></ion-icon>
-  </ion-item>
-  
-  
-  <ion-item style=" font-size:15px;text-align: center; ">
-    <div class="normal">
-      Fecha: 
-    </div>
-    <div style="font-size: 16px; padding-left: 2px;">
-      {{cit.fecha_cita | date:'dd-MM-yyyy' }}
-    </div>
-
-    <div class="normal" style=" padding-left: 15%;">
-      Hora: 
-    </div>
-    <div style="font-size: 16px; padding-left: 5px;">
-      {{cit.fecha_cita | date:' HH:mm' }}
-    </div>
     
-  </ion-item> 
+    <ion-item style=" font-size:15px;text-align: center; ">
+      <div class="normal">
+        Fecha: 
+      </div>
+      <div style="font-size: 16px; padding-left: 2px;">
+        {{cit.fecha_cita | date:'dd-MM-yyyy' }}
+      </div>
   
+      <div class="normal" style=" padding-left: 15%;">
+        Hora: 
+      </div>
+      <div style="font-size: 16px; padding-left: 5px;">
+        {{cit.fecha_cita | date:' HH:mm' }}
+      </div>
+      
+    </ion-item> 
+    
+    
+    <ion-item style="font-weight :100; font-size:14px; margin-bottom: 10px;">
+      id: {{cit.id_cita }}
+    </ion-item>
+  </div>
+
   <ion-item style="height: 100%; width: 100%;" *ngIf="admin===true">
     <ion-label>Estado de la cita</ion-label>
     <ion-select slot="end" #valor required (ionChange)="cambioest(cit,valor)" [value]="cit.estadodelacita"
@@ -38,7 +44,7 @@
       <ion-select-option *ngFor="let estado of estados" [value]="estado">{{estado}}</ion-select-option>
     </ion-select>
   </ion-item>
-
+  
   <ion-item style="height: 100%; width: 100%;" *ngIf="admin===false" class="normal">
     <ion-label class="normal">Estado de la cita</ion-label>
     <ion-select disabled="true" slot="end" #valor required (ionChange)="cambioest(cit,valor)" [value]="cit.estadodelacita"
@@ -47,11 +53,7 @@
     </ion-select>
   </ion-item>
   
-  <ion-item style="font-weight :100; font-size:14px; margin-bottom: 10px;">
-    id: {{cit.id_cita }}
-  </ion-item>
-
-  
 </ion-card>
+
 
 

@@ -1,4 +1,4 @@
-<ion-header>
+it config --global user.name "Nombre Usuario"<ion-header>
   <ion-toolbar>
     <ion-title class="subtitulo ion-text-wrap">
       Vacuna
@@ -8,37 +8,58 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+ 
 <ion-content>
-  <ion-card>
+
+  <ion-card id="myCard">
     <div style="padding: 15px; text-align: center; ">
       <img style="height: 200px;" src="assets/imagenes/logo.jpg">
     </div>
     <ion-label style="padding-left: 20px;padding-top: 20px;">
       ID: {{vacuna.id_vac}}
     </ion-label>
-    <ion-item style="text-align: center;">
-      <ion-label class="normal1" >
-        Fecha: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{vacuna.fecha_vac | date:'dd-MM-yyyy'}}</ion-input>
-  
-      <ion-label class="normal1" >
-        Proxima vacuna: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{vacuna.proxi_vac | date:'dd-MM-yyyy'}}</ion-input>
-  
-      <ion-label class="normal1" >
-        Peso: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{vacuna.peso_vac}} KG</ion-input>
-    </ion-item>
+    <ion-grid>
+      
+      <ion-row style="text-align: center;">
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Fecha:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" > {{vacuna.fecha_vac | date:'dd-MM-yyyy'}}</ion-label>
+        </ion-col>
 
-      <ion-item>
-        <ion-label class="normal1">
-         Vacunas aplicadas:
-        </ion-label>
-        <ion-textarea [(ngModel)]="vacuna.vacunas" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
-      </ion-item>
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Proxima vacuna:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" >{{vacuna.proxi_vac | date:'dd-MM-yyyy'}}</ion-label>
+        </ion-col>
+
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Peso:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" > {{vacuna.peso_vac}} KG</ion-label>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="borde">
+        <ion-col style="text-align: center;">
+          <ion-label class="normal1">
+            Vacunas aplicadas:
+          </ion-label>
+          <br>
+          <ion-label class="texto1">{{vacuna.vacunas}}</ion-label>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card>
+  <div style="padding-top: 15px; text-align: right;padding-right: 25px;">
+    <ion-button shape="round" class="botongenerar" (click)="pdf()">Descargar
+      PDF</ion-button>
+  </div>
 </ion-content>

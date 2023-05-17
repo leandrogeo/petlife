@@ -4,46 +4,62 @@
       Desparacitacion
     </ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="buscar" > </ion-back-button>
+      <ion-back-button defaultHref="buscar"> </ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-card id="myCard"> 
+  <ion-card id="myCard">
     <div style="padding: 15px; text-align: center; ">
       <img style="height: 200px;" src="assets/imagenes/logo.jpg">
     </div>
     <ion-label style="padding-left: 20px;padding-top: 20px;">
       ID: {{despa.id_des}}
     </ion-label>
-    <ion-item style="text-align: center;">
-      <ion-label class="normal1" >
-        Fecha: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{despa.fecha_des| date:'dd-MM-yyyy'}}</ion-input>
-  
-      <ion-label class="normal1" >
-        Proxima desparacitacion: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{despa.proxi_des| date:'dd-MM-yyyy'}}</ion-input>
-  
-      <ion-label class="normal1" >
-        Peso: 
-      </ion-label>
-      <ion-input class="texto" type="text"> {{despa.peso_des }} KG</ion-input>
-    </ion-item>
+    <ion-grid>
+      
+      <ion-row style="text-align: center;">
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Fecha:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" > {{despa.fecha_des| date:'dd-MM-yyyy'}}</ion-label>
+        </ion-col>
 
-      <ion-item>
-        <ion-label class="normal1">
-         Productos aplicadas:
-        </ion-label>
-        <ion-textarea [(ngModel)]="despa.producto_des" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
-      </ion-item>
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Proxima desparacitacion:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" > {{despa.proxi_des| date:'dd-MM-yyyy'}}</ion-label>
+        </ion-col>
+
+        <ion-col class="borde">
+          <ion-label class="normal1">
+            Peso:
+          </ion-label>
+          <br>
+          <ion-label class="texto1" > {{despa.peso_des }} KG</ion-label>
+        </ion-col>
+
+      </ion-row>
+      <ion-row class="borde">
+        <ion-col style="text-align: center;">
+          <ion-label class="normal1">
+            Productos aplicadas:
+          </ion-label>
+          <br>
+          <ion-label class="texto1">{{despa.producto_des}}</ion-label>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
   </ion-card>
-  <div style="padding-top: 15px; text-align: right;padding-right: 25px;" >
+  <div style="padding-top: 15px; text-align: right;padding-right: 25px;">
     <ion-button shape="round" class="botongenerar" (click)="pdf()">Descargar
       PDF</ion-button>
   </div>
-  <div id="container"></div>
 </ion-content>

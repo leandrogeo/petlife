@@ -33,7 +33,6 @@ export class SetRegistroComponent implements OnInit {
   newProducto: Producto;
   enableNewProducto = false;
   //private path = 'Mascotas/';
-  newImage = '';
   newFile: any;
   loading: any;
   uid = '';
@@ -46,7 +45,7 @@ export class SetRegistroComponent implements OnInit {
   public results = [...this.usuarios];
   segmascotas = false;
   valor = 0
-  pathguardar=''
+  pathguardar = ''
 
   constructor(
     public menuController: MenuController,
@@ -56,7 +55,8 @@ export class SetRegistroComponent implements OnInit {
     public loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
-    public firestorageservice: FirestorageService) {
+    public firestorageservice: FirestorageService,
+    ) {
     this.getUsuarios();
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
@@ -68,15 +68,13 @@ export class SetRegistroComponent implements OnInit {
         console.log(this.uid);
       }
     });
+    
   }
 
 
   async ngOnInit() {
     const uid1 = await this.firebaseauthService.getUid();
     const path = 'Usuarios/' + uid1 + '/Mascotas/';
-    console.log('isinit ' + path)
-
-
   }
 
   getUserInfo(uid: string) {
@@ -99,34 +97,70 @@ export class SetRegistroComponent implements OnInit {
   }
 
   async guardarProducto() {
-    this.presentLoading();
-    if (this.nomusuescogido == undefined ||this.nomusuescogido == '0') {
+   
+    if (this.nomusuescogido == undefined || this.nomusuescogido == '0') {
       this.pathguardar = 'Usuarios/' + this.newProducto.uidtutor + '/Mascotas/';
     } else {
       this.newProducto.tutor = this.nomusuescogido
       this.newProducto.telefonotutor = this.usuarioescogido.celular
-      this.newProducto.uidtutor=this.usuarioescogido.uid
-      
+      this.newProducto.uidtutor = this.usuarioescogido.uid
       this.pathguardar = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/';
     }
-    console.log('tutoneprodcu ' + this.newProducto.tutor)
-    console.log('tutoescgodio ' + this.nomusuescogido)
-    console.log('path     ' + this.pathguardar)
+    if(this.newProducto.nombredelamascota != ''){
+      if(this.newProducto.tutor != ''){
+        if(this.newProducto.especie != ''){
+          this.presentLoading();
+          const name = this.newProducto.nombredelamascota;
+          if (this.newFile !== undefined) {
+            const res = await this.firestorageservice.uploadImage(this.newFile, this.pathguardar, name);
+            this.newProducto.foto = res;
+          }
+          this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
+            this.loading.dismiss();
+            this.presentToast('Guardo con exito');
+            this.nuevo();
+            this.enableNewProducto = false
+          }).catch(error => {
+            this.presentToast('No se pude guardar');
+          });
+        }else{
+          const alert = this.alertController.create({
+            //cssClass: 'my-custom-class',
+            header: 'Fallo al registra mascota',
+            message: 'Por favor ingresar la rasa de la mascota',
+            buttons: ['OK']
+          });
     
-    const name = this.newProducto.nombredelamascota;
+          (await alert).present();
+        }
+      }else{
+        const alert = this.alertController.create({
+          //cssClass: 'my-custom-class',
+          header: 'Fallo al registra mascota',
+          message: 'Por favor escoja un tutor',
+          buttons: ['OK']
+        });
+  
+        (await alert).present();
+      }
 
-    if (this.newFile !== undefined) {
-      const res = await this.firestorageservice.uploadImage(this.newFile,this.pathguardar, name);
-      this.newProducto.foto = res;
+    }else{
+      const alert = this.alertController.create({
+        //cssClass: 'my-custom-class',
+        header: 'Fallo al registra mascota',
+        message: 'Por favor completar el campo "Nombre de la mascota',
+        buttons: ['OK']
+      });
+
+      (await alert).present();
     }
-    this.firestoreservice.createDoc(this.newProducto,this.pathguardar, this.newProducto.id).then(res => {
-      this.loading.dismiss();
-      this.presentToast('Guardo con exito');
-      this.nuevo();
-      this.enableNewProducto = false
-    }).catch(error => {
-      this.presentToast('No se pude guardar');
-    });
+
+
+
+
+
+
+    
   }
 
   //Revisra en el buscar usuarios
@@ -205,8 +239,8 @@ export class SetRegistroComponent implements OnInit {
       especie: '',
       sexo: '',
       telefonotutor: '',
-      foto: 'htt',
-      uidtutor:'',
+      foto: 'https://m.media-amazon.com/images/I/31GcvQDgUHL._AC_.jpg',
+      uidtutor: '',
       id: this.firestoreService.getId(),
     };
     this.nomusuescogido = '0'

@@ -18,7 +18,7 @@
   </div>
 
 
-  <div *ngIf="enableNewProducto">
+  <div *ngIf="enableNewProducto" >
     <!-- boton para cerrar vista y guardar-->
     <ion-item>
       <ion-buttons slot="end">
@@ -103,14 +103,14 @@
       <ion-buttons slot="end">
         <ion-button>
           <label for="file-upload">
-            <ion-icon slot="icon-only" name="images"></ion-icon>
+            <ion-icon slot="icon-only" name="image-outline"></ion-icon>
           </label>
           <input (change)="newImageUpload($event)" id="file-upload" style="display: none" type="file" accept="image/*">
         </ion-button>
       </ion-buttons>
-    </ion-item>
-    <ion-item>
-      <img class="image" [src]="newProducto.foto">
+    </ion-item> 
+    <ion-item  >
+      <img class="img" [src]="newProducto.foto">
     </ion-item>
 
 
