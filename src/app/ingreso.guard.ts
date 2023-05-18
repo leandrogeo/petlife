@@ -25,36 +25,50 @@ export class IngresoGuard implements CanActivate {
   admin = false;
   constructor(
     public firebaseauthService: FirebaseauthService,
-    public firestoreservice: FirestoreService) 
-    {
-    this.firebaseauthService.stateAuth().subscribe(res => {
-      if (res !== null) {
-        this.uid = res.uid;
-        this.getUserInfo(this.uid);
-      } else {
-
-      }
-    });
+    public firestoreservice: FirestoreService) {
+    
 
   }
-
-  getUserInfo(uid: string) {
+  //OBETENGO LA INFORMACION DEL USUARIO CONECTADO
+  getUserInfo(uid: string, route: ActivatedRouteSnapshot): boolean {
     const path = 'Usuarios';
-    this.suscriberUserInfo = this.firestoreservice.getDoc<Usuario>(path, uid).subscribe(res => {
+    this.firestoreservice.getDoc<Usuario>(path, uid).subscribe(res => {
       if (res !== undefined) {
+        console.log(res)
         this.usuario = res;
+        this.admin = res.admin
+        console.log(this.admin)
+      } else {
+        console.log('nadaaaaa')
       }
     });
+    console.log(this.usuario.admin + ' === ' + route.data['role'])
+    if (this.usuario.admin == route.data['role']) {
+      console.log('nSI ES ADMIN')
+      return true;
+    } else {
+      console.log('no tiene acceso')
+      return false
+    }
   }
 
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.usuario.admin === true) {
-      this.admin = true;
-    }
-    return this.admin;
+    state: RouterStateSnapshot,
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    this.firebaseauthService.stateAuth().subscribe(res => {
+      if (res !== null) {
+        this.uid = res.uid
+        
+        return true;
+      } else {
+        console.log('nadie conectado')
+        return false;
+      }
+    });
+    return this.getUserInfo(this.uid, route);
+
   }
 
 }

@@ -46,7 +46,7 @@ const routes: Routes = [
  
   {path: 'carnet/:id',component:  VisualizarcarnetComponent },
   
-  {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent,canActivate:[IngresoGuard] },
+  {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent,data:{ role:'admin'},canActivate:[IngresoGuard] },
  
   {path: '',component:HomeComponent},
 

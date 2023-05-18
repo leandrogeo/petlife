@@ -8,6 +8,7 @@
           </ion-title>
         </ion-toolbar>
       </ion-header>
+      <!-- 7 BOTON DEL BUSCAR-->
 
       <!-- PRIMER BOTON DEL MENU-->
       <ion-content>
@@ -21,7 +22,7 @@
         </ion-menu-toggle>
 
         <!-- SEGUNDO BOTON DEL MENU-->
-        <ion-menu-toggle autoHide="false"  *ngIf="admin">
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/set-registro']">
             <ion-label>
               Registro de mascotas
@@ -31,7 +32,7 @@
         </ion-menu-toggle>
 
         <!-- Tercer BOTON DEL MENU PERFIL-->
-        <ion-menu-toggle autoHide="false">
+        <ion-menu-toggle autoHide="false" >
           <ion-item button="true" [routerLink]="['/perfil']">
             <ion-label>
               Perfil
@@ -42,7 +43,7 @@
 
 
         <!-- Cuarto BOTON DEL MENU REGISTROS MEDICOS-->
-        <ion-menu-toggle autoHide="false" *ngIf="admin">
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/registros']">
             <ion-label>
               Registro
@@ -53,7 +54,7 @@
 
 
         <!-- 5 BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false" *ngIf="admin">
+        <ion-menu-toggle autoHide="false"  *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/buscar']">
             <ion-label>
               Buscar
@@ -64,7 +65,7 @@
 
 
         <!-- 6 BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false" >
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/citas']">
             <ion-label>
               Agendar Citas
@@ -75,7 +76,7 @@
 
 
         <!-- 7 BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false" >
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/carnet']">
             <ion-label>
               Carnet
@@ -85,7 +86,7 @@
         </ion-menu-toggle>
 
         <!-- 8 BOTON DEL MENU REGISTROS MEDICOS-->
-        <ion-menu-toggle autoHide="false" *ngIf="admin">
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/citasge']">
             <ion-label>
               Citas Generales
@@ -93,14 +94,14 @@
             <ion-icon slot="end" class="iconos" name="document-text-outline"></ion-icon>
           </ion-item>
         </ion-menu-toggle>
-        <!-- 7 BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false" >
-          <ion-item button="true" [routerLink]="['/carnet']">
-            <ion-label>
-              Carnet
+        <!--Cerrar Sesioooooon-->
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
+          <div style="text-align: center ;padding-top: 20px;"> 
+            <ion-label button="true" (click)="onClick()" class="btn danger">
+              Cerrar sesión
+              <ion-icon color="danger" name="log-out-outline"></ion-icon>
             </ion-label>
-            <ion-icon slot="end" class="iconos" name="id-card-outline"></ion-icon>
-          </ion-item>
+          </div>
         </ion-menu-toggle>
 
       </ion-content>

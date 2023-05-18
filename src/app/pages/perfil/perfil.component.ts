@@ -63,7 +63,6 @@ export class PerfilComponent implements OnInit {
   }
 
   async ngOnInit() {
-    const uid = await this.firebaseauthService.getUid();
   }
 
   initCliente() {
@@ -210,7 +209,6 @@ export class PerfilComponent implements OnInit {
       password: this.usuario.contrasenia,
     };
     this.firebaseauthService.login(credenciales.email, credenciales.password).then(res => {
-      console.log('res', res);
       if (res !== undefined) {
         this.presentToast('Bienvenido');
         this.router.navigate(['/home']);
