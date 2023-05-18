@@ -19,7 +19,7 @@ export class IngresoGuard implements CanActivate {
     celular: '',
     direccion: '',
     nombre: '',
-    admin: false
+    admin: false,
   };
 
   admin = false;
@@ -55,8 +55,6 @@ export class IngresoGuard implements CanActivate {
       this.admin = true;
     }
     return this.admin;
-
-
   }
 
 }

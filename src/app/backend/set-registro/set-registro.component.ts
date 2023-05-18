@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { stringify } from 'querystring';
 import { Producto } from 'src/app/models';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { Usuario } from '../../models';
 import { Subscription } from 'rxjs';
-import { Console } from 'console';
 
 
 @Component({
@@ -17,6 +15,7 @@ import { Console } from 'console';
 })
 export class SetRegistroComponent implements OnInit {
 
+  abierto: any;
   usuario: Usuario = {
     uid: '',
     correo: '',
@@ -24,8 +23,9 @@ export class SetRegistroComponent implements OnInit {
     celular: '',
     direccion: '',
     nombre: '',
-    admin: false
+    admin: false,
   };
+
   idaccording: string
   suscriberUserInfo: Subscription;
   productos: Producto[] = [];
@@ -111,6 +111,10 @@ export class SetRegistroComponent implements OnInit {
             const res = await this.firestorageservice.uploadImage(this.newFile, this.pathguardar, name);
             this.newProducto.foto = res;
           }
+          console.log(this.usuario)
+          /*this.firestoreService.createDoc(this.usuario, 'Usuarios', this.newProducto.uidtutor).then(res => {
+          }).catch(error => {
+          });*/
           this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
             this.nuevo();
             this.enableNewProducto = false
@@ -120,6 +124,7 @@ export class SetRegistroComponent implements OnInit {
           }).catch(error => {
             this.presentToast('No se pude guardar');
           });
+
         } else {
           const alert = this.alertController.create({
             //cssClass: 'my-custom-class',
@@ -157,7 +162,7 @@ export class SetRegistroComponent implements OnInit {
 
   //Revisra en el buscar usuarios
   async getProductos(id: string) {
-    
+
     const path = 'Usuarios/' + id + '/Mascotas/';
     this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
 
@@ -167,10 +172,6 @@ export class SetRegistroComponent implements OnInit {
       } else {
         this.listallena = true;
       }
-      console.log('antes del dismiss')
-      console.log(this.loading)
-      this.loading.dismiss();
-      console.log('despues del dismiss')
     });
   }
 
@@ -286,15 +287,22 @@ export class SetRegistroComponent implements OnInit {
     }
   }
 
-  onClick(event, usu) {
-    const expanded = event.detail.value; // Obtiene el valor de expansión (true/false)
-    if (expanded != undefined) {
-      console.log('antes del get loadign')
-      this.presentLoading();
-      
-      this.getProductos(usu)
-    }
+  onClick( usua:any) {
+   /* const accordion = document.getElementById('label');
+    const content = accordion.textContent
+    console.log('contenido '+content)
 
+    // Obtiene el valor de expansión (true/false)
+*/this.getProductos(usua);
+
+  }
+
+  async guardarUser() {
+    const path = 'Usuarios';
+    const name = this.usuario.nombre;
+    this.firestoreService.createDoc(this.usuario, path, this.usuario.uid).then(res => {
+    }).catch(error => {
+    });
   }
 
 }

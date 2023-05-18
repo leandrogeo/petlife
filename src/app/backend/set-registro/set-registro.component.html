@@ -126,47 +126,17 @@
     <ion-searchbar animated="true" placeholder="Duenio" show-clear-button="focus"
       (ionChange)="buscar($event)"></ion-searchbar>
   </div>
-  <!-- 
-
-  <ion-accordion-group *ngFor="let usuario of results" #accordionGroup [multiple]="false">
-     <ion-accordion>
-      <ion-item slot="header" color="light" (click)="getProductos(usuario.uid)">
-        <ion-label>{{usuario.nombre}}</ion-label>
-        <ion-label>{{usuario.uid }}</ion-label>
+  <ion-accordion-group expand="inset"   >
+    <ion-accordion *ngFor="let usua of results" (click)="onClick(usua.uid)"   >
+      <ion-item slot="header" color="light"  >
+        <ion-label id="label" >{{usua.nombre}}</ion-label >
       </ion-item>
-
       <div class="lista" *ngIf="!listallena" slot="content" style="padding: 3px;">
         <ion-label>NO HAY ELEMENTOS EN LA LISTA</ion-label>
       </div>
- 
-      <div class="ion-padding" slot="content" >
-        <ion-item style="padding-top: 5px; text-align: center; " *ngFor="let producto of productos">
-          <img class="image" [src]="producto.foto" height="75" width="75" style="border-radius: 50%; padding: 5px;">
-          <div style="padding-left: 0.8%">
-            <ion-label class="normal">Nombre: {{producto.nombredelamascota}}</ion-label>
-            <ion-label>Raza: {{producto.especie}} </ion-label>
-          </div>
-          <ion-buttons slot="end">
-            <ion-button (click)=" newProducto =  producto; enableNewProducto = true; ">
-              <ion-icon slot="icon-only" name="create-sharp"></ion-icon>
-            </ion-button>
-            <ion-button (click)="deleteProducto(producto)">
-              <ion-icon slot="icon-only" color="danger" name="trash-bin"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-item>
-      </div>
-    </ion-accordion>
-  </ion-accordion-group>-->
-
-  <ion-accordion-group expand="inset" (ionChange)="onClick($event,usuario.uid)"  >
-    <ion-accordion *ngFor="let usua of results"  >
-      <ion-item slot="header" color="rose"  >
-        <ion-label>{{usua.nombre}}</ion-label>
-      </ion-item>
 
       <div class="ion-padding" slot="content" >
-        <ion-item *ngFor="let producto of productos">
+        <ion-item *ngFor="let producto of productos"  >
           <img class="image" [src]="producto.foto" height="75" width="75" style="border-radius: 50%; padding: 5px;">
           <div style="padding-left: 0.8%">
             <ion-label class="normal">Nombre: {{producto.nombredelamascota}}</ion-label>
@@ -184,9 +154,4 @@
       </div>
     </ion-accordion>
   </ion-accordion-group>
-
-
-
-
-
 </ion-content>

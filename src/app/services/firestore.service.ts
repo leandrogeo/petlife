@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -82,11 +83,11 @@ export class FirestoreService {
   }
 
 
-  getCollectioncitasreporte<tipo>(path: string,parametro:string,condicion:any,busqueda:string,parametro1:string,condicion1:any,busqueda1:string) {
+  getCollectioncitasreporte<tipo>(path: string, parametro: string, condicion: any, busqueda: string, parametro1: string, condicion1: any, busqueda1: string) {
     const collection = this.database.collectionGroup<tipo>(path,
       ref => ref.where(parametro, condicion, busqueda)
-                .where(parametro1, condicion1, busqueda1)
-      );
+        .where(parametro1, condicion1, busqueda1)
+    );
     return collection.valueChanges();
   }
 

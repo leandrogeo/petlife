@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController, ModalController, ToastController } from '@ionic/angular';
-import { Usuario } from '../../models';
+import { Usuario, Producto } from '../../models';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';
@@ -14,6 +14,18 @@ import { Router } from '@angular/router';
 })
 export class PerfilComponent implements OnInit {
 
+  interfacePro2: Producto ={
+    nombredelamascota:'',
+    tutor:'',
+    fechadenacimiento: '',
+    especie:'',
+    sexo: '',
+    telefonotutor: '',
+    foto: '',
+    uidtutor: '',
+    id: '',
+}
+
   usuario: Usuario = {
     uid: '',
     correo: '',
@@ -21,8 +33,10 @@ export class PerfilComponent implements OnInit {
     celular: '',
     direccion: '',
     nombre: '',
-    admin: false
+    admin: false,
   };
+
+
 
   visible: boolean = true;
   changetype: boolean = true;
@@ -61,7 +75,7 @@ export class PerfilComponent implements OnInit {
       celular: '',
       direccion: '',
       nombre: '',
-      admin: false
+      admin: false,
     };
 
   }
@@ -85,28 +99,28 @@ export class PerfilComponent implements OnInit {
               const credenciales = {
                 email: this.usuario.correo,
                 password: this.usuario.contrasenia,
-          
+
               };
               const res = await this.firebaseauthService.registrar(credenciales.email, credenciales.password)
-              .catch(async error => {
-                var errormensaje = 'sin error'
-                if (error.code === 'auth/email-already-in-use') {
-                  errormensaje = 'Ya existe un usuario con este correo'
-                }
-                const alert = this.alertCtrl.create({
-                  //cssClass: 'my-custom-class',
-                  header: 'Fallo al iniciar sesión',
-                  message: errormensaje,
-                  buttons: ['OK']
+                .catch(async error => {
+                  var errormensaje = 'sin error'
+                  if (error.code === 'auth/email-already-in-use') {
+                    errormensaje = 'Ya existe un usuario con este correo'
+                  }
+                  const alert = this.alertCtrl.create({
+                    //cssClass: 'my-custom-class',
+                    header: 'Fallo al iniciar sesión',
+                    message: errormensaje,
+                    buttons: ['OK']
+                  });
+
+                  (await alert).present();
+                  this.initCliente()
                 });
-        
-                (await alert).present();
-                this.initCliente()
-              });
               const uid = await this.firebaseauthService.getUid();
               this.usuario.uid = uid;
               this.guardarUser();
-            }else {
+            } else {
               const alert = this.alertCtrl.create({
                 //cssClass: 'my-custom-class',
                 header: 'Fallo al registrarse',
@@ -116,7 +130,7 @@ export class PerfilComponent implements OnInit {
 
               (await alert).present();
             }
-          }else {
+          } else {
             const alert = this.alertCtrl.create({
               //cssClass: 'my-custom-class',
               header: 'Fallo al registrarse',
@@ -126,7 +140,7 @@ export class PerfilComponent implements OnInit {
 
             (await alert).present();
           }
-        }else {
+        } else {
           const alert = this.alertCtrl.create({
             //cssClass: 'my-custom-class',
             header: 'Fallo al registrarse',
@@ -136,7 +150,7 @@ export class PerfilComponent implements OnInit {
 
           (await alert).present();
         }
-      }else {
+      } else {
         const alert = this.alertCtrl.create({
           //cssClass: 'my-custom-class',
           header: 'Fallo al registrarse',
@@ -162,9 +176,9 @@ export class PerfilComponent implements OnInit {
 
 
 
-/*
-
-    */
+    /*
+    
+        */
 
   }
 

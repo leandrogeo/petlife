@@ -8,7 +8,6 @@ export interface Producto {
     foto: string;
     uidtutor: string;
     id: string;
-
 }
 
 export interface Usuario {

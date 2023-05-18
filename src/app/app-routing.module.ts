@@ -26,12 +26,13 @@ const routes: Routes = [
   {path: 'home',component: HomeComponent},
   {path: 'set-registro',component: SetRegistroComponent, },
   {path: 'perfil',component: PerfilComponent},
-  {path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
-  {path: 'buscar',component: BuscarComponent,canActivate:[IngresoGuard] },
-  {path: 'citasge',component:  CitasgeneralesComponent,canActivate:[IngresoGuard] },
-  {path: 'mascotas/:uid',component: MascotasComponent,canActivate:[IngresoGuard] },
+  //{path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
+  {path: 'registros',component: RegistrosComponent},
+  {path: 'buscar',component: BuscarComponent },
+  {path: 'citasge',component:  CitasgeneralesComponent },
+  {path: 'mascotas/:uid',component: MascotasComponent },
   {path: 'modificarcitas/:id_cita',component:  ModificarcitaComponent },
-  {path: 'recitasge',component: ReportecitasgeneralComponent,canActivate:[IngresoGuard]},
+  {path: 'recitasge',component: ReportecitasgeneralComponent},
 
 
 
