@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, MenuController, ModalController, ToastController } from '@ionic/angular';
-import { Usuario, Producto } from '../../models';
+import { Usuario } from '../../models';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { FirestoreService } from '../../services/firestore.service';
 import { FirestorageService } from '../../services/firestorage.service';

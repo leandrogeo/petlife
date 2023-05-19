@@ -3,8 +3,6 @@ import { Citas } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
-
-import { DatePipe } from '@angular/common';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 

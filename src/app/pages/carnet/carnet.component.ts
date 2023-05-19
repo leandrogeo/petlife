@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
+import { MenuController, ToastController } from '@ionic/angular';
 import { Producto } from 'src/app/models';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
-import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -22,13 +21,7 @@ export class CarnetComponent implements OnInit {
   constructor(
     public menucontroller: MenuController,
     public firebaseauthService: FirebaseauthService,
-    public firestoreservice: FirestoreService,
-    public loadingController: LoadingController,
-    public toastController: ToastController,
-    public alertController: AlertController,
-    public firestorageservice: FirestorageService,) {
-
-
+    public firestoreservice: FirestoreService,) {
       this.firebaseauthService.stateAuth().subscribe(res => {
         if (res !== null) {
           this.uid = res.uid

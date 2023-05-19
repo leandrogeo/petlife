@@ -26,9 +26,9 @@ export class IngresoGuard implements CanActivate {
   constructor(
     public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService) {
-    
-
   }
+
+  
   //OBETENGO LA INFORMACION DEL USUARIO CONECTADO
   getUserInfo(uid: string, route: ActivatedRouteSnapshot): boolean {
     const path = 'Usuarios';

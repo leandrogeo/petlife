@@ -79,14 +79,11 @@ export class RegistrosComponent implements OnInit {
 
   constructor(
     public menucontroller: MenuController,
-    public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
     public firestoreService: FirestoreService,
     public loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
-    public firestorageservice: FirestorageService,
-    private activateroute: ActivatedRoute,
   ) {
     this.getUsuarios();
   }

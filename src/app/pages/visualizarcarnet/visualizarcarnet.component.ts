@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Citas, Desp, Producto, Vacunas } from 'src/app/models';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
-import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -42,10 +40,6 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
     private activateroute: ActivatedRoute,
     public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
-    public loadingController: LoadingController,
-    public toastController: ToastController,
-    public alertController: AlertController,
-    public firestorageservice: FirestorageService,
   ) { 
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {

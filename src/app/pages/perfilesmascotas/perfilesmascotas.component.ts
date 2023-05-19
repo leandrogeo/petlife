@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { stringify } from 'querystring';
+import { MenuController, ToastController } from '@ionic/angular';
 import { Citas, Producto, Vacunas } from 'src/app/models';
 import { ActivatedRoute } from '@angular/router';
 import { FirestoreService } from '../../services/firestore.service';
-import { FirestorageService } from '../../services/firestorage.service';
-import { FirebaseauthService } from '../../services/firebaseauth.service';
-import { Usuario, Desp } from '../../models';
+import { Desp } from '../../models';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -18,13 +15,8 @@ export class PerfilesmascotasComponent implements OnInit {
 
   constructor(
     public menuController: MenuController,
-    public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
     public firestoreService: FirestoreService,
-    public loadingController: LoadingController,
-    public toastController: ToastController,
-    public alertController: AlertController,
-    public firestorageservice: FirestorageService,
     private activateroute: ActivatedRoute,
   ) { }
 

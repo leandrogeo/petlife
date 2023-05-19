@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscriber, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Admins, Usuario } from 'src/app/models';
 import { FirestoreService } from 'src/app/services/firestore.service';
 import { Router } from '@angular/router';
@@ -22,9 +22,9 @@ export class EditarusuComponent implements OnInit {
     admin: false,
   };
 
-  nuevoadmin : Admins = {
-    idusu:'',
-    nombre:''
+  nuevoadmin: Admins = {
+    idusu: '',
+    nombre: ''
   }
 
   usuarios: Usuario[] = [];
@@ -36,9 +36,8 @@ export class EditarusuComponent implements OnInit {
   constructor(
     private activateroute: ActivatedRoute,
     public firestoreService: FirestoreService,
-    private router: Router,) { }
-
-
+    private router: Router,
+  ) { }
   ngOnInit() {
     this.uid = this.activateroute.snapshot.paramMap.get('uid')
     this.getUserInfo(this.uid)
@@ -56,7 +55,7 @@ export class EditarusuComponent implements OnInit {
           this.usuario = res;
         }
       });
-      
+
     } catch (error) {
       alert(error);
     }
@@ -68,7 +67,7 @@ export class EditarusuComponent implements OnInit {
     try {
       this.firestoreService.getCollection<Admins>('Admins').subscribe(res => {
         this.admin = res;
-        console.log("this admisn" )
+        console.log("this admisn")
         console.log(this.admin)
         const resultado = this.admin.filter(item => item.idusu == this.usuario.uid);
         console.log(resultado)
@@ -82,10 +81,7 @@ export class EditarusuComponent implements OnInit {
       alert(error);
     }
   }
-  actualizado() {
-    console.log('se va cambiando la info')
-    console.log(this.siesadmins)
-  }
+ 
 
   async guardarUser() {
     const path = 'Usuarios';
@@ -95,15 +91,15 @@ export class EditarusuComponent implements OnInit {
     }).catch(error => {
       alert(error)
     });
-    this.nuevoadmin.idusu=this.usuario.uid
-    this.nuevoadmin.nombre=this.usuario.nombre
-    if(this.siesadmins){
+    this.nuevoadmin.idusu = this.usuario.uid
+    this.nuevoadmin.nombre = this.usuario.nombre
+    if (this.siesadmins) {
       console.log('ahora es admins')
-      this.firestoreService.createDoc(this.nuevoadmin,'Admins', this.nuevoadmin.idusu).then(res => {
-        }).catch(error => {
-          alert(error)
-        });
-    }else{
+      this.firestoreService.createDoc(this.nuevoadmin, 'Admins', this.nuevoadmin.idusu).then(res => {
+      }).catch(error => {
+        alert(error)
+      });
+    } else {
       this.firestoreService.deleteDoc('Admins', this.nuevoadmin.idusu).then(res => {
       }).catch(error => {
         alert(error)
@@ -112,7 +108,5 @@ export class EditarusuComponent implements OnInit {
     }
     this.router.navigate(['/buscar']);
   }
-  onClick(){
-    console.log('click en volver')
-  }
+
 }

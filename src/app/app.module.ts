@@ -30,7 +30,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     AngularFireStorageModule,
     AngularFireAuthModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },AppComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { Citas } from 'src/app/models';
-import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
-import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -40,12 +38,10 @@ export class ModificarcitaComponent  implements OnInit {
   constructor(
     private router: Router,
     public menucontroller: MenuController,
-    public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
     public loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
-    public firestorageservice: FirestorageService, 
     private activateroute: ActivatedRoute,
   ) { }
 

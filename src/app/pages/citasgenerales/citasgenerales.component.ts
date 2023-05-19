@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { stat } from 'fs';
+import { MenuController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Citas } from 'src/app/models';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
@@ -27,12 +26,7 @@ export class CitasgeneralesComponent implements OnInit {
 
   constructor(
     public menuController: MenuController,
-    public firebaseauthService: FirebaseauthService,
     public firestoreservice: FirestoreService,
-    public loadingController: LoadingController,
-    public toastController: ToastController,
-    public alertController: AlertController,
-    public firestorageservice: FirestorageService
   ) {
     this.getCitasagendados()
   }
