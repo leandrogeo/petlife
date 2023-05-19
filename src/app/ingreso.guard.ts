@@ -43,7 +43,7 @@ export class IngresoGuard implements CanActivate {
       }
     });
     console.log(this.usuario.admin + ' === ' + route.data['role'])
-    if (this.usuario.admin == route.data['role']) {
+    if (this.usuario.admin = true) {
       console.log('nSI ES ADMIN')
       return true;
     } else {

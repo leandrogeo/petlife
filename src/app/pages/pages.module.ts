@@ -19,6 +19,7 @@ import { ReportecitasgeneralComponent } from './reportecitasgeneral/reportecitas
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { VistadesparacitacionComponent } from './vistavacunas/vistadesparacitacion.component';
 import { VistadesComponent } from './vistades/vistades.component';
+import { EditarusuComponent } from './editarusu/editarusu.component';
 
 
 
@@ -37,7 +38,8 @@ import { VistadesComponent } from './vistades/vistades.component';
         ModificarcitaComponent,
         ReportecitasgeneralComponent,
         VistadesparacitacionComponent,
-        VistadesComponent
+        VistadesComponent,
+        EditarusuComponent
     ],
     imports: [
         CommonModule,

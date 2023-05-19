@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Editar Usuario
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="onClick()"> </ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+<div>
+  <ion-item>
+    <ion-label class="normal" >
+      Admin:
+    </ion-label>
+    <ion-toggle [(ngModel)]="siesadmins" [enableOnOffLabels]="true" color="success"  ></ion-toggle><br /><br />
+  </ion-item>
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Nombre:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.nombre" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Telefono-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Celular:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.celular" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Dirreccion-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Direccion:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Correo-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Correo:
+    </ion-label>
+    <ion-input [disabled]="true" [(ngModel)]="usuario.correo" class="texto" type="text">
+    </ion-input>
+  </ion-item>
+
+  <!--Contrasenia-->
+  <ion-item>
+    <ion-label class="normal" position="floating">
+      Contrasenia:
+    </ion-label>
+    <ion-input [(ngModel)]="usuario.contrasenia" class="texto" [type]="changetype?'password':'text' "
+      name="password">
+    </ion-input>
+    <ion-icon (click)="cambiodeicono()" slot="end"
+      [name]="visible?'eye-off-outline':'eye-outline'"></ion-icon>
+
+  </ion-item>
+
+  <div style="text-align: center; margin: 10px;">
+    <ion-button (click)="guardarUser()" class="normal" color="dark">Guardar</ion-button>
+  </div>
+
+</div>
+</ion-content>

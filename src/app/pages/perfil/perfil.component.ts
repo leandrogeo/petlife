@@ -13,19 +13,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./perfil.component.scss'],
 })
 export class PerfilComponent implements OnInit {
-
-  interfacePro2: Producto ={
-    nombredelamascota:'',
-    tutor:'',
-    fechadenacimiento: '',
-    especie:'',
-    sexo: '',
-    telefonotutor: '',
-    foto: '',
-    uidtutor: '',
-    id: '',
-}
-
   usuario: Usuario = {
     uid: '',
     correo: '',
@@ -196,11 +183,17 @@ export class PerfilComponent implements OnInit {
 
   getUserInfo(uid: string) {
     const path = 'Usuarios';
-    this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
-      if (res !== undefined) {
-        this.usuario = res;
-      }
-    });
+    console.log('aquiii')
+    try {
+      this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
+        if (res !== undefined) {
+          this.usuario = res;
+        }
+      });
+    } catch (error) {
+      console.log('ERROR '+ error)
+    }
+    
   }
 
   ingresar() {
@@ -214,7 +207,6 @@ export class PerfilComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     })
-
       .catch(async error => {
         var errormensaje = 'sin error'
         if (error.code === 'auth/invalid-email') {
@@ -244,7 +236,7 @@ export class PerfilComponent implements OnInit {
       cssClass: 'normal',
       duration: 2000,
       color: 'success',
-    });
+    })
     toast.present();
   }
 

@@ -37,6 +37,11 @@ export interface Vacunas {
     proxi_vac: string;
 }
 
+export interface Admins {
+    idusu: string;
+    nombre: string;
+}
+
 
 
 export interface Citas {

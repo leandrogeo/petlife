@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { FirebaseauthService } from './services/firebaseauth.service';
 import { Router } from '@angular/router'
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,18 @@ export class AppComponent {
   constructor(
     public firebaseauthService: FirebaseauthService,
     private router: Router,
-
+    private platform: Platform,
   ) { 
-    this.getUid();
+    this.initializeApp();
+  }
+
+
+  initializeApp(){
+    this.platform.ready().then(()=>{
+      // this.statusbar.styleDefault();
+      // this.splashScreen.hide();
+      this.getUid();
+    })
   }
  
   getUid() {

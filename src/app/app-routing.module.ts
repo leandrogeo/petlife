@@ -18,39 +18,44 @@ import { ReportecitasgeneralComponent } from './pages/reportecitasgeneral/report
 import { VistadesparacitacionComponent } from './pages/vistavacunas/vistadesparacitacion.component';
 import { VistadesComponent } from './pages/vistades/vistades.component';
 import { DatePipe } from '@angular/common';
-const isAdmin = (next: any) => map( (user: any) =>'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
+import { GuardianGuard } from './guardian.guard';
+import { EditarusuComponent } from './pages/editarusu/editarusu.component';
+const isAdmin = (next: any) => map((user: any) => !!user && 'KpAS4RZ6JsO3w5W6FuyZoAn1k2O2' === user.uid);
 
-const routes: Routes = [ 
+const routes: Routes = [
 
   //-----------------------RUTAS----------------------
-  {path: 'home',component: HomeComponent},
-  {path: 'set-registro',component: SetRegistroComponent, },
-  {path: 'perfil',component: PerfilComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'set-registro', component: SetRegistroComponent, },
+  { path: 'perfil', component: PerfilComponent },
   //{path: 'registros',component: RegistrosComponent,canActivate:[IngresoGuard] },
-  {path: 'registros',component: RegistrosComponent},
-  {path: 'buscar',component: BuscarComponent },
-  {path: 'citasge',component:  CitasgeneralesComponent },
-  {path: 'mascotas/:uid',component: MascotasComponent },
-  {path: 'modificarcitas/:id_cita',component:  ModificarcitaComponent },
-  {path: 'recitasge',component: ReportecitasgeneralComponent},
-
-
-
-  {path: 'citas',component: CitasComponent},
-  {path: 'carnet',component: CarnetComponent},
-  {path: 'vistavac/:uid/:idmas/:idvac',component: VistadesparacitacionComponent},
-  {path: 'vistades/:uid/:idmas/:iddes',component:  VistadesComponent},
- 
+  { path: 'registros', component: RegistrosComponent, data: { role: 'admin' }, canActivate: [IngresoGuard] },
+  {
+    path: 'buscar', component: BuscarComponent,canActivate: [GuardianGuard]
+  },
+  { path: 'citasge', component: CitasgeneralesComponent },
+  { path: 'mascotas/:uid', component: MascotasComponent,canActivate: [GuardianGuard] },
+  { path: 'modificarcitas/:id_cita', component: ModificarcitaComponent },
+  { path: 'recitasge', component: ReportecitasgeneralComponent },
+  { path: 'editarusu/:uid', component: EditarusuComponent },
   
 
- 
-  {path: 'carnet/:id',component:  VisualizarcarnetComponent },
-  
-  {path: 'mascotas/:uid/perfilesmascotas/:id',component:  PerfilesmascotasComponent,data:{ role:'admin'},canActivate:[IngresoGuard] },
- 
-  {path: '',component:HomeComponent},
 
-  {path: '**',redirectTo: 'home',pathMatch: 'full'},
+  { path: 'citas', component: CitasComponent },
+  { path: 'carnet', component: CarnetComponent },
+  { path: 'vistavac/:uid/:idmas/:idvac', component: VistadesparacitacionComponent },
+  { path: 'vistades/:uid/:idmas/:iddes', component: VistadesComponent },
+
+
+
+
+  { path: 'carnet/:id', component: VisualizarcarnetComponent },
+
+  { path: 'mascotas/:uid/perfilesmascotas/:id', component: PerfilesmascotasComponent, data: { role: 'admin' }, canActivate: [IngresoGuard] },
+
+  { path: '', component: HomeComponent },
+
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 
 ];
 
@@ -60,8 +65,8 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
-  cambiarfechageneral(fecha){
+export class AppRoutingModule {
+  cambiarfechageneral(fecha) {
     const datePipe = new DatePipe('en-US');
     let fechaFormateada = datePipe.transform(fecha, 'dd/MM/yyyy');
 
