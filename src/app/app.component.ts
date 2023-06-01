@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { FirebaseauthService } from './services/firebaseauth.service';
 import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular';
@@ -14,58 +14,73 @@ import { Admins } from './models';
 export class AppComponent {
 
   admin: Admins[] = [];
-  ConectadosSi= false;
-  IDconectado:string;
+  ConectadosSi = false;
+  IDconectado: string;
   constructor(
     public firebaseauthService: FirebaseauthService,
     private router: Router,
     private platform: Platform,
     public firestoreService: FirestoreService,
-  ) { 
+  ) {
     this.initializeApp();
   }
+  Isadmin:boolean
 
-
-  initializeApp(){
-    this.platform.ready().then(()=>{
+  initializeApp() {
+    this.platform.ready().then(() => {
       // this.statusbar.styleDefault();
       // this.splashScreen.hide();
       this.getUid();
     })
   }
- 
-  getUid() {
-    this.firebaseauthService.stateAuth().subscribe(res => {
+
+  async getUid() {
+    await this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
-        this.ConectadosSi=true;
+        this.ConectadosSi = true;
         this.IDconectado = res.uid
-        console.log("re " +res.uid)
+        console.log(this.IDconectado)
+        this.getadmin(this.IDconectado)
+        //this.comparar(this.IDconectado)
       } else {
-        this.ConectadosSi=false; 
+        this.ConectadosSi = false;
       }
     });
   }
-  onClick(){
+
+  onClick() {
     this.firebaseauthService.logout();
     this.router.navigate(['/perfil']);
   }
 
-  pasarinfo(){
-    return this.IDconectado
-  }
-
-  getadmin(uid: string) {
-    this.firestoreService.getCollection<Admins>('Admins').subscribe(res => {
+  async getadmin(uid: string) {
+    await this.firestoreService.getCollection<Admins>('Admins').subscribe(res => {
       this.admin = res;
-      console.log("this admisn")
-      console.log(this.admin)
-    });
-    const resultado = this.admin.filter(item => item.idusu == uid);
-      console.log(resultado)
+      const resultado =  this.admin.filter(item => item.idusu == uid);
       if (resultado.length) {
+        this.Isadmin=true
         return true
       } else {
-        return false;
+        this.Isadmin=false
+        return false
       }
+    });
   }
+  
+
+/*
+  async comparar(Idconectado) {
+    const resultado = await this.admin.filter(item => item.idusu == Idconectado);
+    console.log('this.admin get comparar '+ this.admin)
+    if (resultado.length) {
+      this.Isadmin=true
+      //console.log('Isadmins '+ this.Isadmin)
+      return true
+    } else {
+      this.Isadmin=false
+      //console.log('Isadmins '+ this.Isadmin)
+      return false
+    }
+    
+  }*/
 }

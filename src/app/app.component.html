@@ -12,7 +12,7 @@
 
       <!-- PRIMER BOTON DEL MENU-->
       <ion-content>
-        <ion-menu-toggle autoHide="false">
+        <ion-menu-toggle autoHide="false" >
           <ion-item button="true" [routerLink]="['/home']">
             <ion-label>
               Inicio
@@ -22,7 +22,7 @@
         </ion-menu-toggle>
 
         <!-- SEGUNDO BOTON DEL MENU-->
-        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi && Isadmin">
           <ion-item button="true" [routerLink]="['/set-registro']">
             <ion-label>
               Registro de mascotas
@@ -43,7 +43,7 @@
 
 
         <!-- Cuarto BOTON DEL MENU REGISTROS MEDICOS-->
-        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi && Isadmin">
           <ion-item button="true" [routerLink]="['/registros']">
             <ion-label>
               Registro
@@ -54,7 +54,7 @@
 
 
         <!-- 5 BOTON DEL BUSCAR-->
-        <ion-menu-toggle autoHide="false"  *ngIf="ConectadosSi">
+        <ion-menu-toggle autoHide="false"  *ngIf="ConectadosSi && Isadmin">
           <ion-item button="true" [routerLink]="['/buscar']">
             <ion-label>
               Buscar
@@ -64,7 +64,7 @@
         </ion-menu-toggle>
 
 
-        <!-- 6 BOTON DEL BUSCAR-->
+        <!-- 6 BOTON DEL AGENDAR CITAS-->
         <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/citas']">
             <ion-label>
@@ -75,7 +75,7 @@
         </ion-menu-toggle>
 
 
-        <!-- 7 BOTON DEL BUSCAR-->
+        <!-- 7 BOTON DEL CARNET-->
         <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <ion-item button="true" [routerLink]="['/carnet']">
             <ion-label>
@@ -85,8 +85,8 @@
           </ion-item>
         </ion-menu-toggle>
 
-        <!-- 8 BOTON DEL MENU REGISTROS MEDICOS-->
-        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
+        <!-- 8 BOTON DEL CITAS GENERALES-->
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi && Isadmin">
           <ion-item button="true" [routerLink]="['/citasge']">
             <ion-label>
               Citas Generales

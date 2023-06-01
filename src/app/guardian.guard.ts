@@ -16,19 +16,41 @@ export class GuardianGuard implements CanActivate {
     public appcomponent: AppComponent) {
 
   }
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    //this.prueba = this.getadmin(this.appcomponent.pasarinfo());
+    this.getUid();
 
+    return this.Isadmin;
+  }
   admin: Admins[] = [];
-  prueba: boolean
-  siesadmins = false;
-  usuariouid: string
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // this.prueba = this.getadmin(this.appcomponent.pasarinfo());
-    console.log('preiba ' + this.prueba)
-    return true;
+  IDconectado: string;
+  Isadmin: any
+
+  async getUid() {
+    await this.firebaseauthService.stateAuth().subscribe(res => {
+      if (res !== null) {
+        this.IDconectado = res.uid
+        console.log(this.IDconectado)
+        this.getadmin(this.IDconectado)
+        //this.comparar(this.IDconectado)
+      } else {
+      }
+    });
   }
 
+  async getadmin(uid: string) {
+    await this.firestoreService.getCollection<Admins>('Admins').subscribe(res => {
+      this.admin = res;
+      const resultado =  this.admin.filter(item => item.idusu == uid);
+      if (resultado.length) {
+        this.Isadmin=true
+        return true
+      } else {
+        this.Isadmin=false
+        return false
+      }
+    });
+  }
 
 }
