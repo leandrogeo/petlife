@@ -19,7 +19,7 @@
         (ionChange)="cambio(opcion)">
         <ion-select-option *ngFor="let usuario of usuarios">{{usuario.nombre}}</ion-select-option>
       </ion-select>
-    </ion-item> 
+    </ion-item>
 
     <ion-item>
       <ion-label class="normal">Mascota</ion-label>
@@ -40,8 +40,8 @@
     </ion-item>
   </ion-card>
 
-<!-- DESPARACITADA-->
-  <ion-card *ngIf="segmento === '1' && mascota != '0' " >
+  <!-- DESPARACITADA-->
+  <ion-card *ngIf="segmento === '1' && mascota != '0' ">
     <ion-item>
       <ion-buttons slot="end">
         <ion-button (click)="cancelar()">
@@ -61,10 +61,10 @@
               Fecha:
             </ion-label>
             <ion-datetime-button disabled="true" datetime="date"></ion-datetime-button>
-             <ion-modal [keepContentsMounted]="true">
+            <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime [(ngModel)]="fechaactual" id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
-                  cancelText="Cancelar"></ion-datetime>
+                <ion-datetime [(ngModel)]="fechaactual" id="date" presentation="date" [showDefaultButtons]="true"
+                  doneText="Listo" cancelText="Cancelar"></ion-datetime>
               </ng-template>
             </ion-modal>
           </ion-item>
@@ -78,7 +78,7 @@
               Proxima desparacitacion:
             </ion-label>
             <ion-datetime-button datetime="date2"></ion-datetime-button>
-            <ion-modal  [keepContentsMounted]="true" >
+            <ion-modal [keepContentsMounted]="true">
               <ng-template>
                 <ion-datetime id="date2" presentation="date" [(ngModel)]="desparacitacion.proxi_des"
                   [showDefaultButtons]="true" doneText="Listo" cancelText="Cancelar"></ion-datetime>
@@ -116,12 +116,11 @@
       </ion-row>
     </ion-grid>
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
-      <ion-button expand="block" color="success" class="normal" fill="outline"
-        (click)="setdes()">Guardar</ion-button>
+      <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setdes()">Guardar</ion-button>
     </div>
   </ion-card>
-  
-<!-- Vacunacion-->
+
+  <!-- Vacunacion-->
   <ion-card *ngIf="segmento === '2' && mascota != '0'">
     <ion-item>
       <ion-buttons slot="end">
@@ -143,9 +142,9 @@
               Fecha:
             </ion-label>
             <ion-datetime-button disabled="true" datetime="date"></ion-datetime-button>
-             <ion-modal [keepContentsMounted]="true">
+            <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime  id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
+                <ion-datetime id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
                   cancelText="Cancelar"></ion-datetime>
               </ng-template>
             </ion-modal>
@@ -160,9 +159,9 @@
               Proxima vacuna:
             </ion-label>
             <ion-datetime-button datetime="date2"></ion-datetime-button>
-            <ion-modal  [keepContentsMounted]="true" >
+            <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="date2" presentation="date"  [(ngModel)]="vacunacion.proxi_vac"
+                <ion-datetime id="date2" presentation="date" [(ngModel)]="vacunacion.proxi_vac"
                   [showDefaultButtons]="true" doneText="Listo" cancelText="Cancelar"></ion-datetime>
               </ng-template>
             </ion-modal>
@@ -198,13 +197,12 @@
       </ion-row>
     </ion-grid>
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
-      <ion-button expand="block" color="success" class="normal" fill="outline"
-        (click)="setvac()">Guardar</ion-button>
+      <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setvac()">Guardar</ion-button>
     </div>
   </ion-card>
 
 
-<!--CITAS-->
+  <!--CITAS-->
   <ion-card *ngIf="segmento === '3' && mascota != '0'">
     <ion-item>
       <ion-buttons slot="end">
@@ -255,7 +253,8 @@
             <ion-label class="normal">
               Motivo:
             </ion-label>
-            <ion-textarea [(ngModel)]="citas.motivo_cita" [autoGrow]="true" placeholder="Motivo de la consulta"></ion-textarea>
+            <ion-textarea [(ngModel)]="citas.motivo_cita" [autoGrow]="true"
+              placeholder="Motivo de la consulta"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -264,7 +263,7 @@
         <ion-col>
           <ion-item>
             <ion-label class="normal">
-               Diagnostico:
+              Diagnostico:
             </ion-label>
             <ion-textarea [(ngModel)]="citas.diagnostico" [autoGrow]="true" placeholder="Diagnostico"></ion-textarea>
           </ion-item>
@@ -272,24 +271,97 @@
       </ion-row>
 
     </ion-grid>
-    <div style="text-align: right; padding-right: 15px;">
-      <ion-button shape="round" class="normal" color="medium">Receta</ion-button>
-      <ion-button shape="round" class="normal" color="medium">Imagen</ion-button>
-      <ion-button shape="round" class="normal" color="medium">Examenes</ion-button>
-    </div>
 
     <!--OPCIONES EXTRA-->
     <div style="padding: 15px;">
-      <ion-item>
-        <ion-checkbox slot="start"></ion-checkbox>
-        <ion-label>Cirugia</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-checkbox slot="start"></ion-checkbox>
-        <ion-label>Hospitalizacion</ion-label>
-      </ion-item>
+      <ion-card>
+        <ion-item>
+          <ion-checkbox slot="start" [ngModel]="citas.receta_consul" (ionChange)="cambiociru()"></ion-checkbox>
+          <ion-label>Receta</ion-label>
+        </ion-item>
+        <div *ngIf="valorciru">
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="normal">
+                  Medicamentos:
+                </ion-label>
+                <br>
+                <ion-textarea [(ngModel)]="receta.medicamento_receta" [autoGrow]="true"
+                  placeholder="Medicamento"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label class="normal">
+                  Indicaciones:
+                </ion-label>
+                <br>
+                <ion-textarea [(ngModel)]="receta.indicaciones_receta" [autoGrow]="true"
+                  placeholder="Indicaciones"></ion-textarea>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-card>
+      <ion-card>
 
 
+        <ion-item>
+          <ion-checkbox slot="start" [ngModel]="citas.hospi_consul" (ionChange)="cambiohospi()"></ion-checkbox>
+          <ion-label>Hospitalizacion</ion-label>
+        </ion-item>
+        <div *ngIf="valorhospi">
+          <ion-grid>
+            <!-- Columna de la fecha actual-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label class="normal">
+                    Fecha de la hospitalización:
+                  </ion-label>
+                  <ion-datetime-button disabled="true" datetime="date"></ion-datetime-button>
+                  <ion-modal [keepContentsMounted]="true">
+                    <ng-template>
+                      <ion-datetime [(ngModel)]="fechaactual" id="date" presentation="date" [showDefaultButtons]="true"
+                        doneText="Listo" cancelText="Cancelar"></ion-datetime>
+                    </ng-template>
+                  </ion-modal>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Peso-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label class="normal">
+                    Motivo de la hospitalización:
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-textarea [(ngModel)]="hospi.motivo_hospi" [autoGrow]="true" placeholder="Motivo"></ion-textarea>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <!--Peso-->
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label class="normal">
+                    Veterinario tratante:
+                  </ion-label>
+                </ion-item>
+                <ion-item>
+                  <ion-input [(ngModel)]="hospi.medico_hospi" class="texto" type="text" name="dirrecion">
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-card>
     </div>
 
     <div style="text-align: right; padding-right: 15px; padding-left: 15px;">

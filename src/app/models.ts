@@ -62,4 +62,17 @@ export interface Citas {
     hospi_consul: boolean;
 }
 
+export interface Hospi {
+    id_hospi: string,
+    fecha_hospi:string,
+    motivo_hospi: string,
+    medico_hospi: string,
+}
+
+export interface Receta {
+    id_receta: string,
+    medicamento_receta: string,
+    indicaciones_receta: string,
+}
+
 export type  EstadoCita = 'agendado' | 'atendido' | 'cancelado' ;

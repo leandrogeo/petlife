@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { stringify } from 'querystring';
-import { Citas, Desp, Producto, Vacunas } from 'src/app/models';
-import { ActivatedRoute } from '@angular/router';
+import { Citas, Desp, Hospi, Producto, Receta, Vacunas } from 'src/app/models';
 import { FirestoreService } from '../../services/firestore.service';
-import { FirestorageService } from '../../services/firestorage.service';
-import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { Usuario } from '../../models';
-import { Subscription } from 'rxjs';
-import { Console, timeStamp } from 'console';
 import { DatePipe } from '@angular/common';
+import { computeStackId } from '@ionic/angular/directives/navigation/stack-utils';
 
 @Component({
   selector: 'app-registros',
@@ -17,6 +12,25 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./registros.component.scss'],
 })
 export class RegistrosComponent implements OnInit {
+
+  fechaactual: any;
+  valorciru = false
+  valorhospi = false
+
+  hospi: Hospi = {
+    id_hospi: '',
+    fecha_hospi: Date(),
+    motivo_hospi: '',
+    medico_hospi: '',
+  }
+  hospita: Hospi[] = []
+
+  receta: Receta = {
+    id_receta: '',
+    medicamento_receta: '',
+    indicaciones_receta: '',
+  }
+  recetas: Receta[] = []
 
   opcion: string;
   segmento: string;
@@ -32,8 +46,6 @@ export class RegistrosComponent implements OnInit {
   general: any;
   generalid: any;
 
-
-  fechaactual: any;
 
   desparacitacion: Desp = {
     id_des: this.firestoreService.getId(),
@@ -71,7 +83,7 @@ export class RegistrosComponent implements OnInit {
   }
 
 
-  fechaComoCadena:string;
+  fechaComoCadena: string;
 
   fechaproxi: Date;
   producto: any;
@@ -90,14 +102,15 @@ export class RegistrosComponent implements OnInit {
 
   ngOnInit() {
     const fecha = new Date();
-     this.fechaComoCadena = fecha.toISOString();
+    this.fechaComoCadena = fecha.toISOString();
+    console.log(this.valorhospi)
   }
 
   openMenu() {
     this.menucontroller.toggle('principal');
   }
 
-  cambiarfecha(fecha){
+  cambiarfecha(fecha) {
     const datePipe = new DatePipe('en-US');
     let fechaFormateada = datePipe.transform(fecha, 'dd/MM/yyyy');
 
@@ -249,21 +262,92 @@ export class RegistrosComponent implements OnInit {
     if (this.citas.pesomas != '') {
       if (this.citas.diagnostico != '') {
         if (this.citas.motivo_cita != '') {
-
           this.presentLoading();
-          this.citas.fecha_cita=this.fechaComoCadena
+          this.citas.fecha_cita = this.fechaComoCadena
           this.citas.foto_cita = this.mascotaescogido.foto
           this.citas.id_mascotacita = this.mascotaescogido.id
           this.citas.idtutor_cita = this.usuarioescogido.uid
           this.citas.namepet = this.mascotaescogido.nombredelamascota
+          this.citas.hospi_consul=this.valorhospi
+          this.citas.receta_consul=this.valorciru
           const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
           this.firestoreservice.createDoc(this.citas, path, this.citas.id_cita).then(res => {
             this.loading.dismiss();
-            this.presentToast('Guardo con exito');
+            // this.presentToast('Guardo con exito');
           }).catch(error => {
             this.presentToast('No se pude guardar');
           });
-          this.nuevo()
+          //GUARDA LA Hospitalizacion'
+          console.log(this.citas.hospi_consul)
+          if (this.citas.hospi_consul === true) {
+            if (this.hospi.medico_hospi != '') {
+              console.log(this.hospi.motivo_hospi)
+              if (this.hospi.motivo_hospi != '') {
+                const pathhospi = 'Usuarios/' + this.citas.idtutor_cita + '/Mascotas/' + this.citas.id_mascotacita + '/Citas/' + this.citas.id_cita + '/Hospitalizacion';
+                this.hospi.id_hospi = this.citas.id_cita
+                this.firestoreservice.createDoc(this.hospi, pathhospi, this.citas.id_cita).then(res => {
+                  this.loading.dismiss();
+                  this.presentToast('Guardo con exito cita');
+                }).catch(error => {
+                  this.presentToast('No se pude guardar hospi');
+                });
+                this.nuevo()
+              } else {
+                const alert = await this.alertController.create({
+                  //cssClass: 'my-custom-class',
+                  header: 'Fallo al guardar',
+                  message: 'El campo MOTIVO DE LA HOSPITALIZACION, esta vacio',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+            } else {
+              const alert = await this.alertController.create({
+                //cssClass: 'my-custom-class',
+                header: 'Fallo al guardar',
+                message: 'El campo MEDICO TRATANTE, esta vacio',
+                buttons: ['OK']
+              });
+              await alert.present();
+            }
+          }else{
+            console.log('hospi no es true')
+          }
+
+          //GUARDA LA RECETA
+          if (this.citas.receta_consul === true) {
+            if (this.receta.indicaciones_receta != '') {
+              if (this.receta.medicamento_receta != '') {
+                const pathreceta = 'Usuarios/' + this.citas.idtutor_cita + '/Mascotas/' + this.citas.id_mascotacita + '/Citas/' + this.citas.id_cita + '/Recetas';
+                this.receta.id_receta = this.citas.id_cita
+                this.firestoreservice.createDoc(this.receta, pathreceta, this.citas.id_cita).then(res => {
+                  //this.presentToast('Guardo con exito hospi ');
+
+                }).catch(error => {
+                  this.presentToast('No se pude guardar receta');
+                });
+                this.nuevo()
+              } else {
+                const alert = await this.alertController.create({
+                  //cssClass: 'my-custom-class',
+                  header: 'Fallo al guardar',
+                  message: 'El campo MEDICAMENTO, esta vacio',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+            } else {
+              const alert = await this.alertController.create({
+                //cssClass: 'my-custom-class',
+                header: 'Fallo al guardar',
+                message: 'El campo INDICACIONES, esta vacio',
+                buttons: ['OK']
+              });
+              await alert.present();
+            }
+          }
+
+          //this.nuevo()
         } else {
           const alert = await this.alertController.create({
             //cssClass: 'my-custom-class',
@@ -354,4 +438,23 @@ export class RegistrosComponent implements OnInit {
     this.cancelar()
 
   }
+
+
+
+
+
+  cambiociru() {
+    console.log(this.valorciru)
+    this.valorciru = !this.valorciru
+    console.log(this.valorciru)
+  }
+
+  cambiohospi() {
+    console.log(this.valorhospi)
+    this.valorhospi = !this.valorhospi
+    console.log(this.valorhospi)
+  }
+
+
+
 }

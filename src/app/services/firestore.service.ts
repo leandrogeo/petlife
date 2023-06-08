@@ -83,6 +83,14 @@ export class FirestoreService {
   }
 
 
+  getCollectionAllHospi<tipo>(path, parametro: string, condicion: any, busqueda: string) {
+    const collection = this.database.collectionGroup<tipo>(path,
+      ref => ref.where(parametro, condicion, busqueda)
+    );
+    return collection.valueChanges();
+  }
+
+
   getCollectioncitasreporte<tipo>(path: string, parametro: string, condicion: any, busqueda: string, parametro1: string, condicion1: any, busqueda1: string) {
     const collection = this.database.collectionGroup<tipo>(path,
       ref => ref.where(parametro, condicion, busqueda)
