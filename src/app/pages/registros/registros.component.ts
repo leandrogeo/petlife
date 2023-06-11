@@ -103,7 +103,7 @@ export class RegistrosComponent implements OnInit {
   ngOnInit() {
     const fecha = new Date();
     this.fechaComoCadena = fecha.toISOString();
-    console.log(this.valorhospi)
+    this.getAcutualDate()
   }
 
   openMenu() {
@@ -455,6 +455,21 @@ export class RegistrosComponent implements OnInit {
     console.log(this.valorhospi)
   }
 
+  isWeekday = (dateString: string) => {
+    const date = new Date(dateString);
+    const utcDay = date.getUTCDay();
 
+    /**
+     * Date will be enabled if it is not
+     * Sunday or Saturday
+     */
+    return utcDay !== 0 && utcDay !== 6;
+  };
+
+  today:any
+  getAcutualDate() {
+    const date = new Date();
+    this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+  }
 
 }

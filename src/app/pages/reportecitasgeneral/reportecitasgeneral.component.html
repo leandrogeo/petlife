@@ -16,13 +16,14 @@
     <ion-label class="normal">
       Desde:
     </ion-label>
-    <ion-datetime-button datetime="date2"></ion-datetime-button>
+
+    <ion-datetime-button datetime="desdereporte"></ion-datetime-button>
     <ion-modal [keepContentsMounted]="true">
       <ng-template>
-        <ion-datetime (ionChange)="fechaescogida()" [max]="today" [(ngModel)]="desde" displayFormat="YYYY-MM-DD"
-          minuteValues="0" id="date2" presentation="date" [showDefaultButtons]="true" doneText="Listo"
-          cancelText="Cancelar"></ion-datetime>
+        <ion-datetime [max]="today" [(ngModel)]="desde" id="desdereporte" presentation="date" [showDefaultButtons]="true"
+          doneText="Listo" cancelText="Cancelar" (ionChange)="fechaescogida()"></ion-datetime>
       </ng-template>
+
     </ion-modal>
   </ion-item>
 
@@ -34,9 +35,9 @@
       <ion-datetime-button datetime="date1"></ion-datetime-button>
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime [value]="desde" [min]="desde" displayFormat="YYYY-MM-DD" minuteValues="0" id="date1"
-            [(ngModel)]="hasta" presentation="date" [showDefaultButtons]="true" doneText="Listo"
-            (ionChange)="hastaescogido()" cancelText="Cancelar"></ion-datetime>
+          <ion-datetime [value]="desde" [min]="desde" displayFormat="YYYY-MM-DD" id="date1" [(ngModel)]="hasta"
+            presentation="date" [showDefaultButtons]="true" doneText="Listo" (ionChange)="hastaescogido()"
+            cancelText="Cancelar"></ion-datetime>
         </ng-template>
       </ion-modal>
     </div>
@@ -66,8 +67,8 @@
       <ion-label style="padding-left: 20px;padding-top: 20px;">
         Total de Citas en el reporte: {{Citas.length}}
       </ion-label>
-      
-      <div style="padding-top: 15px; text-align: right;padding-right: 25px;" >
+
+      <div style="padding-top: 15px; text-align: right;padding-right: 25px;">
         <ion-button [disabled]="desbloquearboton" shape="round" class="botongenerar" (click)="pdf()">Descargar
           PDF</ion-button>
       </div>

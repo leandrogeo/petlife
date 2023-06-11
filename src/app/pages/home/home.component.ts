@@ -71,4 +71,16 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  enviarcorreo(){
+    this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
+      this.nuevo();
+      this.enableNewProducto = false
+      console.log(this.loading)
+      this.loading.dismiss();
+      this.presentToast('Guardo con exito');
+    }).catch(error => {
+      this.presentToast('No se pude guardar');
+    });
+  }
+
 }

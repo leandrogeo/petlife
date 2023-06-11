@@ -77,11 +77,12 @@
             <ion-label class="normal">
               Proxima desparacitacion:
             </ion-label>
-            <ion-datetime-button datetime="date2"></ion-datetime-button>
+            <ion-datetime-button datetime="proxides"></ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="date2" presentation="date" [(ngModel)]="desparacitacion.proxi_des"
-                  [showDefaultButtons]="true" doneText="Listo" cancelText="Cancelar"></ion-datetime>
+                <ion-datetime [min]="today"   [(ngModel)]="desparacitacion.proxi_des" hourValues="8,9,10,11,12,14,15,16,17,18,19"
+                displayFormat="YYYY-MM-DDTHH:mm" presentation="date-time" [isDateEnabled]="isWeekday"
+                id="proxides" [preferWheel]="true" minuteValues="0"  doneText="Listo" cancelText="Cancelar"></ion-datetime>
               </ng-template>
             </ion-modal>
           </ion-item>
@@ -158,11 +159,14 @@
             <ion-label class="normal">
               Proxima vacuna:
             </ion-label>
-            <ion-datetime-button datetime="date2"></ion-datetime-button>
+            <ion-datetime-button datetime="proximavac"></ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime id="date2" presentation="date" [(ngModel)]="vacunacion.proxi_vac"
-                  [showDefaultButtons]="true" doneText="Listo" cancelText="Cancelar"></ion-datetime>
+
+                <ion-datetime [min]="today"  [(ngModel)]="vacunacion.proxi_vac" hourValues="8,9,10,11,12,14,15,16,17,18,19"
+                displayFormat="YYYY-MM-DDTHH:mm" presentation="date-time" [isDateEnabled]="isWeekday"
+                id="proximavac" [preferWheel]="true" minuteValues="0"  doneText="Listo" cancelText="Cancelar"></ion-datetime>
+
               </ng-template>
             </ion-modal>
           </ion-item>

@@ -13,7 +13,7 @@
 
 <ion-content>
 
-  <ion-card >
+  <ion-card>
     <!-- boton para cerrar vista y guardar-->
     <ion-item>
       <ion-buttons slot="end">
@@ -30,9 +30,11 @@
         <ion-col>
           <ion-item>
             <ion-label class="normal">Mascota</ion-label>
+            
             <ion-select #valor required placeholder="Escoja un tutor" [value]=1 interface="popover"
               [(ngModel)]="mascota" (ionChange)="mascotaescog(mascota)">
               <ion-select-option *ngFor="let mascota of productos">{{mascota.nombredelamascota}}</ion-select-option>
+              
             </ion-select>
           </ion-item>
 
@@ -42,17 +44,25 @@
           <ion-item>
             <ion-label class="normal">
               Fecha de cita:
-            </ion-label> 
-            <ion-datetime-button datetime="date2" ></ion-datetime-button>
+            </ion-label>
+
+
+            <ion-datetime-button datetime="registrocita"></ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
-                <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" minuteValues="0" hourValues="8,9,10,11,12, 14,15,16,17,18,19" id="date2" [(ngModel)]="citas.fecha_cita" presentation="date-time"
-                  [showDefaultButtons]="true" [preferWheel]="true" doneText="Listo"
-                  cancelText="Cancelar" [isDateEnabled]="isWeekday"></ion-datetime>
+                <ion-datetime [min]="today"  [(ngModel)]="citas.fecha_cita" hourValues="8,9,10,11,12,14,15,16,17,18,19"
+                  displayFormat="YYYY-MM-DDTHH:mm" presentation="date-time" [isDateEnabled]="isWeekday"
+                  id="registrocita" [preferWheel]="true" minuteValues="0"></ion-datetime>
+                <!--<ion-datetime  [(ngModel)]="citas.fecha_cita" hourValues="8,9,10,11,12,14,15,16,17,18,19"
+                  displayFormat="YYYY-MM-DDTHH:mm" presentation="date-time" [isDateEnabled]="isWeekday"
+                  id="registrocita" [preferWheel]="true" minuteValues="0"></ion-datetime>-->
               </ng-template>
             </ion-modal>
-          </ion-item> 
-          
+
+
+
+          </ion-item>
+
         </ion-col>
 
 
@@ -78,6 +88,6 @@
       <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setCita()">Guardar</ion-button>
     </div>
 
-  </ion-card> 
+  </ion-card>
 
 </ion-content>

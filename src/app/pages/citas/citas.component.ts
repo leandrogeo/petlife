@@ -26,6 +26,7 @@ export class CitasComponent implements OnInit {
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
         this.uid = res.uid
+        console.log()
         this.getProductos(res.uid);
       } else {
 
@@ -35,12 +36,20 @@ export class CitasComponent implements OnInit {
     this.getcitasgenerales()
   }
   loading: any;
-  uid: string; S
+  uid: string; 
 
 
   productos: Producto[] = [];
 
-
+  usuario: Usuario = {
+    uid: '',
+    correo: '',
+    contrasenia: '',
+    celular: '',
+    direccion: '',
+    nombre: '',
+    admin: false,
+  };
   mascotaescogido: any;
   mascota: string;
   citaagendada: any;
@@ -68,10 +77,17 @@ export class CitasComponent implements OnInit {
 
   }
 
-  async ngOnInit() { }
+  async ngOnInit() { 
+    this.getAcutualDate();
+  }
 
+today:any
 
-
+getAcutualDate() {
+  const date = new Date();
+  this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+}
+ 
   // RESTRINGIR LOS FINDES DE SEMANA  
   isWeekday = (dateString: string) => {
     const date = new Date(dateString);
@@ -81,7 +97,7 @@ export class CitasComponent implements OnInit {
      * Date will be enabled if it is not
      * Sunday or Saturday
      */
-    return utcDay !== 0 && utcDay !== 6;
+    return utcDay !== 0 && utcDay !== 6 ;
   };
 
   openMenu() {
@@ -119,6 +135,19 @@ export class CitasComponent implements OnInit {
         console.log("no hay mascotas " + res)
       }
     });
+
+    const path1 = 'Usuarios';
+    console.log('aquiii')
+    try {
+       this.firestoreservice.getDoc<Usuario>(path1, id).subscribe(res => {
+        if (res !== undefined) {
+          this.usuario = res;
+          console.log(this.usuario)
+        }
+      });
+    } catch (error) {
+      console.log('ERROR '+ error)
+    }
   }
 
   mascotaescog(mascota) {
