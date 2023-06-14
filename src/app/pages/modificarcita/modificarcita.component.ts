@@ -42,11 +42,12 @@ export class ModificarcitaComponent implements OnInit {
     namepet: '',
     diagnostico: '',
     receta_consul: false,
-    examenen_consul: false,
-    imagen_consul: false,
+    nombreusu: '',
+    correousu: '',
     cirugia_consul: false,
     hospi_consul: false,
     pesomas: '',
+    observacion_cita:''
   }
   loading: any;
   usuarioescogido: any;
@@ -129,7 +130,7 @@ export class ModificarcitaComponent implements OnInit {
           //GUARDA LA RECETA
           if (this.citas.receta_consul === true) {
             if (this.receta.indicaciones_receta != '') {
-              if(this.receta.medicamento_receta != ''){
+              if (this.receta.medicamento_receta != '') {
                 const pathreceta = 'Usuarios/' + this.citas.idtutor_cita + '/Mascotas/' + this.citas.id_mascotacita + '/Citas/' + this.citas.id_cita + '/Recetas';
                 this.receta.id_receta = this.citas.id_cita
                 this.firestoreservice.createDoc(this.receta, pathreceta, this.citas.id_cita).then(res => {
@@ -138,16 +139,16 @@ export class ModificarcitaComponent implements OnInit {
                 }).catch(error => {
                   this.presentToast('No se pude guardar receta');
                 });
-              }else {
-              const alert = await this.alertController.create({
-                //cssClass: 'my-custom-class',
-                header: 'Fallo al guardar',
-                message: 'El campo MEDICAMENTO, esta vacio',
-                buttons: ['OK']
-              });
-              await alert.present();
-            }
-            }else {
+              } else {
+                const alert = await this.alertController.create({
+                  //cssClass: 'my-custom-class',
+                  header: 'Fallo al guardar',
+                  message: 'El campo MEDICAMENTO, esta vacio',
+                  buttons: ['OK']
+                });
+                await alert.present();
+              }
+            } else {
               const alert = await this.alertController.create({
                 //cssClass: 'my-custom-class',
                 header: 'Fallo al guardar',
@@ -254,12 +255,12 @@ export class ModificarcitaComponent implements OnInit {
       namepet: '',
       diagnostico: '',
       receta_consul: false,
-      examenen_consul: false,
-      imagen_consul: false,
+      nombreusu: '',
+      correousu: '',
       cirugia_consul: false,
       hospi_consul: false,
-      pesomas: ''
-
+      pesomas: '',
+      observacion_cita: ''
     }
   }
 

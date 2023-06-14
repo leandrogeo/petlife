@@ -16,10 +16,12 @@ import { ComponentesModule } from "../componentes/componentes.module";
 import { CitasgeneralesComponent } from './citasgenerales/citasgenerales.component';
 import { ModificarcitaComponent } from './modificarcita/modificarcita.component';
 import { ReportecitasgeneralComponent } from './reportecitasgeneral/reportecitasgeneral.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { VistadesparacitacionComponent } from './vistavacunas/vistadesparacitacion.component';
 import { VistadesComponent } from './vistades/vistades.component';
 import { EditarusuComponent } from './editarusu/editarusu.component';
+import { EdicionComponent } from './edicion/edicion.component';
+import { ModificardesComponent } from './modificardes/modificardes.component';
+import { ModificarvacunaComponent } from './modificarvacuna/modificarvacuna.component';
 
 
 
@@ -39,7 +41,10 @@ import { EditarusuComponent } from './editarusu/editarusu.component';
         ReportecitasgeneralComponent,
         VistadesparacitacionComponent,
         VistadesComponent,
-        EditarusuComponent
+        EditarusuComponent,
+        ModificarvacunaComponent,
+        EdicionComponent, 
+        ModificardesComponent
     ],
     imports: [
         CommonModule,
@@ -47,7 +52,6 @@ import { EditarusuComponent } from './editarusu/editarusu.component';
         FormsModule,
         RouterModule,
         ComponentesModule,
-        PdfViewerModule
     ]
 })
 export class PagesModule { }

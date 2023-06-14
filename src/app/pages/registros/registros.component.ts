@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
-import { Citas, Desp, Hospi, Producto, Receta, Vacunas } from 'src/app/models';
+import { Citas, Desp, Hospi, Producto, Receta, Vacunas, servicios } from 'src/app/models';
 import { FirestoreService } from '../../services/firestore.service';
 import { Usuario } from '../../models';
 import { DatePipe } from '@angular/common';
@@ -31,7 +31,7 @@ export class RegistrosComponent implements OnInit {
     indicaciones_receta: '',
   }
   recetas: Receta[] = []
-
+  servicios: servicios[] = [];
   opcion: string;
   segmento: string;
   mascota: string;
@@ -74,12 +74,12 @@ export class RegistrosComponent implements OnInit {
     namepet: '',
     diagnostico: '',
     receta_consul: false,
-    examenen_consul: false,
-    imagen_consul: false,
+    nombreusu: '',
+    correousu: '',
     cirugia_consul: false,
     hospi_consul: false,
     pesomas: '',
-
+    observacion_cita: ''
   }
 
 
@@ -98,6 +98,8 @@ export class RegistrosComponent implements OnInit {
     public alertController: AlertController,
   ) {
     this.getUsuarios();
+    this.getcitasgenerales();
+    this.getServicios()
   }
 
   ngOnInit() {
@@ -158,24 +160,67 @@ export class RegistrosComponent implements OnInit {
 
 
   async setdes() {
-    if (this.desparacitacion.proxi_des != '') {
-      if (this.desparacitacion.peso_des != '') {
-        if (this.desparacitacion.producto_des != '') {
-          this.presentLoading();
-          const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
-          this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
-            this.loading.dismiss();
-            this.presentToast('Guardo con exito');
-          }).catch(error => {
-            this.presentToast('No se pude guardar');
-          });
-          this.nuevo()
+    let copias = this.citastotales.filter(citastotales => citastotales.fecha_cita === this.desparacitacion.proxi_des);
+
+    if (copias.length === 0) {
+      if (this.desparacitacion.proxi_des != '') {
+        if (this.desparacitacion.peso_des != '') {
+          if (this.desparacitacion.producto_des != '') {
+            this.presentLoading();
+            const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Desparacitacion';
+            this.firestoreservice.createDoc(this.desparacitacion, path, this.desparacitacion.id_des).then(res => {
+              this.loading.dismiss();
+              this.presentToast('Guardo con exito');
+            }).catch(error => {
+              this.presentToast('No se pude guardar');
+            }); 
+            this.citas.fecha_cita = this.desparacitacion.proxi_des,
+              this.citas.idtutor_cita = this.usuarioescogido.uid,
+              this.citas.motivo_cita = 'Desparacitacion $10-15',
+              this.citas.estadodelacita = 'agendado',
+              this.citas.id_mascotacita = this.mascotaescogido.id,
+              this.citas.foto_cita = this.mascotaescogido.foto,
+              this.citas.namepet = this.mascotaescogido.nombredelamascota,
+              this.citas.diagnostico = '',
+              this.citas.receta_consul = false,
+              this.citas.nombreusu = this.usuarioescogido.nombre,
+              this.citas.correousu = this.usuarioescogido.correo,
+              this.citas.cirugia_consul = false,
+              this.citas.hospi_consul = false,
+              this.citas.pesomas = ''
+
+
+
+            console.log(this.citas)
+
+            const pathcita = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
+            this.firestoreservice.createDoc(this.citas, pathcita, this.citas.id_cita).then(res => {
+              this.loading.dismiss();
+              this.presentToast('Agendamiento exitoso');
+            }).catch(error => {
+              this.presentToast('No se pude agendar');
+            });
+
+
+
+
+            this.nuevo()
+
+          } else {
+            const alert = await this.alertController.create({
+              //cssClass: 'my-custom-class',
+              header: 'Fallo al guardar',
+              message: 'Ingrese los productos administrados a la mascota',
+              buttons: ['OK']
+            });
+            await alert.present();
+          }
 
         } else {
           const alert = await this.alertController.create({
             //cssClass: 'my-custom-class',
             header: 'Fallo al guardar',
-            message: 'Ingrese los productos administrados a la mascota',
+            message: 'El campo PESO, esta vacio',
             buttons: ['OK']
           });
           await alert.present();
@@ -185,7 +230,7 @@ export class RegistrosComponent implements OnInit {
         const alert = await this.alertController.create({
           //cssClass: 'my-custom-class',
           header: 'Fallo al guardar',
-          message: 'El campo PESO, esta vacio',
+          message: 'Por favor elija una fecha diferente para la proxima desparacitacion',
           buttons: ['OK']
         });
         await alert.present();
@@ -194,34 +239,72 @@ export class RegistrosComponent implements OnInit {
     } else {
       const alert = await this.alertController.create({
         //cssClass: 'my-custom-class',
-        header: 'Fallo al guardar',
-        message: 'Por favor elija una fecha diferente para la proxima desparacitacion',
+        header: 'Fallo al agendar proxima desparacitacion',
+        message: 'Por favor elija una fecha diferente, la fecha u hora escogida esta ocupada',
         buttons: ['OK']
       });
       await alert.present();
+
     }
+
+
+
   }
 
   async setvac() {
+    let copias = this.citastotales.filter(citastotales => citastotales.fecha_cita === this.vacunacion.proxi_vac);
 
-    if (this.vacunacion.proxi_vac != '') {
-      if (this.vacunacion.peso_vac != '') {
-        if (this.vacunacion.vacunas != '') {
-          this.presentLoading();
-          const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Vacunacion';
-          this.firestoreservice.createDoc(this.vacunacion, path, this.vacunacion.id_vac).then(res => {
-            this.loading.dismiss();
-            this.presentToast('Guardo con exito');
-          }).catch(error => {
-            this.presentToast('No se pude guardar');
-          });
-          this.nuevo()
+    if (copias.length === 0) {
+      if (this.vacunacion.proxi_vac != '') {
+        if (this.vacunacion.peso_vac != '') {
+          if (this.vacunacion.vacunas != '') {
+            this.presentLoading();
+            const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Vacunacion';
+            this.firestoreservice.createDoc(this.vacunacion, path, this.vacunacion.id_vac).then(res => {
+              this.loading.dismiss();
+              this.presentToast('Guardo con exito');
+            }).catch(error => {
+              this.presentToast('No se pude guardar');
+            });
+            this.citas.fecha_cita = this.vacunacion.proxi_vac,
+              this.citas.idtutor_cita = this.usuarioescogido.uid,
+              this.citas.motivo_cita = 'Vacuna $10-15',
+              this.citas.estadodelacita = 'agendado',
+              this.citas.id_mascotacita = this.mascotaescogido.id,
+              this.citas.foto_cita = this.mascotaescogido.foto,
+              this.citas.namepet = this.mascotaescogido.nombredelamascota,
+              this.citas.diagnostico = '',
+              this.citas.receta_consul = false,
+              this.citas.nombreusu = this.usuarioescogido.nombre,
+              this.citas.correousu = this.usuarioescogido.correo,
+              this.citas.cirugia_consul = false,
+              this.citas.hospi_consul = false,
+              this.citas.pesomas = ''
+            console.log(this.citas)
+            const pathcita = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
+            this.firestoreservice.createDoc(this.citas, pathcita, this.citas.id_cita).then(res => {
+              this.loading.dismiss();
+              this.presentToast('Agendamiento exitoso');
+            }).catch(error => {
+              this.presentToast('No se pude agendar');
+            });
+            this.nuevo()
+
+          } else {
+            const alert = await this.alertController.create({
+              //cssClass: 'my-custom-class',
+              header: 'Fallo al guardar',
+              message: 'Ingrese las vacunas administrados a la mascota',
+              buttons: ['OK']
+            });
+            await alert.present();
+          }
 
         } else {
           const alert = await this.alertController.create({
             //cssClass: 'my-custom-class',
             header: 'Fallo al guardar',
-            message: 'Ingrese las vacunas administrados a la mascota',
+            message: 'El campo PESO, esta vacio',
             buttons: ['OK']
           });
           await alert.present();
@@ -231,30 +314,24 @@ export class RegistrosComponent implements OnInit {
         const alert = await this.alertController.create({
           //cssClass: 'my-custom-class',
           header: 'Fallo al guardar',
-          message: 'El campo PESO, esta vacio',
+          message: 'Por favor elija una fecha diferente para la proxima vacuna',
           buttons: ['OK']
         });
         await alert.present();
       }
 
-    } else {
+
+    }
+    else {
       const alert = await this.alertController.create({
         //cssClass: 'my-custom-class',
-        header: 'Fallo al guardar',
-        message: 'Por favor elija una fecha diferente para la proxima vacuna',
+        header: 'Fallo al agendar proxima desparacitacion',
+        message: 'Por favor elija una fecha diferente, la fecha u hora escogida esta ocupada',
         buttons: ['OK']
       });
       await alert.present();
+
     }
-
-
-
-
-
-
-
-
-
 
   }
 
@@ -268,8 +345,8 @@ export class RegistrosComponent implements OnInit {
           this.citas.id_mascotacita = this.mascotaescogido.id
           this.citas.idtutor_cita = this.usuarioescogido.uid
           this.citas.namepet = this.mascotaescogido.nombredelamascota
-          this.citas.hospi_consul=this.valorhospi
-          this.citas.receta_consul=this.valorciru
+          this.citas.hospi_consul = this.valorhospi
+          this.citas.receta_consul = this.valorciru
           const path = 'Usuarios/' + this.usuarioescogido.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
           this.firestoreservice.createDoc(this.citas, path, this.citas.id_cita).then(res => {
             this.loading.dismiss();
@@ -291,6 +368,7 @@ export class RegistrosComponent implements OnInit {
                 }).catch(error => {
                   this.presentToast('No se pude guardar hospi');
                 });
+
                 this.nuevo()
               } else {
                 const alert = await this.alertController.create({
@@ -310,7 +388,7 @@ export class RegistrosComponent implements OnInit {
               });
               await alert.present();
             }
-          }else{
+          } else {
             console.log('hospi no es true')
           }
 
@@ -427,16 +505,23 @@ export class RegistrosComponent implements OnInit {
       namepet: '',
       diagnostico: '',
       receta_consul: false,
-      examenen_consul: false,
-      imagen_consul: false,
+      nombreusu: '',
+      correousu: '',
       cirugia_consul: false,
       hospi_consul: false,
-      pesomas: ''
-
+      pesomas: '',
+      observacion_cita: ''
     }
 
     this.cancelar()
 
+  }
+
+  getServicios() {
+    this.firestoreservice.getCollection<servicios>('Servicios').subscribe(res => {
+      this.servicios = res;
+      console.log(this.servicios)
+    });
   }
 
 
@@ -466,10 +551,18 @@ export class RegistrosComponent implements OnInit {
     return utcDay !== 0 && utcDay !== 6;
   };
 
-  today:any
+  today: any
   getAcutualDate() {
     const date = new Date();
     this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+  }
+
+  citastotales: Citas[] = [];
+  getcitasgenerales() {
+    const path = 'Citas';
+    this.firestoreservice.getCollectionCitas<Citas>(path).subscribe(res => {
+      this.citastotales = res;
+    })
   }
 
 }

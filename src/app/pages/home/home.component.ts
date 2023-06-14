@@ -71,15 +71,20 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  enviarcorreo(){
-    this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
-      this.nuevo();
-      this.enableNewProducto = false
-      console.log(this.loading)
-      this.loading.dismiss();
-      this.presentToast('Guardo con exito');
+  enviarcorreo() {
+    const correo = {
+      to: 'leandrogeorgis@gmail.com',
+      message: {
+        text: 'holaaaaaaaaaaa',
+        subject: 'aqui va el aasusto del correo',
+      }
+    };
+    console.log('formato del correo ' + correo)
+    console.log(correo)
+    this.firestoreservice.createDoc(correo, 'mail', this.firestoreservice.getId()).then(res => {
+      console.log('correo enviado')
     }).catch(error => {
-      this.presentToast('No se pude guardar');
+      console.log('correo no enviado')
     });
   }
 

@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="citasgenerales"> </ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card >
+    <div style="text-align: center">
+      <ion-label>VACUNACION</ion-label>
+    </div>
+    <ion-grid>
+      <!-- Columna de la fecha actual-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Fecha:
+            </ion-label>
+            <ion-datetime-button disabled="true" datetime="date"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="date" presentation="date" [showDefaultButtons]="true" doneText="Listo"
+                  cancelText="Cancelar"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!-- Columna de la fecha proxima vacuna-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Proxima vacuna:
+            </ion-label>
+            <ion-datetime-button datetime="proximavac"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime [min]="today" [(ngModel)]="vacunacion.proxi_vac"
+                  hourValues="8,9,10,11,12,14,15,16,17,18,19" displayFormat="YYYY-MM-DDTHH:mm" presentation="date-time"
+                  [isDateEnabled]="isWeekday" id="proximavac" [preferWheel]="true" minuteValues="0" doneText="Listo"
+                  cancelText="Cancelar"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--Peso-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Peso:
+            </ion-label>
+            <ion-input [(ngModel)]="vacunacion.peso_vac" class="texto" type="text" name="dirrecion">
+            </ion-input>
+            <ion-label>kg</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--producto-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label class="normal">
+              Vacuna:
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-textarea [(ngModel)]="vacunacion.vacunas" [autoGrow]="true"
+              placeholder="Productos aplicados"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div style="text-align: right; padding-right: 15px; padding-left: 15px;">
+      <ion-button expand="block" color="success" class="normal" fill="outline" (click)="setvac()">Guardar</ion-button>
+    </div>
+  </ion-card>
+</ion-content>

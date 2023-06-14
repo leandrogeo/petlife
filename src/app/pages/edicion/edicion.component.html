@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="subtitulo ion-text-wrap">
+      Edicion
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="openMenu()">
+        <ion-icon class="iconos" name="menu-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-accordion-group expand="inset">
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>Servicios</ion-label>
+      </ion-item>
+      <ion-list class="ion-padding" slot="content">
+        <ion-item-sliding *ngFor="let servicio of servicios">
+          <ion-item>
+            <ion-label>{{servicio.tipo_servicio}} </ion-label>
+            <ion-label>${{servicio.precio_servicio}} </ion-label>
+            <ion-toggle [(ngModel)]="servicio.estado_servicio" [enableOnOffLabels]="true" color="success"></ion-toggle>
+          </ion-item>
+
+          <ion-item-options>
+            <ion-item-option color="danger" (click)="DeleteService(servicio.id_servicio)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+
+        </ion-item-sliding>
+        <ion-item *ngIf="nuevo">
+          <ion-list>
+            <ion-item>
+              <ion-input label="Tipo de servicio" placeholder="Tipo de servicio"
+                [(ngModel)]="servicio.tipo_servicio"></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-input label="precio" placeholder="Precio" [(ngModel)]="servicio.precio_servicio"></ion-input>
+            </ion-item>
+          </ion-list>
+        </ion-item>
+        <div style="text-align: right;">
+          <ion-button style="--background: #eb3939;" *ngIf="nuevo" shape="round"
+            (click)="nuevoclick()">Cancelar</ion-button>
+          <ion-button style="--background: #40af42;" *ngIf="nuevo" shape="round"
+            (click)="setServicio()">Agregar</ion-button>
+          <ion-button *ngIf="!nuevo" shape="round" (click)="nuevoclick()">+</ion-button>
+        </div>
+      </ion-list>
+    </ion-accordion>
+     
+    <ion-accordion value="second">
+      <ion-item slot="header" color="light">
+        <ion-label>Comentarios</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Second Content</div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

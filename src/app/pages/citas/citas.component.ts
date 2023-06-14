@@ -1,7 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertController, LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { Citas, Producto, Usuario } from 'src/app/models';
+import { Citas, Producto, Usuario, servicios } from 'src/app/models';
 import { FirebaseauthService } from 'src/app/services/firebaseauth.service';
 import { FirestorageService } from 'src/app/services/firestorage.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
@@ -21,7 +22,8 @@ export class CitasComponent implements OnInit {
     public loadingController: LoadingController,
     public toastController: ToastController,
     public alertController: AlertController,
-    public firestorageservice: FirestorageService,) {
+    public firestorageservice: FirestorageService,
+    private datePipe: DatePipe) {
 
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
@@ -29,14 +31,14 @@ export class CitasComponent implements OnInit {
         console.log()
         this.getProductos(res.uid);
       } else {
-
+ 
       }
     });
 
     this.getcitasgenerales()
   }
   loading: any;
-  uid: string; 
+  uid: string;
 
 
   productos: Producto[] = [];
@@ -57,7 +59,7 @@ export class CitasComponent implements OnInit {
   citastotales: Citas[] = [];
 
   nombremasct: string;
-
+  servicios: servicios[] = [];
   citas: Citas = {
     id_cita: this.firestoreservice.getId(),
     fecha_cita: '',
@@ -67,27 +69,28 @@ export class CitasComponent implements OnInit {
     id_mascotacita: '',
     foto_cita: '',
     namepet: '',
-    diagnostico:'',
+    diagnostico: '',
     receta_consul: false,
-    examenen_consul: false,
-    imagen_consul: false,
+    nombreusu:'',
+    correousu: '',
     cirugia_consul: false,
     hospi_consul: false,
-    pesomas:''
-
+    pesomas: '',
+    observacion_cita:''
   }
 
-  async ngOnInit() { 
+  async ngOnInit() {
     this.getAcutualDate();
+    this.getServicios()
   }
 
-today:any
+  today: any
 
-getAcutualDate() {
-  const date = new Date();
-  this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
-}
- 
+  getAcutualDate() {
+    const date = new Date();
+    this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+  }
+
   // RESTRINGIR LOS FINDES DE SEMANA  
   isWeekday = (dateString: string) => {
     const date = new Date(dateString);
@@ -97,7 +100,7 @@ getAcutualDate() {
      * Date will be enabled if it is not
      * Sunday or Saturday
      */
-    return utcDay !== 0 && utcDay !== 6 ;
+    return utcDay !== 0 && utcDay !== 6;
   };
 
   openMenu() {
@@ -114,14 +117,14 @@ getAcutualDate() {
       id_mascotacita: '',
       foto_cita: '',
       namepet: '',
-      diagnostico:'',
+      diagnostico: '',
       receta_consul: false,
-      examenen_consul: false,
-      imagen_consul: false,
+      nombreusu:'',
+      correousu: '',
       cirugia_consul: false,
       hospi_consul: false,
-      pesomas:'',
-  
+      pesomas: '',
+      observacion_cita:''
     }
     this.mascotaescogido = undefined
     this.mascota = '0'
@@ -139,14 +142,14 @@ getAcutualDate() {
     const path1 = 'Usuarios';
     console.log('aquiii')
     try {
-       this.firestoreservice.getDoc<Usuario>(path1, id).subscribe(res => {
+      this.firestoreservice.getDoc<Usuario>(path1, id).subscribe(res => {
         if (res !== undefined) {
           this.usuario = res;
           console.log(this.usuario)
         }
       });
     } catch (error) {
-      console.log('ERROR '+ error)
+      console.log('ERROR ' + error)
     }
   }
 
@@ -165,11 +168,13 @@ getAcutualDate() {
             //this.citas.nombremascota_cita=this.mascotaescogido.nombredelamascota
             // this.citas.fotomascota_cita=this.mascotaescogido.foto
             //this.citas.nombremascota='dasfas'
-            this.nombremasct=this.mascotaescogido.nombredelamascota
-            this.citas.namepet = this.mascotaescogido.nombredelamascota 
+            this.nombremasct = this.mascotaescogido.nombredelamascota
+            this.citas.namepet = this.mascotaescogido.nombredelamascota
             this.citas.foto_cita = this.mascotaescogido.foto
             this.citas.id_mascotacita = this.mascotaescogido.id
             this.citas.idtutor_cita = this.uid
+            this.citas.correousu = this.usuario.correo
+            this.citas.nombreusu=this.usuario.nombre
             this.citaagendada = this.citas
             this.presentLoading();
             const path = 'Usuarios/' + this.uid + '/Mascotas/' + this.mascotaescogido.id + '/Citas';
@@ -179,6 +184,8 @@ getAcutualDate() {
             }).catch(error => {
               this.presentToast('No se pude agendar');
             });
+
+            this.enviarcorreo(this.usuario.correo, this.mascotaescogido.nombredelamascota, this.usuario.nombre, this.citas.fecha_cita)
             this.nuevo()
 
           }
@@ -244,6 +251,28 @@ getAcutualDate() {
       message: 'Agendando...',
     });
     await this.loading.present();
+  }
+
+  enviarcorreo(para: string, nombremascota: string, nombretutor: string, fechacita: string) {
+    const correo = {
+      to: para,
+      message: {
+        text: 'Registro exitoso!',
+        subject: 'Registro de cita para la mascota ' + nombremascota,
+        html: '<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cita médica para tu mascota</title></head><body> <div style="max-width: 600px; margin: 0 auto;"> <img src="https://scontent.fuio35-1.fna.fbcdn.net/v/t39.30808-6/225807018_137143835221353_3574420849320651821_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEjR56AnSqaB_r7XsFv8ZU2wp2iJA4iDuLCnaIkDiIO4qcbpuXH4tABcoyirtQZ5gXndyDQFjlVmMgxxuzbTbpE&_nc_ohc=mn_nF2zFKqQAX9duWnt&_nc_ht=scontent.fuio35-1.fna&oh=00_AfBXOSmUP2sdTtKNB1-k4LW41jY2b9N7PQ5T7zcoBJHuZw&oe=648A7F8C" alt="Logo de la clínica veterinaria" style="max-width: 200px;"> <h1>Cita médica para tu mascota</h1> <p>Estimado/a ' + nombretutor.toUpperCase() + ',</p> <p>Te informamos que agendaste una cita médica para tu mascota: ' + nombremascota.toUpperCase() + '</p><h2>Detalles de la cita:</h2><ul><li><strong>Mascota:</strong> ' + nombremascota.toUpperCase() + '</li><li><strong>Fecha:</strong>' + this.datePipe.transform(fechacita, 'dd/MM/yyyy') + '</li><li><strong>Hora:</strong>' + this.datePipe.transform(fechacita, 'HH:mm') + '</li></ul><p>Por favor, asegúrate de llegar a tiempo!</p><p>Si necesitas cancelar o reprogramar la cita, te pedimos que nos contactes lo antes posible.</p><p>¡Esperamos verte pronto en nuestra clínica veterinaria!</p><p>Atentamente,</p><p>PETLIFE</p></div></body></html>',
+      }
+    };
+    this.firestoreservice.createDoc(correo, 'mail', this.firestoreservice.getId()).then(res => {
+      console.log('correo enviado')
+    }).catch(error => {
+      console.log('correo no enviado')
+    });
+  }
+  getServicios() {
+    this.firestoreservice.getCollection<servicios>('Servicios').subscribe(res => {
+      this.servicios = res;
+      console.log(this.servicios)
+    });
   }
 
 }

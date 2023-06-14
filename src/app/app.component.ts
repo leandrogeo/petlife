@@ -4,6 +4,8 @@ import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular';
 import { FirestoreService } from './services/firestore.service';
 import { Admins } from './models';
+import { EnvioautomaticoService } from './services/envioautomatico.service';
+
 
 @Component({
   selector: 'app-root',
@@ -17,6 +19,7 @@ export class AppComponent {
   ConectadosSi = false;
   IDconectado: string;
   constructor(
+    public envioautomaticoservice :EnvioautomaticoService,
     public firebaseauthService: FirebaseauthService,
     private router: Router,
     private platform: Platform,
@@ -31,6 +34,7 @@ export class AppComponent {
       // this.statusbar.styleDefault();
       // this.splashScreen.hide();
       this.getUid();
+      this.envioautomaticoservice.startCronJob();
     })
   }
 

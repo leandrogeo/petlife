@@ -19,7 +19,7 @@
 
 <ion-content>
   <!--IMAGEN DE PORTADA-->
-  <div style="padding: 15px;">
+  <div style="padding: 15px; text-align: center;">
     <img src="assets/imagenes/portada.jpg">
   </div>
 
@@ -45,9 +45,10 @@
 
 
   <!--Nuestros doctores-->
-  <div style="padding: 10px;">
-    <div style="text-align: center;font-family: 'Rubik Mono One' !important; background-color: #EBEBEB;">
-      <ion-label>Conoce a nuestros Doctores</ion-label>
+  <div>
+    <div style="text-align: center;" >
+      <h1 class="save izquierda" >Nuestros</h1>
+      <h1 class="save derecha">Doctores!</h1>
     </div>
 
     <ion-item>
@@ -78,6 +79,13 @@
     </ion-item>
   </div>
 
+  <div>
+    <img src="assets/imagenes/mascotas.png">
+  </div>
+  <div style="text-align: center;">
+    <img src="assets/imagenes/portada1.jpg">
+  </div>
+
   <!--MISION-->
   <ion-card>
     <div style="text-align: center;font-size: 25px;padding-top: 25px; color:#0b7c3d">
@@ -106,7 +114,7 @@
   <div style="text-align: center;font-size: larger;padding-top: 25px;margin: 0px;">
     Ubícanos
   </div>
-  <div id="map"></div>
+  <div  id="map"></div>
 
   <!--Pie(REDES SOCIALES)-->
   <div style="text-align: center; background-color: #EBEBEB;padding-top: 10px;">
@@ -124,12 +132,6 @@
       <ion-icon style=" font-size: 35px;" name="logo-whatsapp"></ion-icon>
     </a>
   </div>
-
-  <ion-buttons slot="end">
-    <ion-button (click)="enviarcorreo()">
-      <ion-icon class="iconos" name="person-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-buttons>
 
 </ion-content>
 

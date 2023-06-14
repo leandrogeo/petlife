@@ -1,6 +1,6 @@
 <ion-card style="padding-top: 10px;" >
 
-  <div [routerLink]="['/modificarcitas/'+ cit.id_cita]">
+  <div (click)="redireccionar()" >
     <ion-item  style=" font-size: 20px, "   >
       <img slot="start"  class="image" [src]="cit.foto_cita" height="75" width="75" style="border-radius: 50%; padding: 5px;">
   
@@ -32,8 +32,11 @@
     </ion-item> 
     
     
-    <ion-item style="font-weight :100; font-size:14px; margin-bottom: 10px;">
+    <ion-item style="font-weight :100; font-size:14px;margin: 0px;padding: 0px;">
       id: {{cit.id_cita }}
+    </ion-item>
+    <ion-item style="font-weight :100; font-size:14px; ">
+      Motivo: {{cit.motivo_cita }}
     </ion-item>
   </div>
 

@@ -56,10 +56,11 @@ export interface Citas {
     namepet:string,
     diagnostico:string;
     receta_consul: boolean;
-    examenen_consul: boolean;
-    imagen_consul: boolean;
+    nombreusu:string;
+    correousu: string;
     cirugia_consul: boolean;
     hospi_consul: boolean;
+    observacion_cita:string;
 }
 
 export interface Hospi {
@@ -76,3 +77,11 @@ export interface Receta {
 }
 
 export type  EstadoCita = 'agendado' | 'atendido' | 'cancelado' ;
+
+
+export interface servicios {
+    id_servicio:string;
+    tipo_servicio:string;
+    precio_servicio:string;
+    estado_servicio:boolean
+}

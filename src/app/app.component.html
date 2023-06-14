@@ -94,6 +94,15 @@
             <ion-icon slot="end" class="iconos" name="document-text-outline"></ion-icon>
           </ion-item>
         </ion-menu-toggle>
+        <!--MODIFICAR-->
+        <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi && Isadmin">
+          <ion-item button="true" [routerLink]="['/modificar']">
+            <ion-label>
+              Editar
+            </ion-label>
+            <ion-icon slot="end" class="iconos" name="build-outline"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
         <!--Cerrar Sesioooooon-->
         <ion-menu-toggle autoHide="false" *ngIf="ConectadosSi">
           <div style="text-align: center ;padding-top: 20px;"> 

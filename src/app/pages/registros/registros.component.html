@@ -254,11 +254,25 @@
       <ion-row>
         <ion-col>
           <ion-item>
+            
+            <ion-select label="Servicio" #valor required placeholder="Escoja un Servicio" [value]=1 interface="popover"
+              [(ngModel)]="citas.motivo_cita" (ionChange)="mascotaescog(mascota)">
+              <ion-select-option *ngFor="let servicio of servicios">{{servicio.tipo_servicio}} ${{servicio.precio_servicio}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--OBERERVACION-->
+      <ion-row>
+        <ion-col>
+          <ion-item>
             <ion-label class="normal">
-              Motivo:
+              Observacion(opcional):
             </ion-label>
-            <ion-textarea [(ngModel)]="citas.motivo_cita" [autoGrow]="true"
-              placeholder="Motivo de la consulta"></ion-textarea>
+          </ion-item>
+          <ion-item>
+            <ion-textarea [autoGrow]="true" [(ngModel)]="citas.observacion_cita"
+              placeholder="Observaciones"></ion-textarea>
           </ion-item>
         </ion-col>
       </ion-row>
