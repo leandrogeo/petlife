@@ -13,6 +13,7 @@
 
 <ion-content>
   <ion-accordion-group expand="inset">
+    <!-- SERVICIOOOOOOOOOOOOS-->
     <ion-accordion value="first">
       <ion-item slot="header" color="light">
         <ion-label>Servicios</ion-label>
@@ -20,7 +21,7 @@
       <ion-list class="ion-padding" slot="content">
         <ion-item-sliding *ngFor="let servicio of servicios">
           <ion-item>
-            <ion-label>{{servicio.tipo_servicio}} </ion-label>
+            <ion-label class="saltolabel">{{servicio.tipo_servicio}} </ion-label>
             <ion-label>${{servicio.precio_servicio}} </ion-label>
             <ion-toggle [(ngModel)]="servicio.estado_servicio" [enableOnOffLabels]="true" color="success"></ion-toggle>
           </ion-item>
@@ -35,7 +36,7 @@
         <ion-item *ngIf="nuevo">
           <ion-list>
             <ion-item>
-              <ion-input label="Tipo de servicio" placeholder="Tipo de servicio"
+              <ion-input  label="Tipo de servicio" placeholder="Tipo de servicio"
                 [(ngModel)]="servicio.tipo_servicio"></ion-input>
             </ion-item>
 
@@ -53,12 +54,88 @@
         </div>
       </ion-list>
     </ion-accordion>
-     
+    <!--COMENTARIOS-->
     <ion-accordion value="second">
       <ion-item slot="header" color="light">
         <ion-label>Comentarios</ion-label>
+        <ion-badge slot="end" *ngIf="activocomentarios">{{valorcomentarios}}</ion-badge>
       </ion-item>
-      <div class="ion-padding" slot="content">Second Content</div>
+      <ion-list class="ion-padding" slot="content">
+        <ion-item-sliding *ngFor="let servicio of comentariosautorizados">
+          <ion-item>
+            <ion-grid>
+              <ion-row>
+                <ion-label class="salto">
+                  <h3 ><strong>Comentario: </strong>{{servicio.comentario}} </h3>
+
+                  <p><strong>Usuario: </strong>{{servicio.usuario}} </p>
+                </ion-label>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" (click)="negarcoment(servicio.uidusu,servicio.id)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+
+
+          <ion-item-sliding *ngFor="let servicio of comentarios">
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-label class="salto">
+                    <h3 ><strong>Comentario: </strong>{{servicio.comentario}} </h3>
+
+                    <p><strong>Usuario: </strong>{{servicio.usuario}} </p>
+                  </ion-label>
+                </ion-row>
+                <ion-row>
+                  <ion-button (click)="aprobarcoment(servicio.uidusu,servicio.id)" color="success">
+                    Aprobar
+                  </ion-button>
+                  <ion-button (click)="negarcoment(servicio.uidusu,servicio.id)" color="danger">Negar
+                  </ion-button>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+    </ion-accordion>
+
+    <!--NUEVAS MASCOTAS-->
+    <ion-accordion value="3">
+      <ion-item slot="header" color="light">
+        <ion-label>Solicitudes de nuevas mascotas</ion-label>
+        <ion-badge slot="end" *ngIf="activomascotas">{{valormascotas}}</ion-badge>
+      </ion-item>
+      <ion-list class="ion-padding" slot="content">
+          <ion-item-sliding *ngFor="let servicio of productos">
+
+            <ion-item>
+              <ion-grid>
+                <ion-row>
+                  <ion-label>
+                    <h3><strong>Nombre: </strong>{{servicio.nombredelamascota}} </h3>
+
+                    <p><strong>Tutor: </strong>{{servicio.tutor}} </p>
+                  </ion-label>
+                </ion-row>
+
+                <ion-row>
+                  <ion-button (click)="aprobar(servicio.uidtutor,servicio.id)" color="success">
+                    Aprobar
+                  </ion-button>
+                  <ion-button (click)="negar(servicio.uidtutor,servicio.id)" color="danger">Negar
+                  </ion-button>
+                </ion-row>
+
+              </ion-grid>
+
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>

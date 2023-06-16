@@ -122,7 +122,7 @@ export class RegistrosComponent implements OnInit {
 
   async getProductos(id: string) {
     const path = 'Usuarios/' + id + '/Mascotas/';
-    this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
+    this.firestoreservice.getCollectionWithCondition<Producto>(path,'estado','==',true).subscribe(res => {
       this.productos = res;
       if (res.length == 0) {
         console.log('no hay mascota')
@@ -188,7 +188,7 @@ export class RegistrosComponent implements OnInit {
               this.citas.cirugia_consul = false,
               this.citas.hospi_consul = false,
               this.citas.pesomas = ''
-
+ 
 
 
             console.log(this.citas)

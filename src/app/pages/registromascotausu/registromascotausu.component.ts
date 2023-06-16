@@ -6,14 +6,17 @@ import { FirestorageService } from '../../services/firestorage.service';
 import { FirebaseauthService } from '../../services/firebaseauth.service';
 import { Usuario } from '../../models';
 import { Subscription } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { SetRegistroComponent } from '../../backend/set-registro/set-registro.component';
 
 
 @Component({
-  selector: 'app-set-registro',
-  templateUrl: './set-registro.component.html',
-  styleUrls: ['./set-registro.component.scss'],
+  selector: 'app-registromascotausu',
+  templateUrl: './registromascotausu.component.html',
+  styleUrls: ['./registromascotausu.component.scss'],
 })
-export class SetRegistroComponent implements OnInit {
+export class RegistromascotausuComponent  implements OnInit {
+
 
   abierto: any;
   usuario: Usuario = {
@@ -56,13 +59,14 @@ export class SetRegistroComponent implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     public firestorageservice: FirestorageService,
+    private datePipe: DatePipe
   ) {
     this.getUsuarios();
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
         this.uid = res.uid;
         this.getUserInfo(this.uid);
-        this.path1 = 'Usuarios/' + this.uid + '/Mascotas/';
+        this.getProductos(this.uid)
       }
     });
 
@@ -70,7 +74,7 @@ export class SetRegistroComponent implements OnInit {
 
 
   async ngOnInit() {
-   
+    this.getAcutualDate();
   }
 
   getUserInfo(uid: string) {
@@ -112,16 +116,17 @@ export class SetRegistroComponent implements OnInit {
           }
           console.log('producto')
           console.log(this.newProducto)
+          console.log('usuari ', this.usuario)
+          this.enviarcorreo(this.newProducto.nombredelamascota,this.usuario.nombre,this.newProducto.fechadenacimiento,this.newProducto.especie,this.newProducto.sexo)
           this.firestoreservice.createDoc(this.newProducto, this.pathguardar, this.newProducto.id).then(res => {
             this.nuevo();
             this.enableNewProducto = false
             console.log(this.loading)
             this.loading.dismiss();
-            this.presentToast('Guardo con exito');
+            this.presentToast('Su solicitud de nueva mascota a sido enviada');
           }).catch(error => {
             this.presentToast('No se pude guardar');
           });
-
         } else {
           const alert = this.alertController.create({
             //cssClass: 'my-custom-class',
@@ -159,17 +164,15 @@ export class SetRegistroComponent implements OnInit {
 
   //Revisra en el buscar usuarios
   async getProductos(id: string) {
-
     const path = 'Usuarios/' + id + '/Mascotas/';
-    this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
-
-      this.productos = res;
-      if (res.length == 0) {
-        this.listallena = false;
-      } else {
-        this.listallena = true;
-      }
-    });
+      this.firestoreservice.getCollectionWithCondition<Producto>(path,'estado','==',true).subscribe(res => {
+        this.productos = res;
+        if (res.length == 0) {
+          this.listallena = false;
+        } else {
+          this.listallena = true;
+        }
+      });
   }
 
   //OPTENER LISTA DE USUARIOS PARA mostrara abajo
@@ -224,15 +227,15 @@ export class SetRegistroComponent implements OnInit {
     this.enableNewProducto = true;
     this.newProducto = {
       nombredelamascota: '',
-      tutor: '',
+      tutor: this.usuario.nombre,
       fechadenacimiento: '',
       especie: '',
       sexo: '',
       telefonotutor: '',
       foto: 'https://m.media-amazon.com/images/I/31GcvQDgUHL._AC_.jpg',
-      uidtutor: '',
+      uidtutor: this.usuario.uid,
       id: this.firestoreService.getId(),
-      estado: 'true'
+      estado:'solicitud'
     };
     this.nomusuescogido = '0'
     this.opcion = '0'
@@ -285,14 +288,25 @@ export class SetRegistroComponent implements OnInit {
     }
   }
 
-  onClick( usua:any) {
-   /* const accordion = document.getElementById('label');
-    const content = accordion.textContent
-    console.log('contenido '+content)
-
-    // Obtiene el valor de expansión (true/false)
-*/this.getProductos(usua);
-
+ enviarcorreo(nombremascota: string, nombretutor: string, fechacita: string,especie:string,sexo:string) {
+    const correo = {
+      to: 'petlifepuyo@gmail.com',
+      message: {
+        text: 'Registro de nueva mascota de '+nombretutor.toUpperCase()+'!' ,
+        subject: 'Registro de nueva mascota de '+nombretutor.toUpperCase()+'!',
+        html: '<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Registro de nueva mascota</title></head><body> <div style="max-width: 600px; margin: 0 auto;"><img src="https://scontent.fuio35-1.fna.fbcdn.net/v/t39.30808-6/225807018_137143835221353_3574420849320651821_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEjR56AnSqaB_r7XsFv8ZU2wp2iJA4iDuLCnaIkDiIO4qcbpuXH4tABcoyirtQZ5gXndyDQFjlVmMgxxuzbTbpE&_nc_ohc=mn_nF2zFKqQAX9duWnt&_nc_ht=scontent.fuio35-1.fna&oh=00_AfBXOSmUP2sdTtKNB1-k4LW41jY2b9N7PQ5T7zcoBJHuZw&oe=648A7F8C" alt="Logo de la clínica veterinaria" style="max-width: 200px;"> <h1>Registro de nueva mascota</h1> <p>Estimado/a Administrador</p> <p>Le solicitamos la aprobacion de la mascota: ' + nombremascota.toUpperCase() +', perteneciente al usuario: '+nombretutor +'</p><h2>Detalles de la mascota:</h2><ul><li><strong>Nombre: </strong> ' + nombremascota.toUpperCase() + '</li><li><strong>Fecha de nacimiento:</strong>' + this.datePipe.transform(fechacita, 'dd/MM/yyyy') + '</li><li><strong>Especie: </strong>' + especie + '</li><li><strong>Sexo: </strong>' + sexo + '</li></ul></div></body></html>',
+      }
+    };
+    this.firestoreservice.createDoc(correo, 'mail', this.firestoreservice.getId()).then(res => {
+      console.log('correo enviado')
+    }).catch(error => {
+      console.log('correo no enviado')
+    });
   }
+  today: any
 
+  getAcutualDate() {
+    const date = new Date();
+    this.today = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+  }
 }

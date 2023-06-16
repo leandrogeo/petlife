@@ -22,6 +22,7 @@ import { EditarusuComponent } from './editarusu/editarusu.component';
 import { EdicionComponent } from './edicion/edicion.component';
 import { ModificardesComponent } from './modificardes/modificardes.component';
 import { ModificarvacunaComponent } from './modificarvacuna/modificarvacuna.component';
+import { RegistromascotausuComponent } from './registromascotausu/registromascotausu.component';
 
 
 
@@ -44,7 +45,8 @@ import { ModificarvacunaComponent } from './modificarvacuna/modificarvacuna.comp
         EditarusuComponent,
         ModificarvacunaComponent,
         EdicionComponent, 
-        ModificardesComponent
+        ModificardesComponent,
+        RegistromascotausuComponent
     ],
     imports: [
         CommonModule,

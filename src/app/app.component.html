@@ -27,7 +27,7 @@
             <ion-label>
               Registro de mascotas
             </ion-label>
-            <ion-icon class="iconos" name="create-outline" slot="end"></ion-icon>
+            <ion-icon class="iconos" name="paw-outline" slot="end"></ion-icon>
           </ion-item>
         </ion-menu-toggle>
 
@@ -38,6 +38,16 @@
               Perfil
             </ion-label>
             <ion-icon class="iconos" name="person-circle-outline" slot="end"></ion-icon>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <!-- Tercer BOTON DEL MENU PERFIL-->
+        <ion-menu-toggle autoHide="false"  *ngIf="ConectadosSi && !Isadmin" >
+          <ion-item button="true" [routerLink]="['/mascotausu']">
+            <ion-label>
+              Registrar Mascota
+            </ion-label>
+            <ion-icon class="iconos" name="paw-outline" slot="end"></ion-icon>
           </ion-item>
         </ion-menu-toggle>
 

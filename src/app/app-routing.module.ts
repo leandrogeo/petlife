@@ -22,6 +22,7 @@ import { EditarusuComponent } from './pages/editarusu/editarusu.component';
 import { EdicionComponent } from './pages/edicion/edicion.component';
 import { ModificarvacunaComponent } from './pages/modificarvacuna/modificarvacuna.component';
 import { ModificardesComponent } from './pages/modificardes/modificardes.component';
+import { RegistromascotausuComponent } from './pages/registromascotausu/registromascotausu.component';
 
 const routes: Routes = [
 
@@ -44,9 +45,10 @@ const routes: Routes = [
   { path: 'modificarvacuna/:id_cita', component: ModificarvacunaComponent, },
   { path: 'modificarcitas/:id_cita', component: ModificarcitaComponent, },
   { path: 'modificardes/:id_cita', component:   ModificardesComponent, },
-
+  
   { path: 'citas', component: CitasComponent },
   { path: 'carnet', component: CarnetComponent },
+  { path: 'mascotausu', component: RegistromascotausuComponent },
   { path: 'vistavac/:uid/:idmas/:idvac', component: VistadesparacitacionComponent },
   { path: 'vistades/:uid/:idmas/:iddes', component: VistadesComponent },
 

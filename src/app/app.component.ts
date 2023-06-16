@@ -3,8 +3,9 @@ import { FirebaseauthService } from './services/firebaseauth.service';
 import { Router } from '@angular/router'
 import { Platform } from '@ionic/angular';
 import { FirestoreService } from './services/firestore.service';
-import { Admins } from './models';
+import { Admins, Usuario } from './models';
 import { EnvioautomaticoService } from './services/envioautomatico.service';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class AppComponent {
     public firestoreService: FirestoreService,
   ) {
     this.initializeApp();
+    this.getUid();  
   }
   Isadmin:boolean
 
@@ -33,7 +35,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       // this.statusbar.styleDefault();
       // this.splashScreen.hide();
-      this.getUid();
+      
       this.envioautomaticoservice.startCronJob();
     })
   }
@@ -45,6 +47,7 @@ export class AppComponent {
         this.IDconectado = res.uid
         console.log(this.IDconectado)
         this.getadmin(this.IDconectado)
+        this.getUserInfo(this.IDconectado)
         //this.comparar(this.IDconectado)
       } else {
         this.ConectadosSi = false;
@@ -69,6 +72,31 @@ export class AppComponent {
         return false
       }
     });
+  }
+
+  suscriberUserInfo: Subscription;
+  usuario: Usuario = {
+    uid: '',
+    correo: '',
+    contrasenia: '',
+    celular: '',
+    direccion: '',
+    nombre: '',
+    admin: false,
+  };
+  getUserInfo(uid: string) {
+    const path = 'Usuarios';
+    console.log('aquiii')
+    try {
+      this.suscriberUserInfo = this.firestoreService.getDoc<Usuario>(path, uid).subscribe(res => {
+        if (res !== undefined) {
+          this.usuario = res;
+        }
+      });
+    } catch (error) {
+      console.log('ERROR '+ error)
+    }
+    
   }
   
 

@@ -179,6 +179,7 @@ export class PerfilComponent implements OnInit {
   async salir() {
     this.firebaseauthService.logout();
     this.suscriberUserInfo.unsubscribe();
+    this.router.navigate(['/home']);
   }
 
   getUserInfo(uid: string) {

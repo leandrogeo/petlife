@@ -46,8 +46,8 @@
 
   <!--Nuestros doctores-->
   <div>
-    <div style="text-align: center;" >
-      <h1 class="save izquierda" >Nuestros</h1>
+    <div style="text-align: center;">
+      <h1 class="save izquierda">Nuestros</h1>
       <h1 class="save derecha">Doctores!</h1>
     </div>
 
@@ -86,6 +86,27 @@
     <img src="assets/imagenes/portada1.jpg">
   </div>
 
+
+
+
+  <div style="padding: 5%;">
+    <ion-slides pager="true" style="height: 250px;">
+      <ion-slide *ngFor="let comentario of comentarios">
+        <ion-card style="margin: auto;">
+          <ion-card-header>
+            <ion-card-title>{{comentario.usuario}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            {{comentario.comentario}}
+          </ion-card-content>
+        </ion-card>
+      </ion-slide>
+    </ion-slides>
+    <div style="text-align: center;">
+      <ion-button color="success" fill="outline" (click)="agregarcomentario()">Agregar comentario</ion-button>
+    </div>
+  </div>
+
   <!--MISION-->
   <ion-card>
     <div style="text-align: center;font-size: 25px;padding-top: 25px; color:#0b7c3d">
@@ -97,6 +118,8 @@
     <div>
     </div>
   </ion-card>
+
+
   <!--VISION-->
   <ion-card>
     <div style="text-align: center;font-size: 25px;padding-top: 25px;color:#0b7c3d">
@@ -114,17 +137,17 @@
   <div style="text-align: center;font-size: larger;padding-top: 25px;margin: 0px;">
     Ubícanos
   </div>
-  <div  id="map"></div>
+  <div id="map"></div>
 
   <!--Pie(REDES SOCIALES)-->
   <div style="text-align: center; background-color: #EBEBEB;padding-top: 10px;">
 
     <a style="margin: 5px;color: #0b7c3d;" href="https://www.instagram.com/petlifeec/ ">
-      <ion-icon   style=" font-size: 35px;" name="logo-instagram"></ion-icon>
+      <ion-icon style=" font-size: 35px;" name="logo-instagram"></ion-icon>
     </a>
 
     <a style="margin: 5px;color: #0b7c3d;" href="https://www.facebook.com/PetLife.CentroVeterinario">
-      <ion-icon  style=" font-size: 35px;" name="logo-facebook"></ion-icon>
+      <ion-icon style=" font-size: 35px;" name="logo-facebook"></ion-icon>
     </a>
 
     <a style="margin: 5px;color: #0b7c3d;"
@@ -138,6 +161,6 @@
 
 
 <ion-footer>
-  
+
 
 </ion-footer>

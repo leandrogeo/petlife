@@ -22,6 +22,7 @@ export class VisualizarcarnetComponent implements OnInit, OnDestroy {
     foto: '',
     uidtutor:'',
     id: '',
+    estado: 'false'
   };
   id: string;
   uid:string;

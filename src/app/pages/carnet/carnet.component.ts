@@ -39,14 +39,24 @@ export class CarnetComponent implements OnInit {
   }
 
   async getProductos(id) {
+    // const path = 'Usuarios/' + id + '/Mascotas/';
+    // this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
+    //   this.productos = res;
+    //   this.results=this.productos
+    //   if (res.length == 0) {
+    //     console.log("no hay mascotas "+res)
+    //   }
+    // });
+
+
     const path = 'Usuarios/' + id + '/Mascotas/';
-    this.firestoreservice.getCollection<Producto>(path).subscribe(res => {
-      this.productos = res;
-      this.results=this.productos
-      if (res.length == 0) {
-        console.log("no hay mascotas "+res)
-      }
-    });
+      this.firestoreservice.getCollectionWithCondition<Producto>(path,'estado','==',true).subscribe(res => {
+        this.productos = res;
+        this.results=this.productos;
+        if (res.length == 0) {
+          console.log("no hay mascotas "+res)
+        }
+      });
   }
 
   buscar(event){

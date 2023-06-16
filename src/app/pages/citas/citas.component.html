@@ -29,7 +29,7 @@
         <ion-col>
           <ion-item>
             <ion-label class="normal">Mascota</ion-label>
-            <ion-select #valor required placeholder="Escoja un tutor" [value]=1 interface="popover"
+            <ion-select style="width: 250px;" #valor required placeholder="Escoja un tutor" [value]=1 interface="popover"
               [(ngModel)]="mascota" (ionChange)="mascotaescog(mascota)">
               <ion-select-option *ngFor="let mascota of productos">{{mascota.nombredelamascota}}</ion-select-option>
             </ion-select>
@@ -60,9 +60,9 @@
         <ion-col>
           <ion-item>
             
-            <ion-select label="Servicio" #valor required placeholder="Escoja un Servicio" [value]=1 interface="popover"
+            <ion-select  label="Servicio" #valor required placeholder="Escoja un Servicio" [value]=1 interface="popover"
               [(ngModel)]="citas.motivo_cita" (ionChange)="mascotaescog(mascota)">
-              <ion-select-option *ngFor="let servicio of servicios">{{servicio.tipo_servicio}} ${{servicio.precio_servicio}}</ion-select-option>
+              <ion-select-option *ngFor="let servicio of servicios" >{{servicio.tipo_servicio}} ${{servicio.precio_servicio}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
@@ -76,7 +76,7 @@
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-textarea [autoGrow]="true" [(ngModel)]="citas.observacion_cita"
+            <ion-textarea maxlength="200" [autoGrow]="true" [(ngModel)]="citas.observacion_cita"
               placeholder="Observaciones"></ion-textarea>
           </ion-item>
         </ion-col>

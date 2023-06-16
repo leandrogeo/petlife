@@ -40,8 +40,7 @@
               <ion-label class="normal" position="floating">
                 Celular:
               </ion-label>
-              <ion-input maxlength="10" [(ngModel)]="usuario.celular" class="texto" type="number" name="telefono">
-              </ion-input>
+              <ion-input maxlength="10" [(ngModel)]="usuario.celular" class="texto"  name="telefono" pattern></ion-input>
             </ion-item>
 
             <!--Dirreccion-->
@@ -113,7 +112,7 @@
               <ion-label class="normal" position="floating">
                 Celular:
               </ion-label>
-              <ion-input [(ngModel)]="usuario.celular" class="texto" type="text">
+              <ion-input [(ngModel)]="usuario.celular" class="texto" type="number" name="telefono">
               </ion-input>
             </ion-item>
 

@@ -44,6 +44,7 @@ export class PerfilesmascotasComponent implements OnInit {
     foto: '',
     uidtutor:'',
     id: '',
+    estado: 'false'
   };
   suscriberUserInfo: Subscription;
 

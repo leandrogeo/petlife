@@ -8,7 +8,9 @@ export interface Producto {
     foto: string;
     uidtutor: string;
     id: string;
+    estado: EstadoMascota;
 }
+export type  EstadoMascota = 'solicitud' | 'true' | 'false' ;
 
 export interface Usuario {
     uid: string;
@@ -84,4 +86,12 @@ export interface servicios {
     tipo_servicio:string;
     precio_servicio:string;
     estado_servicio:boolean
+}
+
+export interface Comentarios{
+    id:string;
+    comentario:string;
+    estado:EstadoMascota;
+    usuario:string;
+    uidusu:string;
 }
