@@ -19,7 +19,7 @@ export class GuardianGuard implements CanActivate {
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     //this.prueba = this.getadmin(this.appcomponent.pasarinfo());
     this.getUid();
-
+    console.log(this.Isadmin)
     return this.Isadmin;
   }
   admin: Admins[] = [];

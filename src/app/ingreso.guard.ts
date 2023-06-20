@@ -28,7 +28,7 @@ export class IngresoGuard implements CanActivate {
     public firestoreservice: FirestoreService) {
   }
 
-  
+
   //OBETENGO LA INFORMACION DEL USUARIO CONECTADO
   getUserInfo(uid: string, route: ActivatedRouteSnapshot): boolean {
     const path = 'Usuarios';
@@ -51,7 +51,7 @@ export class IngresoGuard implements CanActivate {
       return false
     }
   }
-
+  conectado=false;
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -60,14 +60,15 @@ export class IngresoGuard implements CanActivate {
     this.firebaseauthService.stateAuth().subscribe(res => {
       if (res !== null) {
         this.uid = res.uid
-        
-        return true;
+        this.conectado=true;
       } else {
         console.log('nadie conectado')
-        return false;
+        this.conectado=false;
       }
     });
-    return this.getUserInfo(this.uid, route);
+    console.log('uid ' + this.conectado)
+    console.log(this.uid)
+    return true;
 
   }
 

@@ -52,6 +52,19 @@ export class PerfilComponent implements OnInit {
   async ngOnInit() {
   }
 
+  nuevo() {
+    this.ingresarEnable = true
+    this.usuario = {
+      uid: '',
+      correo: '',
+      contrasenia: '',
+      celular: '',
+      direccion: '',
+      nombre: '',
+      admin: false,
+    };
+  }
+
   initCliente() {
     this.uid = '';
     this.usuario = {
@@ -103,6 +116,7 @@ export class PerfilComponent implements OnInit {
                   (await alert).present();
                   this.initCliente()
                 });
+                console.log(res)
               const uid = await this.firebaseauthService.getUid();
               this.usuario.uid = uid;
               this.guardarUser();
@@ -192,9 +206,9 @@ export class PerfilComponent implements OnInit {
         }
       });
     } catch (error) {
-      console.log('ERROR '+ error)
+      console.log('ERROR ' + error)
     }
-    
+
   }
 
   ingresar() {

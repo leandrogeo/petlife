@@ -45,7 +45,7 @@
 
             <!--Dirreccion-->
             <ion-item *ngIf="ingresarEnable">
-              <ion-label class="normal" position="floating">
+              <ion-label class="normal" >
                 Direccion:
               </ion-label>
               <ion-input [(ngModel)]="usuario.direccion" class="texto" type="text" name="dirrecion">
@@ -86,12 +86,15 @@
             </div>
             <div style="padding-left: 15px;">
               <ion-label *ngIf="!ingresarEnable">¿Ud no tiene una cuenta?</ion-label>
-              <ion-chip *ngIf="!ingresarEnable" (click)="ingresarEnable = true" color="dark">Crear cuenta</ion-chip>
+              <ion-chip *ngIf="!ingresarEnable" (click)="nuevo()" color="dark">Crear cuenta</ion-chip>
+              <p *ngIf="!ingresarEnable">
+                <a  class="resetpassword"   [routerLink]="['/resetpassword']">¿Olvidaste tu contraseña?</a>.
+              </p>
             </div>
 
             <div >
               <ion-label *ngIf="ingresarEnable">O</ion-label><br>
-              <ion-chip *ngIf="ingresarEnable" (click)="ingresarEnable = false" color="dark">Iniciar sesion</ion-chip>
+              <ion-chip *ngIf="ingresarEnable" (click)="ingresarEnable = false " color="dark">Iniciar sesion</ion-chip>
             </div>
 
           </div>
@@ -136,14 +139,9 @@
 
             <!--Contrasenia-->
             <ion-item>
-              <ion-label class="normal" position="floating">
-                Contrasenia:
-              </ion-label>
-              <ion-input [(ngModel)]="usuario.contrasenia" class="texto" [type]="changetype?'password':'text' "
-                name="password">
-              </ion-input>
-              <ion-icon (click)="cambiodeicono()" slot="end"
-                [name]="visible?'eye-off-outline':'eye-outline'"></ion-icon>
+              <p >
+                <a  class="resetpassword"   [routerLink]="['/resetpassword']">Cambiar contrasena</a>.
+              </p>
 
             </ion-item>
 

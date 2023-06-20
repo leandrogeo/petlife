@@ -23,6 +23,8 @@ import { EdicionComponent } from './pages/edicion/edicion.component';
 import { ModificarvacunaComponent } from './pages/modificarvacuna/modificarvacuna.component';
 import { ModificardesComponent } from './pages/modificardes/modificardes.component';
 import { RegistromascotausuComponent } from './pages/registromascotausu/registromascotausu.component';
+import { RecuperarpasswordComponent } from './pages/recuperarpassword/recuperarpassword.component';
+import { IngresoGuard } from './ingreso.guard';
 
 const routes: Routes = [
 
@@ -40,12 +42,14 @@ const routes: Routes = [
   { path: 'recitasge', component: ReportecitasgeneralComponent,canActivate: [GuardianGuard] },
   { path: 'editarusu/:uid', component: EditarusuComponent,canActivate: [GuardianGuard] },
   {path: 'modificar', component:  EdicionComponent,canActivate: [GuardianGuard] },
-
+ 
 
   { path: 'modificarvacuna/:id_cita', component: ModificarvacunaComponent, },
   { path: 'modificarcitas/:id_cita', component: ModificarcitaComponent, },
   { path: 'modificardes/:id_cita', component:   ModificardesComponent, },
   
+
+  { path: 'resetpassword', component:  RecuperarpasswordComponent, },
   { path: 'citas', component: CitasComponent },
   { path: 'carnet', component: CarnetComponent },
   { path: 'mascotausu', component: RegistromascotausuComponent },

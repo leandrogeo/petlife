@@ -32,7 +32,15 @@ export class FirebaseauthService {
 
   }*/
 
+  async restablecercontra(email: string) {
+    try {
+      return this.auth.sendPasswordResetEmail(email);
 
+    } catch (error) {
+      console.log('Error==>', error.message)
+    }
+
+  }
 
   login(email: string, password: string) {
     return this.auth.signInWithEmailAndPassword(email, password);
@@ -54,6 +62,7 @@ export class FirebaseauthService {
       return user.uid;
     }
   }
+  
 
   stateAuth() {
     return this.auth.authState;

@@ -23,6 +23,7 @@ import { EdicionComponent } from './edicion/edicion.component';
 import { ModificardesComponent } from './modificardes/modificardes.component';
 import { ModificarvacunaComponent } from './modificarvacuna/modificarvacuna.component';
 import { RegistromascotausuComponent } from './registromascotausu/registromascotausu.component';
+import { RecuperarpasswordComponent } from './recuperarpassword/recuperarpassword.component';
 
 
 
@@ -46,7 +47,8 @@ import { RegistromascotausuComponent } from './registromascotausu/registromascot
         ModificarvacunaComponent,
         EdicionComponent, 
         ModificardesComponent,
-        RegistromascotausuComponent
+        RegistromascotausuComponent,
+        RecuperarpasswordComponent
     ],
     imports: [
         CommonModule,
